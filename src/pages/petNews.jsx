@@ -1,7 +1,7 @@
-export default function petNews() {
+import Navbar from "@/components/Navbar"
+
+export default function PetNews() {
   return (
-    <div>
-      <h1>petNews</h1>
-    </div>
+    <Navbar>Pet News</Navbar>
   )
 }

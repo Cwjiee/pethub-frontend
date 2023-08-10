@@ -1,7 +1,7 @@
-export default function forums() {
+import Navbar from "@/components/Navbar";
+
+export default function Forum() {
   return (
-    <div>
-      <h1>Forums</h1>
-    </div>
+    <Navbar>Forums</Navbar>
   )
 }

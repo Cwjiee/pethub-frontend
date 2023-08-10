@@ -1,7 +1,7 @@
-export default function veterinary() {
+import Navbar from "@/components/Navbar"
+
+export default function Veterinary() {
   return (
-    <div>
-      <h1>Veterinary</h1>
-    </div>
+    <Navbar>Veterinary</Navbar>
   )
 }

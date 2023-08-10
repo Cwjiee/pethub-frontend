@@ -1,6 +1,25 @@
-import Link from "next/link"
+import Links from "./Links"
 
-export default function Navbar() {
+export default function Navbar({ children }) {
+  const links = [
+    {
+      href: "/petNews",
+      label: "Pet News"
+    },
+    {
+      href: "/petSitters",
+      label: "Pet Sitters"
+    },
+    {
+      href: "/veterinary",
+      label: "Veterinary"
+    },
+    {
+      href: "/forums",
+      label: "Forums"
+    }
+  ]
+
   return (
     <header className="bg-white">
       <nav className="mx-auto w-[80%] flex items-center justify-between p-6">
@@ -9,30 +28,7 @@ export default function Navbar() {
           <img src="/Pethub.svg" alt="pethub" />
         </div>
         <div className="flex gap-x-20">
-          <Link 
-            href="/petNews" 
-            className="text-2xl font-bold text-gray-800 relative hover:first:after:border-[#6A75ED] hover:first:after:w-full hover:first:after:absolute hover:first:after:bottom-[-14px] hover:first:after:border-b-[3px]"
-          >
-            <div>Pet News</div>
-          </Link>
-          <Link 
-            href="/veterinary" 
-            className="text-2xl font-bold text-gray-800 relative hover:first:after:border-[#6A75ED] hover:first:after:w-full hover:first:after:absolute hover:first:after:bottom-[-14px] hover:first:after:border-b-[3px]"
-          >
-            <div>Veterinary</div>
-          </Link>
-          <Link 
-            href="/petSitters" 
-            className="text-2xl font-bold text-gray-800 relative hover:first:after:border-[#6A75ED] hover:first:after:w-full hover:first:after:absolute hover:first:after:bottom-[-14px] hover:first:after:border-b-[3px]"
-          >
-            <div>Pet Sitters</div>
-          </Link>
-          <Link 
-            href="/forums" 
-            className="text-2xl font-bold text-gray-800 relative hover:first:after:border-[#6A75ED] hover:first:after:w-full hover:first:after:absolute hover:first:after:bottom-[-14px] hover:first:after:border-b-[3px]"
-          >
-            <div>Forums</div>
-          </Link>
+          {links.map((link) => {return <Links link={link} current={children}/>} )}
         </div>
         <div className="flex">
           <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,6 +44,9 @@ export default function Navbar() {
           </svg>
         </div>
       </nav>
+      <div className="mx-auto w-[80%] p-6">
+        <h1 className="text-4xl font-bold text-gray-800">{children}</h1>
+      </div>
     </header>
   )
 }

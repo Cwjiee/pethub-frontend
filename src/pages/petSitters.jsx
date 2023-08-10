@@ -1,7 +1,7 @@
-export default function petSitters() {
+import Navbar from "@/components/Navbar"
+
+export default function PetSitters() {
   return (
-    <div>
-      <h1>petSitters</h1>
-    </div>
+    <Navbar>Pet Sitters</Navbar>
   )
 }
