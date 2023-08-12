@@ -24,20 +24,20 @@ export default function Navbar({ children }) {
 
   return (
     <header className="bg-white">
-      <nav className="mx-auto w-[80%] flex items-center justify-between p-6">
+      <nav className="mx-auto w-[80%] flex items-center justify-between p-5">
         <div className="flex gap-x-2">
-          <Image src="/logo.svg" alt="logo" width={48} height={48} />
+          <Image src="/logo.svg" alt="logo" width={37} height={37} />
           <Image src="/Pethub.svg" alt="pethub" width={85} height={85} />
         </div>
-        <div className="flex gap-x-20">
+        <div className="flex gap-x-12">
           {links.map((link) => {
             return <Links key={v4()} link={link} current={children} />;
           })}
         </div>
         <div className="flex">
           <svg
-            width="50"
-            height="50"
+            width="37"
+            height="37"
             viewBox="0 0 50 50"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -63,8 +63,8 @@ export default function Navbar({ children }) {
         </div>
       </nav>
       <hr />
-      <div className="mx-auto w-[80%] p-6">
-        <h1 className="text-4xl font-bold text-gray-800">{children}</h1>
+      <div className="mx-auto w-[80%] p-5">
+        <h1 className="text-2xl font-bold text-gray-800">{children}</h1>
       </div>
     </header>
   );
