@@ -1,15 +1,15 @@
-import Links from "./Links";
+import Links from "../atoms/Links";
 import Image from "next/image";
 import { v4 } from "uuid";
 
 export default function Navbar({ children }) {
   const links = [
     {
-      href: "/petNews",
+      href: "/pet-news",
       label: "Pet News",
     },
     {
-      href: "/petSitters",
+      href: "/pet-sitters",
       label: "Pet Sitters",
     },
     {

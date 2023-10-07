@@ -1,7 +1,5 @@
-import Navbar from "@/components/Navbar"
+import Navbar from "@/components/organisms/Navbar";
 
 export default function Veterinary() {
-  return (
-    <Navbar>Veterinary</Navbar>
-  )
+  return <Navbar>Veterinary</Navbar>;
 }

@@ -1,6 +1,6 @@
-import Navbar from "@/components/Navbar";
-import Searchbar from "@/components/Searchbar";
-import Posts from "@/components/Posts";
+import Navbar from "@/components/organisms/Navbar";
+import Searchbar from "@/components/molecules/Searchbar";
+import Posts from "@/components/molecules/Posts";
 import { useState } from "react";
 import { v4 } from "uuid";
 
