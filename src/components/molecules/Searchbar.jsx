@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Searchbar({ input }) {
+export default function Searchbar({ input, setInput }) {
   return (
     <div className="flex justify-between h-[50px]">
       <input
