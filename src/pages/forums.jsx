@@ -1,6 +1,7 @@
 import Navbar from "@/components/organisms/Navbar";
 import Searchbar from "@/components/molecules/Searchbar";
 import Posts from "@/components/molecules/Posts";
+import Tag from "@/components/atoms/Tag";
 import { useState } from "react";
 import { v4 } from "uuid";
 
@@ -25,16 +26,7 @@ export default function Forum() {
           <div className="flex gap-x-[12px]">
             {tags.map((tag) => {
               return (
-                <div
-                  className="flex justify-center items-center bg-white rounded-[40px] px-7 h-[40px] w-auto"
-                  style={{
-                    boxShadow:
-                      "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
-                  }}
-                  key={v4()}
-                >
-                  <span className="font-semibold text-md spacing">{tag}</span>
-                </div>
+                <Tag tag={tag} key={v4()} />
               );
             })}
           </div>
