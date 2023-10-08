@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Searchbar({ input, setInput }) {
   return (
-    <div className="flex justify-between h-[50px]">
+    <div className="flex justify-between h-[40px]">
       <input
         className="w-[82%] bg-white rounded-[10px] px-8 p-2 outline-none focus:border-4 focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
         style={{

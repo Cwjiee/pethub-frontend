@@ -31,7 +31,7 @@ export default function Forum() {
             })}
           </div>
           <div
-            className="flex justify-center items-center bg-white rounded-[40px] px-8 h-[40px] w-auto"
+            className="flex justify-center items-center bg-white rounded-[40px] px-8 h-[32px] w-auto"
             style={{
               boxShadow:
                 "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
