@@ -21,13 +21,11 @@ export default function Forum() {
     <>
       <Navbar>Forums</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
-        <Searchbar input={input} setInput={setInput} />
+        <Searchbar input={input} setInput={setInput} label={"New Posts"} />
         <div className="flex justify-between mt-4 mb-6">
           <div className="flex gap-x-[12px]">
             {tags.map((tag) => {
-              return (
-                <Tag tag={tag} key={v4()} />
-              );
+              return <Tag tag={tag} tagId={v4()} key={v4()}/>;
             })}
           </div>
           <div
