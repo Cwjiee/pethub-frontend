@@ -16,3 +16,11 @@
   }
 }
 */
+
+:root {
+  --background-rgb: #F3F4F6;
+}
+
+body {
+  background: var(--background-rgb);
+}

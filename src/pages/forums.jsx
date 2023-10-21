@@ -1,5 +1,5 @@
 import Navbar from "@/components/organisms/Navbar";
-import Searchbar from "@/components/molecules/Searchbar";
+import Searchbar from "@/components/molecules/SearchbarWithBtn";
 import Posts from "@/components/molecules/Posts";
 import Tag from "@/components/atoms/Tag";
 import { useState } from "react";

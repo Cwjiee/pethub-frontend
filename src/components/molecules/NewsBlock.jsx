@@ -23,7 +23,7 @@ export default function NewsBlock() {
           treats, and plenty of opportunities for your furry friends to make new
           pals.
         </div>
-        <button className="mt-auto h-10 bg-[#636363] font-semibold rounded-[10px] shadow text-white text-sm">
+        <button className="mt-auto h-10 font-semibold rounded-[10px] shadow text-white text-sm bg-secondary-500 hover:bg-secondary-600 active:bg-secondary-700">
           Read More
         </button>
       </div>

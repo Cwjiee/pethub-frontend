@@ -31,13 +31,13 @@ export default function Form() {
       </div>
       <div className="mt-[40px]">
         Already have an account?{" "}
-        <a href="#" className="text-[#6A75ED] underline font-semibold">
+        <a href="#" className="underline font-semibold text-primary-500 hover:text-primary-600 active:text-primary-700">
           Login
         </a>{" "}
         here!
       </div>
       <button
-        className="bg-[#6A75ED] rounded-[10px] text-white h-12 flex justify-center items-center mt-[50px] hover:cursor-pointer w-full"
+        className="rounded-[10px] text-white h-12 flex justify-center items-center mt-[50px] hover:cursor-pointer w-full bg-primary-500 hover:bg-primary-600 active:bg-primary-700"
         style={{
           boxShadow:
             "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
