@@ -3,7 +3,7 @@ import NewsPlaceholder from "../../../public/png/NewsPlaceholder.png";
 
 export default function NewsBlock() {
   return (
-    <div className="sm:basis-[49%] h-80 rounded-[10px] bg-white shadow p-6 flex sm:flex-row justify-between">
+    <div className="sm:basis-[49%] h-80 rounded-[10px] bg-white shadow p-6 flex justify-between">
       <Image
         className="w-1/2 h-full"
         src={NewsPlaceholder}

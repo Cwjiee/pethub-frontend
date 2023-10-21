@@ -1,4 +1,4 @@
-export default function Searchbar({ input, setInput, label }) {
+export default function Searchbar({ input, setInput }) {
   return (
     <div className="flex justify-between h-[45px] w-full">
       <input

@@ -25,7 +25,7 @@ export default function Forum() {
         <div className="flex justify-between mt-4 mb-6">
           <div className="flex gap-x-[12px]">
             {tags.map((tag) => {
-              return <Tag tag={tag} tagId={v4()} key={v4()}/>;
+              return <Tag tag={tag} tagId={v4()} key={v4()} />;
             })}
           </div>
           <div

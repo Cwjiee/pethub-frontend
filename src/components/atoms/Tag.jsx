@@ -8,7 +8,9 @@ export default function Tag({ tag, tagId }) {
       }}
       key={tagId}
     >
-      <span className="font-semibold text-md spacing" key={tagId}>{tag}</span>
+      <span className="font-semibold text-md spacing" key={tagId}>
+        {tag}
+      </span>
     </div>
   );
 }
