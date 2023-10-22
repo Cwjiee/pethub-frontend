@@ -19,7 +19,7 @@ export default function Forum() {
 
   return (
     <>
-      <Navbar>Forums</Navbar>
+      <Navbar title={true}>Forums</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
         <Searchbar input={input} setInput={setInput} label={"New Posts"} />
         <div className="flex justify-between mt-4 mb-6">

@@ -4,11 +4,11 @@ export default function Links({ link, current }) {
   return (
     <Link
       href={`${link.href}`}
-      className="text-md font-bold text-gray-800 relative hover:first:after:border-[#6A75ED] hover:first:after:w-full hover:first:after:absolute hover:first:after:bottom-[-14px] hover:first:after:border-b-[3px]"
+      className="text-md font-bold text-gray-800 relative hover:after:border-primary-500 hover:after:w-full hover:after:absolute hover:after:bottom-[-14px] hover:after:border-b-[3px]"
     >
-      <div>{link.label}</div>
+      <div className={`${current === link.label && 'text-primary-500'}`} >{link.label}</div>
       {current === link.label && (
-        <div className="absolute bottom-[-14px] w-full border-b-[3px] border-[#6A75ED]"></div>
+        <div className="absolute bottom-[-14px] w-full border-b-[3px] border-primary-500"></div>
       )}
     </Link>
   );

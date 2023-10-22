@@ -13,7 +13,7 @@ export default function Veterinary() {
 
   return (
     <>
-      <Navbar>Veterinary</Navbar>
+      <Navbar title={true}>Veterinary</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
         <Searchbar input={input} setInput={setInput} />
         <div className="flex flex-row flex-wrap justify-between gap-3 mt-10">

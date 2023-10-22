@@ -1,7 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import NewsPlaceholder from "../../../public/png/NewsPlaceholder.png";
 
-export default function NewsBlock() {
+export default function NewsBlock({ params }) {
   return (
     <div className="sm:basis-[49%] h-80 rounded-[10px] bg-white shadow p-6 flex justify-between">
       <Image
@@ -23,9 +24,9 @@ export default function NewsBlock() {
           treats, and plenty of opportunities for your furry friends to make new
           pals.
         </div>
-        <button className="mt-auto h-10 font-semibold rounded-[10px] shadow text-white text-sm bg-secondary-500 hover:bg-secondary-600 active:bg-secondary-700">
-          Read More
-        </button>
+        <Link href={"news/" + params} className="mt-auto w-full flex justify-between items-center h-10 font-semibold rounded-[10px] shadow text-white text-sm bg-secondary-500 hover:bg-secondary-600 active:bg-secondary-700">
+          <div className="m-auto tracking-[0.753px]">Read More</div>
+        </Link>
       </div>
     </div>
   );

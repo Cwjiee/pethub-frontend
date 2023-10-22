@@ -12,7 +12,7 @@ export default function News() {
 
   return (
     <>
-      <Navbar>Pet News</Navbar>
+      <Navbar title={true}>Pet News</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
         <Searchbar input={input} setInput={setInput} label={"New News"} />
         <div className="flex justify-between mt-4 mb-6">
@@ -24,10 +24,10 @@ export default function News() {
         </div>
 
         <div className="flex flex-row flex-wrap justify-between gap-5">
-          <NewsBlock />
-          <NewsBlock />
-          <NewsBlock />
-          <NewsBlock />
+          <NewsBlock params={"first"}/>
+          <NewsBlock params={"second"}/>
+          <NewsBlock params={"third"}/>
+          <NewsBlock params={"fourth"}/>
         </div>
       </div>
     </>

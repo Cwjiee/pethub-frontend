@@ -2,7 +2,7 @@ import Links from "../atoms/Links";
 import Image from "next/image";
 import { v4 } from "uuid";
 
-export default function Navbar({ children }) {
+export default function Navbar({ children, title }) {
   const links = [
     {
       href: "/news",
@@ -63,9 +63,11 @@ export default function Navbar({ children }) {
         </div>
       </nav>
       <hr />
-      <div className="mx-auto w-[80%] px-5 py-2">
-        <h1 className="text-xl font-bold text-gray-800">{children}</h1>
-      </div>
+      {title && (
+        <div className="mx-auto w-[80%] px-5 py-2">
+          <h1 className="text-xl font-bold text-gray-800">{children}</h1>
+        </div>
+      )}
     </header>
   );
 }
