@@ -14,8 +14,10 @@ export default function CreateNews() {
 	return (
               <>
                 <Navbar title={false}>Pet News</Navbar>
-                  <div className="w-[40%] mt-12 m-auto py-11 px-16 bg-white">
-                    <BackButton route={route} />     
+                  <div className="w-[80%] m-auto pt-6 px-6">
+                    <BackButton route={route} />
+                  </div>
+                  <div className="w-[80%] sm:w-[40%] mt-12 m-auto py-11 px-16 bg-white">
                     <div className="flex flex-col justify-between gap-[25px]">
                       <h2 className="mx-auto font-bold text-xl">Create Pet News</h2>
                       <div>
