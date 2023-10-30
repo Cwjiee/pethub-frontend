@@ -1,25 +1,16 @@
-import { useRouter } from "next/router";
 import Image from "next/image";
 import Navbar from "@/components/organisms/Navbar";
-import BackButton from "../../../public/svg/BackButton.svg"
+import BackButton from "@/components/atoms/BackButton";
 import NewsPlaceholder from "../../../public/png/NewsPlaceholder.png";
 
 export default function NewsPage() {
-  const router = useRouter()
-
-  const handleBack = () => {
-    router.push("/news")
-  }
+  const route = "/news"
 
   return (
     <>
       <Navbar title={false}>Pet News</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
-        <div className="flex flex-row gap-1 items-center hover:cursor-pointer" onClick={handleBack}>
-          <Image className="w-6 h-6" src={BackButton} alt="back-button"/>
-          <span className="text-base text-secondary-500 font-semibold">Back</span>
-        </div>
-
+        <BackButton route={route} />
         <div className="mt-7 flex flex-row gap-12 w-full">
           <Image height={470} width={427} src={NewsPlaceholder} alt="news-image"/>
           <div className="flex flex-col w-[65%]">
