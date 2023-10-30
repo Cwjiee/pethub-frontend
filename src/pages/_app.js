@@ -1,3 +1,4 @@
+import Layout from '@/components/layout';
 import '@/styles/globals.css'
 import { Inter, Nunito } from 'next/font/google'
 
@@ -9,8 +10,10 @@ const inter = Nunito({
 
 export default function App({ Component, pageProps }) {
   return (
-    <main className={inter.className}>
-      <Component  {...pageProps} />
-    </main>
-  ) 
+	<Layout>
+	  <main className={inter.className}>
+	  	<Component  {...pageProps} />
+	  </main>
+	</Layout>
+  )
 }
