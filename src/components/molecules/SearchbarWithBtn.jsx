@@ -14,12 +14,12 @@ export default function SearchbarWithBtn({ input, setInput, label, href }) {
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      <a className="flex justify-around px-5 w-[15%] rounded-[10px] bg-primary-500 hover:bg-primary-600 active:bg-primary-700">
+      <Link href={href} className="flex justify-around px-5 w-[15%] rounded-[10px] bg-primary-500 hover:bg-primary-600 active:bg-primary-700">
         <Image src="/add.svg" alt="add" width={20} height={20} />
-        <Link href={href} className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
+        <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
           {label}
-        </Link>
-      </a>
+        </div>
+      </Link>
     </div>
   );
 }
