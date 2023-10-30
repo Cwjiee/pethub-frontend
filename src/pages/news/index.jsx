@@ -9,12 +9,13 @@ export default function News() {
   const [input, setInput] = useState("");
 
   const tags = ["Events", "Missing", "Promotions", "Adoptions"];
+  const href = "/news/create" 
 
   return (
     <>
       <Navbar title={true}>Pet News</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
-        <Searchbar input={input} setInput={setInput} label={"New News"} />
+        <Searchbar input={input} setInput={setInput} label={"New News"} href={href}/>
         <div className="flex justify-between mt-4 mb-6">
           <div className="flex gap-x-[12px]">
             {tags.map((tag) => {

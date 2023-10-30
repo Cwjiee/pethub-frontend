@@ -1,6 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 
-export default function SearchbarWithBtn({ input, setInput, label }) {
+export default function SearchbarWithBtn({ input, setInput, label, href }) {
   return (
     <div className="flex justify-between h-[40px] w-full">
       <input
@@ -15,9 +16,9 @@ export default function SearchbarWithBtn({ input, setInput, label }) {
       />
       <a className="flex justify-around px-5 w-[15%] rounded-[10px] bg-primary-500 hover:bg-primary-600 active:bg-primary-700">
         <Image src="/add.svg" alt="add" width={20} height={20} />
-        <span className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
+        <Link href={href} className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
           {label}
-        </span>
+        </Link>
       </a>
     </div>
   );
