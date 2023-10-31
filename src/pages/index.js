@@ -6,8 +6,15 @@ import Dog from "../../public/svg/dog.svg"
 import Footprints from "../../public/svg/footprints.svg"
 import Pug from "../../public/svg/pug.svg"
 import Cat from "../../public/svg/cat.svg"
+import { useRouter } from "next/router"
 
 export default function Home() {
+  const router = useRouter()
+  
+  const handleRoute = () => {
+    router.push("/register")
+  }
+
   return (
     <main className='w-screen h-[100vh] relative' style={{'background': 'linear-gradient(180deg, #6873EC 0%, #3341DB 100%)'}}>
       <LandingNavbar />
@@ -21,8 +28,9 @@ export default function Home() {
         <div className="m-auto mt-32 text-center text-6xl font-bold text-white leading-normal">
           Always Choose The Better Way For Your Pets
         </div>
-        <button 
-          className="bg-white rounded-xl sm:w-48 px-7 py-3 font-semibold text-xl"
+        <button
+          onClick={handleRoute}
+          className="bg-white rounded-xl sm:w-48 px-7 py-3 font-semibold text-xl active:translate-x-2 active:translate-y-3 active:shadow-[rgba(184,190,255,255) 3px 4px]"
           style={{
             "boxShadow": "rgba(184,190,255,255) 5px 7px;"
           }}
