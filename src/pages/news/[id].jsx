@@ -4,13 +4,11 @@ import BackButton from "@/components/atoms/BackButton";
 import NewsPlaceholder from "../../../public/png/NewsPlaceholder.png";
 
 export default function NewsPage() {
-  const route = "/news"
-
   return (
     <>
       <Navbar title={false}>Pet News</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
-        <BackButton route={route} />
+        <BackButton/>
         <div className="mt-7 flex flex-row gap-12 w-full">
           <Image height={470} width={427} src={NewsPlaceholder} alt="news-image"/>
           <div className="flex flex-col w-[65%]">

@@ -2,11 +2,11 @@ import BackButtonIcon from "../../../public/svg/BackButton.svg"
 import { useRouter } from "next/router"
 import Image from "next/image"
 
-export default function BackButton({ route }) {
+export default function BackButton() {
   const router = useRouter()
 
   const handleBack = () => {
-    router.push(route)
+    router.back()
   }
 
   return (

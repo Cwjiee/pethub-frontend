@@ -51,6 +51,9 @@ export default function Footer() {
 					<li>
 					    <a href="#" className="hover:underline">Terms &amp; Conditions</a>
 					</li>
+					<li>
+					    <Link href="/report" className="hover:underline">Report</Link>
+					</li>
 				    </ul>
 				</div>
 			    </div>

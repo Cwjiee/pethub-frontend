@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function CreateNews() {
-        const route = "/news"
         const router = useRouter()
         const [name, setName] = useState("")
         const [description, setDescription] = useState("")
@@ -15,7 +14,7 @@ export default function CreateNews() {
               <>
                 <Navbar title={false}>Pet News</Navbar>
                   <div className="w-[80%] m-auto pt-6 px-6">
-                    <BackButton route={route} />
+                    <BackButton/>
                   </div>
                   <div className="w-[80%] sm:w-[40%] mt-12 m-auto py-11 px-16 bg-white">
                     <div className="flex flex-col justify-between gap-[25px]">

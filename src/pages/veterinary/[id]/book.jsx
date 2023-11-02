@@ -3,7 +3,6 @@ import BackButton from "@/components/atoms/BackButton"
 import { v4 } from "uuid"
 
 export default function Book() {
-  const route = "/veterinary"
   const pets = [
     "Pet A",
     "Pet B",
@@ -14,7 +13,7 @@ export default function Book() {
     <>
       <Navbar title={false}>Veterinary</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
-        <BackButton route={route} />
+        <BackButton/>
       </div>
       <div className="w-[35%] mt-12 m-auto py-11 px-24 bg-white">
         <div className="flex flex-col gap-16">
