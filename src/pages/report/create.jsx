@@ -2,7 +2,7 @@ import BackButton from "@/components/atoms/BackButton"
 import Navbar from "@/components/organisms/Navbar"
 import { useState } from "react"
 
-export default function Report() {
+export default function CreateReport() {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
 
@@ -11,7 +11,7 @@ export default function Report() {
       <Navbar></Navbar> 
       <div className="w-[80%] m-auto pt-6 px-6">
         <BackButton/>
-        <div className="w-[80%] sm:w-[50%] mt-12 m-auto py-11 px-16 bg-white">
+        <div className="w-[80%] sm:w-[50%] mt-8 m-auto py-11 px-16 bg-white">
           <div className="flex flex-col justify-between gap-[25px]">
             <div className="font-bold leading-normal text-center text-[20px]">Send a Report!</div>
             <div className="font-normal leading-normal text-[16px] text-center">Inform us of any unpleasant acts or bugs that are happening in our website!</div>

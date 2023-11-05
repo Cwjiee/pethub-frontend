@@ -1,8 +1,10 @@
 import Links from "../atoms/Links";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { v4 } from "uuid";
 
 export default function Navbar({ children, title }) {
+  const router = useRouter()
   const links = [
     {
       href: "/news",
@@ -22,6 +24,10 @@ export default function Navbar({ children, title }) {
     },
   ];
 
+  const goToProfile = () => {
+    router.push("/profile")
+  }
+
   return (
     <header className="bg-white">
       <nav className="mx-auto w-[80%] flex items-center justify-between p-5 py-4">
@@ -34,7 +40,7 @@ export default function Navbar({ children, title }) {
             return <Links key={v4()} link={link} current={children} />;
           })}
         </div>
-        <div className="flex">
+        <div className="flex hover:cursor-pointer" onClick={goToProfile}>
           <svg
             width="37"
             height="37"
