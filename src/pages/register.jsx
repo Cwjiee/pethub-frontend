@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Form from "@/components/molecules/Form";
+import Form from "@/components/molecules/RegisterForm";
 
 export default function Register() {
   return (

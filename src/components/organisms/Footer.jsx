@@ -1,16 +1,17 @@
 import Image from "next/image"
 import Link from "next/link"
 import Logo from "../../../public/logo.svg"
+import Pethub from "../../../public/Pethub.svg"
 
 export default function Footer() {
 	return (
-		<footer className="mt-20 p-4 bg-white sm:p-6 dark:bg-gray-800">
+		<footer className="p-4 bg-white sm:p-6 sm:pt-10">
 		    <div className="mx-auto max-w-screen-xl">
 			<div className="md:flex md:justify-between">
 			    <div className="mb-6 md:mb-0">
 				<a href="https://flowbite.com" className="flex items-center">
 				    <Image src={Logo} className="mr-3 h-8" alt="FlowBite Logo" width={50} height={50} />
-				    <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Pethub</span>
+                                    <Image src={Pethub} alt="Pethub" width={80} height={80} />
 				</a>
 			    </div>
 			    <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">

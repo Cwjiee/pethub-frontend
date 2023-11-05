@@ -1,4 +1,4 @@
-export default function Form() {
+export default function RegisterForm() {
   return (
     <div className="mt-12">
       <div className="flex flex-col">
