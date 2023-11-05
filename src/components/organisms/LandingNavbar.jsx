@@ -33,7 +33,7 @@ export default function LandingNavbar() {
               <Link
                 key={v4()}
                 href={`${link.href}`}
-                className={`${link.label === "Login" && 'text-md relative border-[4px] border-white px-[50px] py-3 rounded-2xl'}`}
+                className={`${link.label === "Login" && 'text-md relative border-[4px] border-white px-[50px] py-3 rounded-2xl hover:bg-white hover:text-primary-500'}`}
               >
                 <div>{link.label}</div>
               </Link>
