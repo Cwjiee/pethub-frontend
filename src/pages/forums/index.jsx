@@ -21,7 +21,7 @@ export default function Forum() {
     <>
       <Navbar title={true}>Forums</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
-        <Searchbar input={input} setInput={setInput} label={"New Posts"} />
+        <Searchbar input={input} setInput={setInput} label={"New Forums"} href={"/forums/create"}/>
         <div className="flex justify-between mt-4 mb-6">
           <div className="flex gap-x-[12px]">
             {tags.map((tag) => {
