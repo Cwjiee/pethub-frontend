@@ -1,12 +1,12 @@
-import Navbar from "@/components/organisms/Navbar"
 import BackButton from "@/components/atoms/BackButton"
 import Table from "@/components/organisms/Table"
 import AdminFooter from "@/components/organisms/AdminFooter"
+import AdminNavbar from "@/components/organisms/AdminNavbar"
 
 export default function Report() {
   return (
     <>
-      <Navbar></Navbar> 
+      <AdminNavbar />
       <div className="w-full m-auto pt-6 px-6">
         <BackButton/>
         <div className="w-full mt-8 m-auto py-11 px-16">
