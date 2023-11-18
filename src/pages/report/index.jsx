@@ -7,9 +7,9 @@ export default function Report() {
   return (
     <>
       <AdminNavbar />
-      <div className="w-full m-auto pt-6 px-6">
+      <div className="w-full m-auto pt-6 px-16">
         <BackButton/>
-        <div className="w-full mt-8 m-auto py-11 px-16">
+        <div className="w-full mt-8 m-auto py-11">
           <div className="flex flex-col">
             <div className="text-2xl mx-auto font-bold">Reports</div>
             <Table />

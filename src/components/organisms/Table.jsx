@@ -5,7 +5,7 @@ export default function Table() {
   return (
     <>
       <section class="sm:py-5 antialiased">
-        <div class="mx-auto max-w-screen-xl">
+        <div class="mx-auto">
           <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">

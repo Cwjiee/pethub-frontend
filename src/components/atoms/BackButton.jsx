@@ -10,9 +10,11 @@ export default function BackButton() {
   }
 
   return (
-    <div className="flex flex-row gap-2 items-center hover:cursor-pointer" onClick={handleBack}>
-      <Image className="w-6 h-6" src={BackButtonIcon} alt="back-button"/>
-      <span className="text-base text-secondary-500 font-semibold">Back</span>
+    <div className="w-full">
+      <div className=" flex flex-row gap-2 items-center hover:cursor-pointer" onClick={handleBack}>
+        <Image className="w-6 h-6" src={BackButtonIcon} alt="back-button"/>
+        <span className="text-base text-secondary-500 font-semibold">Back</span>
+      </div>
     </div>
   )
 }
