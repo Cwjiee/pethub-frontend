@@ -1,5 +1,5 @@
 import BackButton from "@/components/atoms/BackButton"
-import Table from "@/components/organisms/Table"
+import ReportTable from "@/components/organisms/ReportTable"
 import AdminFooter from "@/components/organisms/AdminFooter"
 import AdminNavbar from "@/components/organisms/AdminNavbar"
 
@@ -12,7 +12,7 @@ export default function Report() {
         <div className="w-full mt-8 m-auto py-11">
           <div className="flex flex-col">
             <div className="text-2xl mx-auto font-bold">Reports</div>
-            <Table />
+            <ReportTable />
           </div>
         </div>
       </div>
