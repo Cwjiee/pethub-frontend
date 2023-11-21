@@ -1,50 +1,87 @@
-export default function RegisterForm() {
+import { useState } from "react"
+
+export default function PetOwnerRegisterForm() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [description, setDescription] = useState('')
+  const [contact, setContact] = useState('')
+ 
   return (
-    <div className="mt-12">
-      <div className="flex flex-col">
-        <span className="font-semibold">Name:</span>
-        <input
-          type="text"
-          className="rounded-[10px] px-6 py-2 outline-none border border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
-        />
+    <>
+      <div>
+
+        <div className="grid grid-cols-2 gap-4 mt-[25px]">
+          <div>
+            <div className="flex flex-col">
+              <span className="font-semibold">Name:</span>
+              <input
+                type="text"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col mt-[25px]">
+              <span className="font-semibold">Email:</span>
+              <input
+                type="email"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col mt-[25px]">
+              <span className="font-semibold">Password:</span>
+              <input
+                type="password"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col mt-[25px]">
+              <span className="font-semibold">Confirm Password:</span>
+              <input
+                type="password"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+          </div>
+          <div>
+            <div className="flex flex-col">
+              <span className="font-semibold">Description:</span>
+              <textarea
+                className="rounded-[10px] h-[132px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col mt-[25px]">
+              <span className="font-semibold">Contact Number:</span>
+              <input
+                type="text"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                onChange={(e) => setContact(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col mt-[28px]">
+              <label class="block text-sm font-medium dark:text-white" for="file_input">Upload Profile Image
+                <input id="file_input" type="file" class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="flex flex-col mt-[25px]">
-        <span className="font-semibold">Email:</span>
-        <input
-          type="text"
-          className="rounded-[10px] px-6 py-2 outline-none border border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
-        />
+      <div>
+        <button
+          className="mx-auto rounded-[10px] text-white flex justify-center items-center mt-[50px] hover:cursor-pointer w-1/6 px-6 py-3 bg-primary-500 hover:bg-primary-600 active:bg-primary-700"
+          style={{
+            boxShadow:
+              "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
+          }}
+        >
+          Submit
+        </button>
       </div>
-      <div className="flex flex-col mt-[25px]">
-        <span className="font-semibold">Password:</span>
-        <input
-          type="text"
-          className="rounded-[10px] px-6 py-2 outline-none border border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
-        />
-      </div>
-      <div className="flex flex-col mt-[25px]">
-        <span className="font-semibold">Confirm Password:</span>
-        <input
-          type="text"
-          className="rounded-[10px] px-6 py-2 outline-none border border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
-        />
-      </div>
-      <div className="mt-[40px]">
-        Already have an account?{" "}
-        <a href="#" className="underline font-semibold text-primary-500 hover:text-primary-600 active:text-primary-700">
-          Login
-        </a>{" "}
-        here!
-      </div>
-      <button
-        className="rounded-[10px] text-white h-12 flex justify-center items-center mt-[50px] hover:cursor-pointer w-full bg-primary-500 hover:bg-primary-600 active:bg-primary-700"
-        style={{
-          boxShadow:
-            "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
-        }}
-      >
-        Submit
-      </button>
-    </div>
-  );
+    </>
+  )
 }

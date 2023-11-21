@@ -1,29 +1,28 @@
 import Image from "next/image";
-import Form from "@/components/molecules/RegisterForm";
+import PetOwnerRegisterForm from "@/components/molecules/RegisterForm";
+import { useState } from "react";
 
-export default function Register() {
+export default function Signup() {
   return (
-    <div className="flex w-full h-full">
-      <div className="w-1/2 h-full px-[80px] pt-[70px] pb-[90px]">
+    <>
+      <div className="w-[80%] h-full m-auto px-6 pt-14 flex flex-col gap-4">
         <div className="flex gap-x-2">
           <Image src="/logo.svg" alt="logo" width={48} height={48} />
           <Image src="/Pethub.svg" alt="pethub" width={85} height={85} />
         </div>
-        <div className="mt-[70px]">
-          <Image
-            src={"/register.svg"}
-            alt="register"
-            width={560}
-            height={470}
-          />
+        <div className="text-3xl font-bold">
+          Register Pet Service Provider Information
         </div>
+        <PetOwnerRegisterForm />
       </div>
-      <div className="w-1/2 h-screen bg-white">
-        <div className="px-[160px] pt-[70px]">
-          <span className="text-4xl font-bold">Register</span>
-          <Form />
-        </div>
-      </div>
-    </div>
-  );
+    </>
+  )
+}
+
+Signup.getLayout = function getLayout(page) {
+  return (
+    <main>
+      {page}
+    </main>
+  )
 }
