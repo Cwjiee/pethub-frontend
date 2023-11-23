@@ -11,7 +11,6 @@ export default function PetOwnerRegisterForm() {
   return (
     <>
       <div>
-
         <div className="grid grid-cols-2 gap-4 mt-[25px]">
           <div>
             <div className="flex flex-col">
