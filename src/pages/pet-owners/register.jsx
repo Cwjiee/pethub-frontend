@@ -1,6 +1,5 @@
 import Image from "next/image";
 import PetOwnerRegisterForm from "@/components/molecules/RegisterForm";
-import { useState } from "react";
 
 export default function Signup() {
   return (

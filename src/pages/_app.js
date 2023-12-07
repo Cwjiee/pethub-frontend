@@ -11,11 +11,13 @@ const inter = Nunito({
 export default function App({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => (
           <Layout>
-            <div className={inter.className}>
-              {page}
-            </div>
+            {page}
           </Layout>
   )) 
 
-  return getLayout(<Component  {...pageProps} />)
+  return getLayout(
+    <main className={inter.className}>
+      <Component  {...pageProps} />
+    </main>
+  )
 }

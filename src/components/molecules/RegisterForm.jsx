@@ -1,4 +1,6 @@
-import { useState } from "react"
+import { GlobalContext } from "@/context"
+import { useRouter } from "next/router"
+import { useContext, useState } from "react"
 
 export default function PetOwnerRegisterForm() {
   const [name, setName] = useState('')
@@ -7,6 +9,63 @@ export default function PetOwnerRegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [description, setDescription] = useState('')
   const [contact, setContact] = useState('')
+  const [image, setImage] = useState(null)
+  const [errors, setErrors] = useState(null);
+  const router = useRouter()
+
+  const { setToken, setUsername } = useContext(GlobalContext)
+
+  const uploadToClient = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const i = e.target.files[0]
+
+      setImage(i)
+    }
+  }
+
+  const submitForm = async (e) => {
+    e.preventDefault
+
+    const body = new FormData()
+    body.append("full_name", name)
+    body.append("email", email)
+    body.append("password", password)
+    body.append("permission_level", 1)
+    body.append("description", description)
+    body.append("contact_number", contact)
+    body.append("image", image)
+
+    if(password !== confirmPassword) {
+      return (
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+          <span class="font-medium">Error!</span> Wrong confirmation password
+        </div>
+      )
+    }
+
+    const response = await fetch("http://localhost:8000/api/v1/register", {
+      method: "POST",
+      body: body,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      mode: 'cors'
+    });
+
+    const data = await response.json()
+    console.log(data)
+    let getToken = data.token
+    let getUsername = data.user.full_name
+    document.cookie = `token=${data.token}`
+    if (data.errors) {
+      setErrors(data.errors)
+      console.log(errors)
+    } else {
+      router.push("/")
+      setToken(getToken)
+      setUsername(getUsername)
+    }
+  }
  
   return (
     <>
@@ -64,7 +123,7 @@ export default function PetOwnerRegisterForm() {
             </div>
             <div className="flex flex-col mt-[28px]">
               <label class="block text-sm font-medium dark:text-white" for="file_input">Upload Profile Image
-                <input id="file_input" type="file" class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
+                <input id="file_input" type="file" onChange={uploadToClient} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
               </label>
             </div>
           </div>
@@ -77,6 +136,7 @@ export default function PetOwnerRegisterForm() {
             boxShadow:
               "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
           }}
+          onClick={submitForm}
         >
           Submit
         </button>
