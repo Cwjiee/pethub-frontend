@@ -4,9 +4,6 @@ import { useState } from "react";
 
 export default function Login() {
   
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-
   return (
     <div className="flex w-full h-screen">
       <div className="w-1/2 h-full px-[80px] pt-[70px] pb-[90px]">
@@ -26,7 +23,7 @@ export default function Login() {
       <div className="w-1/2 h-screen bg-white">
         <div className="px-[160px] pt-[20%] my-auto">
           <span className="text-4xl font-bold">Welcome</span>
-          <Form setEmail={setEmail} setPassword={setPassword}/>
+          <Form/>
         </div>
       </div>
     </div>

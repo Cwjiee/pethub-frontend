@@ -42,8 +42,10 @@ export default function PetOwnerRegisterForm() {
         </div>
       )
     }
+
+    const url = process.env.NEXT_PUBLIC_API_URL
     
-    const response = await fetch("http://localhost:8000/api/v1/register", {
+    const response = await fetch(`${url}/register`, {
       method: "POST",
       body: body,
       headers: {

@@ -1,4 +1,46 @@
-export default function RegisterForm({ setEmail, setPassword }) {
+import { GlobalContext } from "@/context";
+import { useRouter } from "next/router";
+import { useContext, useState } from "react";
+import Link from "next/link";
+
+export default function RegisterForm() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [errors, setErrors] = useState(null)
+  const router = useRouter()
+
+  const { setToken, setUsername } = useContext(GlobalContext)
+
+  const submitForm = async (e) => {
+    e.preventDefault()
+    const url = process.env.NEXT_PUBLIC_API_URL
+
+    const response = await fetch(`${url}/login`, {
+      method: "POST",
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json()
+
+    console.log(data)
+    console.log(data.token)
+    let getToken = data.token
+    document.cookie = `token=${data.token}`
+    if (data.errors) {
+      setErrors(data.errors)
+      console.log(errors)
+    } else {
+      setToken(getToken)
+      router.push("/healthcare-facility")
+    }
+  }
+
   return (
     <div className="mt-12">
       <div className="flex flex-col mt-[25px]">
@@ -19,9 +61,9 @@ export default function RegisterForm({ setEmail, setPassword }) {
       </div>
       <div className="mt-[40px]">
         Don&apos;t have an account?{" "}
-        <a href="#" className="underline font-semibold text-primary-500 hover:text-primary-600 active:text-primary-700">
+        <Link href="/account" className="underline font-semibold text-primary-500 hover:text-primary-600 active:text-primary-700">
           Register
-        </a>{" "}
+        </Link>{" "}
         here!
       </div>
       <button
@@ -30,6 +72,7 @@ export default function RegisterForm({ setEmail, setPassword }) {
           boxShadow:
             "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
         }}
+        onClick={submitForm}
       >
         Submit
       </button>
