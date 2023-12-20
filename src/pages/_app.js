@@ -2,6 +2,7 @@ import Layout from '@/components/layout';
 import '@/styles/globals.css'
 import { Inter, Nunito } from 'next/font/google'
 import { GlobalProvider } from '@/context';
+import { ChakraProvider } from '@chakra-ui/react'
 
 const inter = Nunito({
   subsets: ["latin"],
@@ -18,9 +19,11 @@ export default function App({ Component, pageProps }) {
 
   return getLayout(
     <GlobalProvider>
-      <main className={inter.className}>
-        <Component  {...pageProps} />
-      </main>
+      <ChakraProvider>
+        <main className={inter.className}>
+          <Component  {...pageProps} />
+        </main>
+      </ChakraProvider>
     </GlobalProvider>
   )
 }

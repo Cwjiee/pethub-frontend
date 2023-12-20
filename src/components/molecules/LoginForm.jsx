@@ -2,14 +2,15 @@ import { GlobalContext } from "@/context";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import Link from "next/link";
+import { Toast, useToast } from "@chakra-ui/react";
 
 export default function RegisterForm() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [errors, setErrors] = useState(null)
   const router = useRouter()
+  const toast = useToast()
 
-  const { setToken, setUsername } = useContext(GlobalContext)
+  const { setToken } = useContext(GlobalContext)
 
   const submitForm = async (e) => {
     e.preventDefault()
@@ -32,12 +33,27 @@ export default function RegisterForm() {
     console.log(data.token)
     let getToken = data.token
     document.cookie = `token=${data.token}`
-    if (data.errors) {
-      setErrors(data.errors)
-      console.log(errors)
+    if (!response.ok) {
+      setEmail("")
+      setPassword("")
+      toast({
+        title: 'Login failed',
+        description: 'Please try again',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
     } else {
+      console.log(response.status)
       setToken(getToken)
-      router.push("/healthcare-facility")
+      toast({
+        title: 'Successfully logged in',
+        description: 'We will redirect you to the main page',
+        status: 'success',
+        duration: 3000,
+        isClosable: true
+      })
+      setInterval(function () {router.push('/healthcare-facility')}, 1000)
     }
   }
 

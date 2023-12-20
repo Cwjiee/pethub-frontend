@@ -1,4 +1,5 @@
 import { GlobalContext } from "@/context"
+import { useToast } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 
@@ -10,8 +11,8 @@ export default function PetOwnerRegisterForm() {
   const [description, setDescription] = useState('')
   const [contact, setContact] = useState('')
   const [image, setImage] = useState(null)
-  const [errors, setErrors] = useState(null);
   const router = useRouter()
+  const toast = useToast()
 
   const { setToken, setUsername } = useContext(GlobalContext)
 
@@ -59,13 +60,27 @@ export default function PetOwnerRegisterForm() {
     let getToken = data.token
     let getUsername = data.user.full_name
     document.cookie = `token=${data.token}`
-    if (data.errors) {
+    if (!response.ok) {
       setErrors(data.errors)
+      toast({
+        title: 'Registration failed',
+        description: 'Please try again',
+        status: 'error',
+        duration: 9000,
+        isClosable: true
+      })
       console.log(errors)
     } else {
       setToken(getToken)
       setUsername(getUsername)
-      router.push("/healthcare-facility")
+      toast({
+        title: 'Account created',
+        description: 'We will redirect you to the main page',
+        status: 'success',
+        duration: 9000,
+        isClosable: true
+      })
+      setInterval(function () {router.push('/healthcare-facility')}, 1000)
     }
   }
  
