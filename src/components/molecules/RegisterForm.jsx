@@ -42,14 +42,13 @@ export default function PetOwnerRegisterForm() {
         </div>
       )
     }
-
+    
     const response = await fetch("http://localhost:8000/api/v1/register", {
       method: "POST",
       body: body,
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Accept": "application/json",
       },
-      mode: 'cors'
     });
 
     const data = await response.json()
