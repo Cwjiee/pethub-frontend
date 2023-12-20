@@ -52,7 +52,8 @@ export default function PetOwnerRegisterForm() {
     });
 
     const data = await response.json()
-    console.log(data)
+    console.log(data.token)
+    console.log(data.user.full_name)
     let getToken = data.token
     let getUsername = data.user.full_name
     document.cookie = `token=${data.token}`
@@ -60,9 +61,9 @@ export default function PetOwnerRegisterForm() {
       setErrors(data.errors)
       console.log(errors)
     } else {
-      router.push("/")
       setToken(getToken)
       setUsername(getUsername)
+      router.push("/")
     }
   }
  

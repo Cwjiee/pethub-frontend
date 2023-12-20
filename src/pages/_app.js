@@ -1,6 +1,7 @@
 import Layout from '@/components/layout';
 import '@/styles/globals.css'
 import { Inter, Nunito } from 'next/font/google'
+import { GlobalProvider } from '@/context';
 
 const inter = Nunito({
   subsets: ["latin"],
@@ -16,8 +17,10 @@ export default function App({ Component, pageProps }) {
   )) 
 
   return getLayout(
-    <main className={inter.className}>
-      <Component  {...pageProps} />
-    </main>
+    <GlobalProvider>
+      <main className={inter.className}>
+        <Component  {...pageProps} />
+      </main>
+    </GlobalProvider>
   )
 }
