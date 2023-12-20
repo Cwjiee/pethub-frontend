@@ -15,8 +15,8 @@ export default function Navbar({ children, title }) {
       label: "Pet Boarders",
     },
     {
-      href: "/veterinary",
-      label: "Veterinary",
+      href: "/healthcare-facility",
+      label: "Healthcare Facility",
     },
     {
       href: "/forums",

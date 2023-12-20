@@ -63,7 +63,7 @@ export default function PetOwnerRegisterForm() {
     } else {
       setToken(getToken)
       setUsername(getUsername)
-      router.push("/")
+      router.push("/healthcare-facility")
     }
   }
  
