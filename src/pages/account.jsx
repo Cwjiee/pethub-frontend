@@ -10,6 +10,10 @@ export default function Account() {
     router.push('/pet-owners/register')
   }
 
+  const handleServiceProvider = () => {
+    router.push('/service-providers/register')
+  }
+
   return (
     <>
       <div className="h-screen m-auto flex justify-center items-center">
@@ -23,6 +27,7 @@ export default function Account() {
               <div>Pet Owner</div>
             </div>
             <div
+              onClick={handleServiceProvider}
               className="w-[45%] px-4 pt-4 bg-white rounded-[10px] flex flex-col justify-center items-center cursor-pointer shadow-[0px_4px_6px_-2px_rgba(0,0,0,0.05),0px_10px_15px_-3px_rgba(0,0,0,0.10)] active:shadow-[0_0_10px_0_rgba(0,0,0,0.3),0_0_15_0_rgba(0,0,0,0.5)]">
               <Image className="py-8" src={Vet} alt="vet" />
               <div>Veterinary/Pet Hospital</div>
