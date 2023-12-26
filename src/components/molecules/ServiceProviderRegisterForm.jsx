@@ -9,13 +9,17 @@ export default function ServiceProviderRegisterForm() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [contact, setContact] = useState('')
+  const [deposit, setDeposit] = useState('')
   const [cert, setCert] = useState(null)
   const [image, setImage] = useState(null)
+  const [qrcode, setQrcode] = useState(null)
   const [description, setDescription] = useState('')
-  const [deposit, setDeposit] = useState('')
   const [startOperation, setStartOperaton] = useState(null)
   const [endOperation, setEndOperaton] = useState(null)
   const [serviceType, setServiceType] = useState('')
+  const [bankName, setBankName] = useState('')
+  const [accNumber, setAccNumber] = useState('')
+  const [accName, setAccName] = useState('')
   const router = useRouter()
   const toast = useToast()
 
@@ -37,6 +41,14 @@ export default function ServiceProviderRegisterForm() {
     }
   }
 
+  const uploadQr = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const i = e.target.files[0]
+
+      setQrcode(i)
+    }
+  }
+
   const submitForm = async (e) => {
     e.preventDefault
 
@@ -53,6 +65,10 @@ export default function ServiceProviderRegisterForm() {
     body.append("opening_hour", startOperation)
     body.append("closing_hour", endOperation)
     body.append("sssm_certificate", cert)
+    body.append("qr_code_image", qrcode)
+    body.append("bank_name", bankName)
+    body.append("beneficiary_acc_number", accNumber)
+    body.append("beneficiary_name", accName)
 
     if(password !== confirmPassword) {
       return (
@@ -84,7 +100,7 @@ export default function ServiceProviderRegisterForm() {
         title: 'Registration failed',
         description: 'Please try again',
         status: 'error',
-        duration: 9000,
+        duration: 3000,
         isClosable: true
       })
       console.log(errors)
@@ -93,12 +109,12 @@ export default function ServiceProviderRegisterForm() {
       setUsername(getUsername)
       toast({
         title: 'Account created',
-        description: 'We will redirect you to the main page',
+        description: 'Account is now on pending',
         status: 'success',
-        duration: 9000,
+        duration: 3000,
         isClosable: true
       })
-      setInterval(function () {router.push('/healthcare-facility')}, 1000)
+      setInterval(function () {router.push('/service-providers/status')}, 1000)
     }
   }
  
@@ -147,6 +163,14 @@ export default function ServiceProviderRegisterForm() {
                 onChange={(e) => setContact(e.target.value)}
               />
             </div>
+            <div className="flex flex-col mt-[25px]">
+              <span className="font-semibold">Deposit value:</span>
+              <input
+                type="text"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                onChange={(e) => setDeposit(e.target.value)}
+              />
+            </div>
             <div className="flex flex-col mt-[28px]">
               <label class="block text-sm font-medium dark:text-white" for="file_input">Upload SSSM Certification here:
                 <input id="file_input" type="file" onChange={uploadCert} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
@@ -157,6 +181,11 @@ export default function ServiceProviderRegisterForm() {
                 <input id="file_input" type="file" onChange={uploadToClient} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
               </label>
             </div>
+            <div className="flex flex-col mt-[28px]">
+              <label class="block text-sm font-medium dark:text-white" for="file_input">Upload QrCode here:
+                <input id="file_input" type="file" onChange={uploadQr} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
+              </label>
+            </div>
           </div>
           <div>
             <div className="flex flex-col">
@@ -164,14 +193,6 @@ export default function ServiceProviderRegisterForm() {
               <textarea
                 className="rounded-[10px] h-[132px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
                 onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-col mt-[25px]">
-              <span className="font-semibold">Deposit value:</span>
-              <input
-                type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
-                onChange={(e) => setDeposit(e.target.value)}
               />
             </div>
             <div className="flex flex-col mt-[25px]">
@@ -198,20 +219,42 @@ export default function ServiceProviderRegisterForm() {
                 onChange={(e) => setServiceType(e.target.value)}
               />
             </div>
+            <div className="flex flex-col mt-[25px]">
+              <span className="font-semibold">Bank Name:</span>
+              <input
+                type="text"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                onChange={(e) => setBankName(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col mt-[25px]">
+              <span className="font-semibold">Beneficiary Account Number:</span>
+              <input
+                type="text"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                onChange={(e) => setAccNumber(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col mt-[25px]">
+              <span className="font-semibold">Beneficiary Name:</span>
+              <input
+                type="text"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                onChange={(e) => setAccName(e.target.value)}
+              />
+            </div>
+            <button
+              className="mx-auto rounded-[10px] text-white flex justify-center items-center mt-[45px] hover:cursor-pointer w-3/6 px-6 py-3 bg-primary-500 hover:bg-primary-600 active:bg-primary-700"
+              style={{
+                boxShadow:
+                  "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
+              }}
+              onClick={submitForm}
+            >
+              Submit
+            </button>
           </div>
         </div>
-      </div>
-      <div>
-        <button
-          className="mx-auto rounded-[10px] text-white flex justify-center items-center mt-[50px] hover:cursor-pointer w-1/6 px-6 py-3 bg-primary-500 hover:bg-primary-600 active:bg-primary-700"
-          style={{
-            boxShadow:
-              "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
-          }}
-          onClick={submitForm}
-        >
-          Submit
-        </button>
       </div>
     </>
   )
