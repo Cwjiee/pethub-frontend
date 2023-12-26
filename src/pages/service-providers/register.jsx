@@ -4,7 +4,7 @@ import ServiceProviderRegisterForm from "@/components/molecules/ServiceProviderR
 export default function Signup() {
   return (
     <>
-      <div className="w-[80%] h-full m-auto px-6 pt-14 flex flex-col gap-4">
+      <div className="w-[80%] h-full m-auto px-6 pt-10 flex flex-col gap-4">
         <div className="flex gap-x-2">
           <Image src="/logo.svg" alt="logo" width={48} height={48} />
           <Image src="/Pethub.svg" alt="pethub" width={85} height={85} />

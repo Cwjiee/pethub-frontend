@@ -41,7 +41,7 @@ export default function Account() {
 
 Account.getLayout = function getLayout(page) {
   return (
-    <main>
+    <main className="bg-[#F3F4F6]">
       {page}
     </main>
   )
