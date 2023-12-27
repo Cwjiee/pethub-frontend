@@ -10,7 +10,7 @@ export default function Signup() {
           <Image src="/Pethub.svg" alt="pethub" width={85} height={85} />
         </div>
         <div className="text-3xl font-bold">
-          Register Pet Owner Information
+          Register Service Provider Information
         </div>
         <ServiceProviderRegisterForm />
       </div>

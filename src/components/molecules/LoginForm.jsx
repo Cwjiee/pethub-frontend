@@ -28,11 +28,13 @@ export default function RegisterForm() {
     });
 
     const data = await response.json()
+    if (data.user.user_status === 'pending') {
+      router.push('/service-providers/status')
+      return
+    }
 
     console.log(data)
     console.log(data.token)
-    let getToken = data.token
-    document.cookie = `token=${data.token}`
     if (!response.ok) {
       setEmail("")
       setPassword("")
@@ -45,6 +47,8 @@ export default function RegisterForm() {
       })
     } else {
       console.log(response.status)
+      let getToken = data.token
+      document.cookie = `token=${data.token}`
       setToken(getToken)
       toast({
         title: 'Successfully logged in',
