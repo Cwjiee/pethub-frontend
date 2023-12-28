@@ -1,7 +1,39 @@
-import data from "../../../data/user.json"
 import { v4 } from "uuid"
+import { useToast } from "@chakra-ui/react"
 
-export default function UserTable() {
+export default function UserTable({users}) {
+  const toast = useToast()
+
+  const handleDelete = async (user) => {
+    const url = process.env.NEXT_PUBLIC_API_URL
+    const id = user.user_id
+
+    const response = await fetch(`${url}/users/${id}`, {
+      method: "DELETE",
+    })
+    const result = await response.json()
+
+    console.log(result)
+
+    if (response.ok) {
+      toast({
+        title: 'Success',
+        description: 'User successfully deleted',
+        status: 'success',
+        duration: 3000,
+        isClosable: true
+      })
+    } else {
+      toast({
+        title: 'Error',
+        description: 'Failed in deleting user',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
+    }
+  }
+
   return (
     <>
       <section class="sm:py-5 antialiased">
@@ -20,14 +52,24 @@ export default function UserTable() {
                         </tr>
                     </thead>
                     <tbody>
-                      {data.data.map((x, idx) => {
+                      {users.map((user) => {
+                        if (user.permission_level == 3) return
                         return (
                           <tr class="border-b dark:border-gray-700" key={v4()}>
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{x.full_name}</th>
-                            <td class="px-4 py-3 max-w-[12rem] truncate">{x.email}</td>
-                            <td class="px-4 py-3">{x.user_type}</td>
+                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{user.full_name}</th>
+                            <td class="px-4 py-3 max-w-[12rem] truncate">{user.email}</td>
+                            {user.permission_level == 1 ? (
+                              <td class="px-4 py-3">Normal</td>
+                            ) : user.permissoin_level == 2? (
+                              <td class="px-4 py-3">Pet Boarder/Veterinary</td>
+                            ) : (
+                              <td class="px-4 py-3">Unknown</td>
+                            )}
                             <td class="px-4 py-3 flex items-center justify-end">
-                              <button className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444]">
+                              <button
+                                className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444]"
+                                onClick={() => handleDelete(user)}
+                              >
                                 <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
                                   Delete User
                                 </div>
