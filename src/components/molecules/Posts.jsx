@@ -1,12 +1,13 @@
 import Image from "next/image";
+import DeleteBtn from "@/../public/svg/DeleteBtn.svg"
 
-export default function Posts({ popular }) {
+export default function Posts({ popular, isAdmin }) {
   return (
     <div
-      className="rounded-[10px] bg-white h-auto py-4 px-8 my-[10px]"
+      className="rounded-[10px] bg-white h-auto py-4 px-8 my-[10px] relative"
       style={{
         boxShadow:
-          "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
+        "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
       }}
     >
       <div className="flex justify-between">
@@ -44,6 +45,11 @@ export default function Posts({ popular }) {
           <span className="text-sm font-semibold">1 h ago</span>
         </div>
       </div>
+      {isAdmin && (
+        <span>
+          <Image src={DeleteBtn} alt="delete button" width={17} height={17} className="absolute bottom-5 right-5 cursor-pointer"/>
+        </span>
+      )}
     </div>
   );
 }

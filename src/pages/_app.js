@@ -3,6 +3,7 @@ import '@/styles/globals.css'
 import { Inter, Nunito } from 'next/font/google'
 import { GlobalProvider } from '@/context';
 import { ChakraProvider } from '@chakra-ui/react'
+import theme from "../../theme"
 
 const inter = Nunito({
   subsets: ["latin"],
@@ -19,7 +20,7 @@ export default function App({ Component, pageProps }) {
 
   return getLayout(
     <GlobalProvider>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <main className={inter.className}>
           <Component  {...pageProps} />
         </main>
