@@ -4,7 +4,7 @@ import Pethub from "../../../public/Pethub.svg"
 
 export default function AdminFooter() {
   return (
-    <footer className="p-4 bg-white sm:p-6 mt-24">
+    <footer className="p-4 bg-white sm:p-6">
       <div className="mx-auto max-w-screen-xl">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
