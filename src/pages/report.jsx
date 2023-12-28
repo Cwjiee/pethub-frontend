@@ -2,7 +2,7 @@ import BackButton from "@/components/atoms/BackButton"
 import Navbar from "@/components/organisms/Navbar"
 import { useState } from "react"
 
-export default function CreateReport() {
+export default function Report() {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
 
