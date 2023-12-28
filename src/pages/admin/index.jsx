@@ -21,7 +21,7 @@ export default function AdminIndex() {
       image: PetNews,
     },
     {
-      links: "admin/reports",
+      links: "admin/report",
       label: "Reports",
       image: Reports,
     },
