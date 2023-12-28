@@ -28,7 +28,7 @@ export default function RegisterForm() {
     });
 
     const data = await response.json()
-    if (data.user.user_status === 'pending') {
+    if (data.user?.user_status === 'pending') {
       router.push('/service-providers/status')
       return
     }

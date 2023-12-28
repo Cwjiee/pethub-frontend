@@ -1,8 +1,53 @@
-import data from "../../../data/news.json"
 import { v4 } from "uuid"
 import Link from "next/link"
+import { GlobalContext } from "@/context"
+import { useContext } from "react"
+import { useToast } from "@chakra-ui/react"
 
-export default function ServiceProviderApplicationTable() {
+export default function ServiceProviderApplicationTable({ users }) {
+  const { token } = useContext(GlobalContext)
+  const toast = useToast()
+
+  const handleSubmit = async (application, user) => {
+    
+    const url = process.env.NEXT_PUBLIC_API_URL
+    const id = user.user_id
+
+    const answer = application === 'Accept' ? 'success' : 'rejected'
+
+    const response = await fetch(`http://localhost:8000/api/v1/admin/service_provider_application/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        user_status: answer,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    })
+    const result = await response.json()
+
+    console.log(result)
+
+    if (response.ok) {
+      toast({
+        title: 'Success',
+        description: 'User status updated',
+        status: 'success',
+        duration: 3000,
+        isClosable: true
+      })
+    } else {
+      toast({
+        title: 'Error',
+        description: 'Failed in updating user status',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
+    }
+  }
+
   return (
     <>
       <section class="sm:py-5 antialiased">
@@ -24,24 +69,30 @@ export default function ServiceProviderApplicationTable() {
                         </tr>
                     </thead>
                     <tbody>
-                      {data.data.map((x, idx) => {
+                      {users.map((user, idx) => {
                         return (
                           <tr class="border-b dark:border-gray-700" key={v4()}>
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{x.title}</th>
-                            <td class="px-4 py-3 max-w-[12rem] truncate">{x.author}</td>
-                            <td class="px-4 py-3">{x.category}</td>
+                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{user.full_name}</th>
+                            <td class="px-4 py-3 max-w-[12rem] truncate">{user.contact_number}</td>
+                            <td class="px-4 py-3">{user.service_type}</td>
                             <td class="px-4 py-3 justify-start">
                               <Link href={`./news/${idx}`} className="text-[#0055D4] underline">
                                 More Details
                               </Link>
                             </td>
                             <td class="px-4 py-3 flex flex-row gap-x-2 justify-end">
-                              <button className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E]">
+                              <button
+                                className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E]"
+                                onClick={() => handleSubmit('Accept', user)}
+                              >
                                 <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
                                   Accept
                                 </div>
                               </button>
-                              <button className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444]">
+                              <button
+                                className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444]"
+                                onClick={() => handleSubmit('Reject', user)}
+                              >
                                 <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
                                   Reject
                                 </div>

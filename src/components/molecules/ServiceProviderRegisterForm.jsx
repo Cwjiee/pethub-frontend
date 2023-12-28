@@ -114,7 +114,10 @@ export default function ServiceProviderRegisterForm() {
         duration: 3000,
         isClosable: true
       })
-      setInterval(function () {router.push('/service-providers/status')}, 1000)
+      setInterval(function () {
+        router.push('/service-providers/status')
+        return
+      }, 1000)
     }
   }
  
