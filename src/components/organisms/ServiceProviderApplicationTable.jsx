@@ -1,12 +1,16 @@
 import { v4 } from "uuid"
 import Link from "next/link"
 import { GlobalContext } from "@/context"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { useToast } from "@chakra-ui/react"
 
 export default function ServiceProviderApplicationTable({ users }) {
   const { token } = useContext(GlobalContext)
   const toast = useToast()
+
+  useEffect(() => {
+    console.log(token)
+  }, [token])
 
   const handleSubmit = async (application, user) => {
     

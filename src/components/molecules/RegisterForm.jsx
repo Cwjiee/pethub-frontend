@@ -80,7 +80,7 @@ export default function PetOwnerRegisterForm() {
         duration: 9000,
         isClosable: true
       })
-      setInterval(function () {router.push('/healthcare-facility')}, 1000)
+      setTimeout(function () {router.push('/healthcare-facility')}, 1000)
     }
   }
  

@@ -10,7 +10,7 @@ export default function RegisterForm() {
   const router = useRouter()
   const toast = useToast()
 
-  const { setToken } = useContext(GlobalContext)
+  const { setToken, setUsername } = useContext(GlobalContext)
 
   const submitForm = async (e) => {
     e.preventDefault()
@@ -35,6 +35,10 @@ export default function RegisterForm() {
 
     console.log(data)
     console.log(data.token)
+    let getToken = data.token
+    let getUsername = data.user.full_name
+    document.cookie = `token=${data.token}`
+
     if (!response.ok) {
       setEmail("")
       setPassword("")
@@ -46,10 +50,8 @@ export default function RegisterForm() {
         isClosable: true
       })
     } else {
-      console.log(response.status)
-      let getToken = data.token
-      document.cookie = `token=${data.token}`
       setToken(getToken)
+      setUsername(getUsername)
       toast({
         title: 'Successfully logged in',
         description: 'We will redirect you to the main page',
@@ -57,7 +59,9 @@ export default function RegisterForm() {
         duration: 3000,
         isClosable: true
       })
-      setInterval(function () {router.push('/healthcare-facility')}, 1000)
+      setTimeout(function () {
+        router.push('/healthcare-facility')
+      }, 1000)
     }
   }
 
