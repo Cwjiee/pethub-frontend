@@ -1,8 +1,28 @@
-import data from "../../../data/report.json"
 import { v4 } from "uuid"
 import Link from "next/link"
+import { useEffect, useState, useContext } from "react"
+import { GlobalContext } from "@/context"
 
 export default function ReportTable() {
+  const [reports, setReports] = useState([])
+  const { token } = useContext(GlobalContext)
+
+  useEffect(() => {
+    
+    (async() => {
+      const url = process.env.NEXT_PUBLIC_API_URL
+      const response = await fetch(`${url}/report`, { 
+        headers: {
+        "Authorization": `Bearer ${token}`
+        }
+      })
+      const data = await response.json()
+      console.log(data.report)
+
+      setReports(data.report)
+    })()
+  }, [token])
+
   return (
     <>
       <section class="sm:py-5 antialiased">
@@ -21,14 +41,14 @@ export default function ReportTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.data.map((x, idx) => {
+                        {reports.map((report) => {
                           return (
                             <tr class="border-b dark:border-gray-700" key={v4()}>
-                              <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{x.title}</th>
-                              <td class="px-4 py-3 max-w-[12rem] truncate">{x.description}</td>
-                              <td class="px-4 py-3">{x.full_name}</td>
+                              <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{report.report_title}</th>
+                              <td class="px-4 py-3 max-w-[12rem] truncate">{report.report_description}</td>
+                              <td class="px-4 py-3">{report.user.full_name}</td>
                               <td class="px-4 py-3 flex items-center justify-end">
-                                <Link href={`/report/${idx}`} className="text-[#0055D4] underline">
+                                <Link href={`./report/${report.report_id}`} className="text-[#0055D4] underline">
                                   More Details
                                 </Link>
                               </td>
