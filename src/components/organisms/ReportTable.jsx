@@ -10,7 +10,7 @@ export default function ReportTable() {
   useEffect(() => {
     
     (async() => {
-      const url = process.env.NEXT_PUBLIC_API_URL
+      const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
       const response = await fetch(`${url}/report`, { 
         headers: {
         "Authorization": `Bearer ${token}`

@@ -1,15 +1,22 @@
 import { v4 } from "uuid"
 import { useToast } from "@chakra-ui/react"
+import { GlobalContext } from "@/context"
+import { useContext } from "react"
 
 export default function UserTable({users}) {
   const toast = useToast()
+  const { token } = useContext(GlobalContext)
 
   const handleDelete = async (user) => {
-    const url = process.env.NEXT_PUBLIC_API_URL
+    const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
     const id = user.user_id
 
-    const response = await fetch(`${url}/users/${id}`, {
+    const response = await fetch(`${url}/user/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
     })
     const result = await response.json()
 

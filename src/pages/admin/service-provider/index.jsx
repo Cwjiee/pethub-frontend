@@ -2,22 +2,29 @@ import AdminNavbar from "@/components/organisms/AdminNavbar"
 import AdminFooter from "@/components/organisms/AdminFooter"
 import BackButton from "@/components/atoms/BackButton"
 import ServiceProviderApplicationTable from "@/components/organisms/ServiceProviderApplicationTable"
-import { useEffect, useState } from "react"
+import { GlobalContext } from "@/context"
+import { useEffect, useState, useContext } from "react"
 
 export default function AdminServiceProvider() {
   const [users, setUsers] = useState([])
+  const { token } = useContext(GlobalContext)
 
   useEffect(() => {
 
     (async () => {
-      const url = process.env.NEXT_PUBLIC_API_URL
-      const response = await fetch(`${url}/users`)
+      const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
+      const response = await fetch(`${url}/user`, {
+        headers: {
+          "Content-type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
       const result = await response.json()
 
-      const users = result.users.filter((user) => user.permission_level === '2' && user.user_status === 'pending')
+      const users = result.user.filter((user) => user.permission_level === '2' && user.user_status === 'pending')
       setUsers(users)
     })()
-  }, [])
+  }, [token, users])
 
   return (
     <>

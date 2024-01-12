@@ -2,21 +2,29 @@ import AdminNavbar from "@/components/organisms/AdminNavbar"
 import AdminFooter from "@/components/organisms/AdminFooter"
 import BackButton from "@/components/atoms/BackButton"
 import UserTable from "@/components/organisms/UserTable"
-import { useEffect, useState } from "react"
+import { GlobalContext } from "@/context"
+import { useContext, useEffect, useState } from "react"
 
 export default function AdminUser() {
   const [users, setUsers] = useState([])
+  const { token } = useContext(GlobalContext)
 
   useEffect(() => {
 
     (async () => {
-      const url = process.env.NEXT_PUBLIC_API_URL
-      const response = await fetch(`${url}/users`)
+      const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
+      const response = await fetch(`${url}/user`, {
+        headers: {
+          "Content-type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
       const result = await response.json()
 
-      setUsers(result.users)
+      const user = result.user.filter((user) => user.user_status !== 'rejected')
+      setUsers(user)
     })()
-  }, [])
+  }, [token, users])
 
   return (
     <>
