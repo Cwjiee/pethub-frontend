@@ -10,7 +10,7 @@ export default function RegisterForm() {
   const router = useRouter()
   const toast = useToast()
 
-  const { setToken, setUsername } = useContext(GlobalContext)
+  const { setToken, setUserId } = useContext(GlobalContext)
 
   const submitForm = async (e) => {
     e.preventDefault()
@@ -36,7 +36,7 @@ export default function RegisterForm() {
     console.log(data)
     console.log(data.token)
     let getToken = data.token
-    let getUsername = data.user.full_name
+    let getUserId = data.user.user_id
     document.cookie = `token=${data.token}`
 
     if (!response.ok) {
@@ -51,7 +51,7 @@ export default function RegisterForm() {
       })
     } else {
       setToken(getToken)
-      setUsername(getUsername)
+      setUserId(getUserId)
       toast({
         title: 'Successfully logged in',
         description: 'We will redirect you to the main page',

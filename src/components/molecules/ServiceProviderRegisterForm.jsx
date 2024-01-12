@@ -23,7 +23,7 @@ export default function ServiceProviderRegisterForm() {
   const router = useRouter()
   const toast = useToast()
 
-  const { setToken, setUsername } = useContext(GlobalContext)
+  const { setToken, setUserId } = useContext(GlobalContext)
 
   const uploadToClient = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -90,9 +90,9 @@ export default function ServiceProviderRegisterForm() {
 
     const data = await response.json()
     console.log(data.token)
-    console.log(data.user.full_name)
+    console.log(data.user.id)
     let getToken = data.token
-    let getUsername = data.user.full_name
+    let getUserId = data.user.user_id
     document.cookie = `token=${data.token}`
     if (!response.ok) {
       setErrors(data.errors)
@@ -106,7 +106,7 @@ export default function ServiceProviderRegisterForm() {
       console.log(errors)
     } else {
       setToken(getToken)
-      setUsername(getUsername)
+      setUserId(getUserId)
       toast({
         title: 'Account created',
         description: 'Account is now on pending',

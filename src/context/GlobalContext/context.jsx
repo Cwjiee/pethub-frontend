@@ -5,25 +5,25 @@ export const GlobalContext = createContext();
 export function GlobalProvider(props) {
   const { children } = props;
   const [token, setToken] = useState("");
-  const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");
-    const storedUsername = sessionStorage.getItem("username");
+    const storedUserId = sessionStorage.getItem("userId");
 
-    if (storedToken && storedUsername) {
+    if (storedToken && storedUserId) {
       setToken(storedToken);
-      setUsername(storedUsername);
+      setUserId(storedUserId);
     }
   }, []);
 
   useEffect(() => {
     sessionStorage.setItem("token", token);
-    sessionStorage.setItem("username", username);
-  }, [token, username]);
+    sessionStorage.setItem("userId", userId);
+  }, [token, userId]);
 
   return (
-    <GlobalContext.Provider value={{ token, setToken, username, setUsername }}>
+    <GlobalContext.Provider value={{ token, setToken, userId, setUserId}}>
       {children}
     </GlobalContext.Provider>
   );
