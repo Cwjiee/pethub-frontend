@@ -1,8 +1,48 @@
-import data from "../../../data/news.json"
-import { v4 } from "uuid"
+import { useToast } from "@chakra-ui/react"
 import Link from "next/link"
+import { v4 } from "uuid"
 
-export default function NewsTable() {
+export default function NewsTable({ news }) {
+  const toast = useToast()
+
+  const handleSubmit = async (application, newsId) => {
+    
+    const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
+
+    const answer = application === 'Accept' ? 'approved' : 'rejected'
+
+    const response = await fetch(`${url}/news_application/${newsId}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        news_status: answer,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+    })
+    const result = await response.json()
+    console.log(result)
+
+    if (response.ok) {
+      toast({
+        title: 'Success',
+        description: 'User status updated',
+        status: 'success',
+        duration: 3000,
+        isClosable: true
+      })
+    } else {
+      toast({
+        title: 'Error',
+        description: 'Failed in updating user status',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
+    }
+  }
+
   return (
     <>
       <section class="sm:py-5 antialiased">
@@ -24,24 +64,28 @@ export default function NewsTable() {
                         </tr>
                     </thead>
                     <tbody>
-                      {data.data.map((x, idx) => {
+                      {news.map((news) => {
                         return (
-                          <tr class="border-b dark:border-gray-700" key={v4()}>
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{x.title}</th>
-                            <td class="px-4 py-3 max-w-[12rem] truncate">{x.author}</td>
-                            <td class="px-4 py-3">{x.category}</td>
+                          <tr class="border-b dark:border-gray-700" key={news.news_id}>
+                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{news.news_title}</th>
+                            <td class="px-4 py-3 max-w-[12rem] truncate">{news.user.full_name}</td>
+                            <td class="px-4 py-3">
+                              {news.categories.map((category) => {
+                                return <span key={v4()}>{category.category_name}</span>
+                              })}
+                            </td>
                             <td class="px-4 py-3 justify-start">
-                              <Link href={`./news/${idx}`} className="text-[#0055D4] underline">
+                              <Link href={`./news/${news.news_id}`} className="text-[#0055D4] underline">
                                 More Details
                               </Link>
                             </td>
                             <td class="px-4 py-3 flex flex-row gap-x-2 justify-end">
-                              <button className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E]">
+                              <button onClick={() => handleSubmit('Accept', news.news_id)} className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E]">
                                 <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
                                   Accept
                                 </div>
                               </button>
-                              <button className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444]">
+                              <button onClick={() => handleSubmit('Reject', news.news_id)} className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444]">
                                 <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
                                   Reject
                                 </div>

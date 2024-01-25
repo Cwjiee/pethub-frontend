@@ -2,8 +2,27 @@ import AdminNavbar from "@/components/organisms/AdminNavbar"
 import AdminFooter from "@/components/organisms/AdminFooter"
 import BackButton from "@/components/atoms/BackButton"
 import NewsTable from "@/components/organisms/NewsTable"
+import { useContext, useEffect, useState } from "react"
+import { GlobalContext } from "@/context"
 
 export default function AdminNews() {
+  const [news, setNews] = useState([])
+  const { token } = useContext(GlobalContext)
+
+  useEffect(() => {
+    (async () => {
+      const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
+      const response = await fetch(`${url}/news_application`, {
+        headers: {
+          "Content-type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
+      const result = await response.json()
+      setNews(result.news)
+    })()
+  }, [token])
+
   return (
     <>
       <div className="flex flex-col justify-between min-h-screen">
@@ -14,7 +33,7 @@ export default function AdminNews() {
             <div className="flex flex-col">
               <div className="text-2xl mx-auto font-bold">News</div>
             </div>
-            <NewsTable />
+            <NewsTable news={news}/>
           </div>
         </div>
         <AdminFooter />
