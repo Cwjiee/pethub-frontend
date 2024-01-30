@@ -18,7 +18,8 @@ export default function ForumsPage() {
     (async () => {
       const response = await fetch(`${url}/posts/${id}`, {
         headers: {
-          "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${token}`,
+          'Accept': 'application/json'
         }
       })
 

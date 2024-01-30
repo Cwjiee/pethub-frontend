@@ -16,7 +16,8 @@ export default function AdminServiceProvider() {
       const response = await fetch(`${url}/sp_application`, {
         headers: {
           "Content-type": "application/json",
-          "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/json"
         }
       })
       const result = await response.json()

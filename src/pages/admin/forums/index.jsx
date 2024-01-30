@@ -27,14 +27,15 @@ export default function AdminForum() {
       const response = await fetch(`${url}/posts`, {
         headers: {
           'Content-type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'applicaiton/json'
         }
       })
       const result = await response.json()
       setPosts(result.post)
       console.log(posts)
     })()
-  }, [token])
+  }, [token, url])
 
   return (
     <>

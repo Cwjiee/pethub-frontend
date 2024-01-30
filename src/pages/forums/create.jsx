@@ -16,14 +16,18 @@ export default function CreateForum() {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(`${url}/categories/post`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          'Content-type': "application/json",
-        }
-      })
-      const result = await response.json()
-      setCategories(result.categories)
+      try {
+        const response = await fetch(`${url}/categories/post`, {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            'Content-type': "application/json",
+          }
+        })
+        const result = await response.json()
+        setCategories(result.categories)
+      } catch (error) {
+        console.error('Error : ', error)
+      }
     })()
 
   }, [url, token])
@@ -52,7 +56,7 @@ export default function CreateForum() {
       }),
       headers: {
         "Content-type": "application/json",
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${token}`,
       }
     })
 

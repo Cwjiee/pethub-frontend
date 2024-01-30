@@ -22,7 +22,8 @@ export default function News() {
       const response = await fetch(`${url}/news`, {
         headers: {
           'Content-type': "application/json",
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json'
         }
       })
 

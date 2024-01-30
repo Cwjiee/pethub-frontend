@@ -19,7 +19,8 @@ export default function ReportDetails() {
       const url = process.env.NEXT_PUBLIC_API_URL
       const response = await fetch(`${url}/report/${id}`, { 
         headers: {
-        "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/json"
         }
       })
       const data = await response.json()

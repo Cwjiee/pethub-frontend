@@ -15,7 +15,8 @@ export default function AdminNews() {
       const response = await fetch(`${url}/news_application`, {
         headers: {
           "Content-type": "application/json",
-          "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/json"
         }
       })
       const result = await response.json()

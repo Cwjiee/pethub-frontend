@@ -7,10 +7,12 @@ import { v4 } from "uuid";
 import { GlobalContext } from "@/context";
 import Image from "next/image";
 import Empty from "../../../public/svg/EmptyNews.svg"
+import { Spinner } from "@chakra-ui/react";
 
 export default function Forum() {
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([])
+  const [isLoading, setIsLoading] = useState(true);
   const { token } = useContext(GlobalContext)
   const tags = [
     "Dogs",
@@ -24,18 +26,24 @@ export default function Forum() {
   const url = process.env.NEXT_PUBLIC_API_URL
 
   useEffect(() => {
-    (async() => {
+    const fetchData = async () => {
       const response = await fetch(`${url}/posts`, {
         headers: {
           'Content-type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/json'
         }
       })
       const result = await response.json()
       setPosts(result.post)
+      setIsLoading(false)
       console.log(posts)
-    })()
+    }
+
+    fetchData()
   }, [token, url])
+
+  if (isLoading) return <Spinner />
 
   return (
     <>
@@ -60,7 +68,7 @@ export default function Forum() {
             </span>
           </div>
         </div>
-        {posts.length > 0 ? 
+        {posts ? 
           posts.map((post) => {
             return <Posts key={post.post_id} post={post}/>
           })
