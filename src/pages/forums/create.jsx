@@ -1,7 +1,7 @@
 import Navbar from "@/components/organisms/Navbar"
 import BackButton from "@/components/atoms/BackButton"
 import { useRouter } from "next/router"
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { GlobalContext } from "@/context"
 
 export default function CreateForum() {
@@ -9,8 +9,36 @@ export default function CreateForum() {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const { userId, token } = useContext(GlobalContext)
+  const [category, setCategory] = useState([])
+  const [categories, setCategories] = useState([])
 
   const url = process.env.NEXT_PUBLIC_API_URL
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(`${url}/categories/post`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          'Content-type': "application/json",
+        }
+      })
+      const result = await response.json()
+      setCategories(result.categories)
+    })()
+
+  }, [url, token])
+
+  const handleChange = (e) => {
+    const selectedOption = e.target.value
+
+    if (category.includes(selectedOption)) {
+      setCategory((prev) => {
+        prev.filter((value) => value !== selectedOption)
+      })
+    } else {
+      setCategory((prev) => [...prev, selectedOption])
+    }
+  }
 
   const submitForm = async () => {
     console.log(userId)
@@ -20,6 +48,7 @@ export default function CreateForum() {
         user_id: userId,
         post_title: title,
         post_description: description,
+        categories: category
       }),
       headers: {
         "Content-type": "application/json",
@@ -27,13 +56,35 @@ export default function CreateForum() {
       }
     })
 
-    const data = response.data
+    const data = await response.json()
     console.log(data.message)
+
+    if (!response.ok) {
+      setTitle("")
+      setDescription("")
+      setCategory([])
+      toast({
+        title: `${data.message}`,
+        description: 'Please try again',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
+    } else {
+      toast({
+        title: `${data.message}`,
+        description: 'We will redirect back to forums page',
+        status: 'success',
+        duration: 3000,
+        isClosable: true
+      })
+      router.push('./forums')
+    }
   }
 
   return (
     <>
-      <Navbar title={false}>Pet News</Navbar>
+      <Navbar title={false}>Forums</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
         <BackButton/>
       </div>
@@ -58,8 +109,18 @@ export default function CreateForum() {
             >
             </textarea>
           </div> 
+          <div>
+            <div>Category:</div>
+            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+            <select multiple onChange={handleChange} value={category} id="countries" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              {categories.map((cat) => {
+                return <option key={cat.category_id} value={cat.category_id}>{cat.category_name}</option>
+              })}
+            </select>
+          </div>
           <input 
             type="submit"
+            value="submit"
             className="w-full h-10 rounded-[10px] bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white cursor-pointer"
             onClick={submitForm}
           />

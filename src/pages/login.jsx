@@ -1,6 +1,12 @@
 import Image from "next/image";
 import Form from "@/components/molecules/LoginForm";
 import { useState } from "react";
+import { Inter, Nunito } from 'next/font/google'
+
+const inter = Nunito({
+  subsets: ["latin"],
+  weight: ["300", "500", "700"],
+});
 
 export default function Login() {
   
@@ -32,7 +38,7 @@ export default function Login() {
 
 Login.getLayout = function getLayout(page) {
   return (
-    <main>
+    <main className={inter.className}>
       {page}
     </main>
   )

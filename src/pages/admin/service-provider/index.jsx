@@ -13,16 +13,14 @@ export default function AdminServiceProvider() {
 
     (async () => {
       const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
-      const response = await fetch(`${url}/user`, {
+      const response = await fetch(`${url}/sp_application`, {
         headers: {
           "Content-type": "application/json",
           "Authorization": `Bearer ${token}`
         }
       })
       const result = await response.json()
-
-      const users = result.user.filter((user) => user.permission_level === '2' && user.user_status === 'pending')
-      setUsers(users)
+      setUsers(result.users)
     })()
   }, [token, users])
 

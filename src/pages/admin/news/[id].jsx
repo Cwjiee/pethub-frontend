@@ -110,6 +110,7 @@ export default function NewsDetails() {
                       <div key={news.categories[0].category_id} className="flex justify-between">
                         <div className="flex justify-center items-center bg-white rounded-[40px] h-6 px-5 w-auto border border-[#D3D3D3]">
                           <span className="font-semibold text-sm spacing">{news.categories[0].category_name}</span>
+                        yay
                         </div>
                       </div>
                   }

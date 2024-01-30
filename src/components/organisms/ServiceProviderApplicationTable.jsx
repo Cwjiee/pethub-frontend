@@ -8,14 +8,13 @@ export default function ServiceProviderApplicationTable({ users }) {
   const { token } = useContext(GlobalContext)
   const toast = useToast()
 
-  const handleSubmit = async (application, user) => {
+  const handleSubmit = async (application, userId) => {
     
-    const url = process.env.NEXT_PUBLIC_API_URL
-    const id = user.user_id
+    const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
 
-    const answer = application === 'Accept' ? 'success' : 'rejected'
+    const answer = application === 'Accept' ? 'approved' : 'rejected'
 
-    const response = await fetch(`http://localhost:8000/api/v1/admin/service_provider_application/${id}`, {
+    const response = await fetch(`${url}/service_provider_application/${userId}`, {
       method: "PUT",
       body: JSON.stringify({
         user_status: answer,
@@ -83,7 +82,7 @@ export default function ServiceProviderApplicationTable({ users }) {
                             <td class="px-4 py-3 flex flex-row gap-x-2 justify-end">
                               <button
                                 className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E]"
-                                onClick={() => handleSubmit('Accept', user)}
+                                onClick={() => handleSubmit('Accept', user.user_id)}
                               >
                                 <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
                                   Accept
@@ -91,7 +90,7 @@ export default function ServiceProviderApplicationTable({ users }) {
                               </button>
                               <button
                                 className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444]"
-                                onClick={() => handleSubmit('Reject', user)}
+                                onClick={() => handleSubmit('Reject', user.user_id)}
                               >
                                 <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
                                   Reject

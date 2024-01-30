@@ -2,11 +2,16 @@ import Navbar from "@/components/organisms/Navbar";
 import Searchbar from "@/components/molecules/SearchbarWithBtn";
 import Posts from "@/components/molecules/Posts";
 import Tag from "@/components/atoms/Tag";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { v4 } from "uuid";
+import { GlobalContext } from "@/context";
+import Image from "next/image";
+import Empty from "../../../public/svg/EmptyNews.svg"
 
 export default function Forum() {
   const [input, setInput] = useState("");
+  const [posts, setPosts] = useState([])
+  const { token } = useContext(GlobalContext)
   const tags = [
     "Dogs",
     "Cats",
@@ -16,6 +21,21 @@ export default function Forum() {
     "Food",
     "Grooming",
   ];
+  const url = process.env.NEXT_PUBLIC_API_URL
+
+  useEffect(() => {
+    (async() => {
+      const response = await fetch(`${url}/posts`, {
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      const result = await response.json()
+      setPosts(result.post)
+      console.log(posts)
+    })()
+  }, [token, url])
 
   return (
     <>
@@ -40,10 +60,16 @@ export default function Forum() {
             </span>
           </div>
         </div>
-        <Posts popular={true} />
-        <Posts popular={false} />
-        <Posts popular={false} />
-        <Posts popular={false} />
+        {posts.length > 0 ? 
+          posts.map((post) => {
+            return <Posts key={post.post_id} post={post}/>
+          })
+        :
+          <div className="flex flex-col justify-center items-center mt-20">
+            <Image src={Empty} width={200} height={245} alt="empty news"/>
+            <div className="flex justify-center text-2xl m-20 font-bold text-secondary-500">Wow, such emptiness :(</div>
+          </div>
+        }
       </div>
     </>
   );

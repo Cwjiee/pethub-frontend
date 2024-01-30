@@ -19,7 +19,7 @@ export default function CreateNews() {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(`${url}/categories`, {
+      const response = await fetch(`${url}/categories/news`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -141,6 +141,7 @@ export default function CreateNews() {
             </div>
             <input 
               type="submit"
+              value="submit"
               className="w-full h-10 rounded-[10px] bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white cursor-pointer"
             />
         </div>

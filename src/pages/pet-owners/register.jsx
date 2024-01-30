@@ -1,5 +1,11 @@
 import Image from "next/image";
 import PetOwnerRegisterForm from "@/components/molecules/RegisterForm";
+import { Inter, Nunito } from 'next/font/google'
+
+const inter = Nunito({
+  subsets: ["latin"],
+  weight: ["300", "500", "700"],
+});
 
 export default function Signup() {
   return (
@@ -20,7 +26,7 @@ export default function Signup() {
 
 Signup.getLayout = function getLayout(page) {
   return (
-    <main>
+    <main className={inter.className}>
       {page}
     </main>
   )
