@@ -68,7 +68,7 @@ export default function Forum() {
             </span>
           </div>
         </div>
-        {posts ? 
+        {posts.length > 0 ? 
           posts.map((post) => {
             return <Posts key={post.post_id} post={post}/>
           })
