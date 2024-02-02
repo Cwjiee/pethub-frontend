@@ -1,15 +1,15 @@
 import Image from 'next/image'
-export default function PetCard() {
+export default function PetCard({pet}) {
   return (
     <>
     <div className="bg-white w-[350px] rounded-lg shadow-lg">
         <Image src="/download.jpeg" alt="this is a text" className="overflow-auto rounded-t-lg" width={350} height={100}/>
         <div className="py-5 px-5">
-            <div><b>Name: </b>Brad</div>
-            <div><b>Type: </b>Dog</div>
-            <div><b>Breed: </b>Pug</div>
-            <div><b>Age: </b>9 years old</div>
-            <div><b>Description: </b>Doesnt like chicken and lamb but loves to play around a lot</div>
+            <div><b>Name: </b>{pet.pet_name}</div>
+            <div><b>Type: </b>{pet.type}</div>
+            <div><b>Breed: </b>{pet.breed}</div>
+            <div><b>Age: </b>{pet.age}</div>
+            <div><b>Description: </b>{pet.description}</div>
 
             <div className="flex justify-end gap-3">
             <button>

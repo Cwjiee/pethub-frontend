@@ -38,7 +38,7 @@ export default function Profile({user}) {
 
           <div className="flex flex-col gap-y-4">
             <div className="flex flex-row gap-x-4">
-              <Link href={'./pet-owners/pets'} className="flex justify-around px-8 py-3 rounded-[10px] bg-primary-500 hover:bg-primary-600 active:bg-primary-700">
+              <Link href={'./pet-owners/pets/add'} className="flex justify-around px-8 py-3 rounded-[10px] bg-primary-500 hover:bg-primary-600 active:bg-primary-700">
                 <Image src={AddPet} alt="add" width={20} height={20} />
                 <div className="my-auto text-white spacing tracking-[0.86px] text-sm ml-1">
                   Add Pets
@@ -68,7 +68,7 @@ export default function Profile({user}) {
               {user.pets ? (
                 user.pets.map((pet) => {
                   return (
-                    <PetCard key={pet.id}/>
+                    <PetCard key={pet.id} pet={pet}/>
                   )
                 })
               ) : (
