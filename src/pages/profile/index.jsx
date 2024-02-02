@@ -1,31 +1,27 @@
 import Navbar from "@/components/organisms/Navbar";
 import Image from "next/image";
 import Link from "next/link";
-import AddPet from "../../public/svg/AddPet.svg"
-import { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "@/context";
-import User from "../../public/png/NewsPlaceholder.png"
+import AddPet from "../../../public/svg/AddPet.svg"
+import User from "../../../public/png/NewsPlaceholder.png"
+import PetCard from "@/components/organisms/PetCard";
 
-export default function Profile() {
+export async function getServerSideProps(context) {
+  const token = context.req.cookies.token;
   const url = process.env.NEXT_PUBLIC_API_URL
-  const { token } = useContext(GlobalContext)
-  const [user, setUser] = useState()
+  
+  const response = await fetch(`${url}/profile`, {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Accept": "application/json"
+    }
+  })
+  const user = await response.json()
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(`${url}/profile`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Accept": "application/json"
-        }
-      })
+  return { props: { user } }
+}
 
-      const result = await response.json()
-      setUser(result.user)
-      console.log(result.user)
-    })()
-  }, [])
-
+export default function Profile({user}) {
+  
   return (
     <>
       <Navbar></Navbar>
@@ -55,15 +51,30 @@ export default function Profile() {
               </Link>
             </div>
             {user && (
-              <div className="bg-white px-3 py-4 rounded-[10px] shadow-lg">
+              <div className="bg-white px-6 py-5 rounded-[10px] shadow-lg ">
                 <div>Name: </div>
                 <div className="mt-2">Email: {user.email}</div>
                 <div className="mt-2">Contact Number: {user.contact_number}</div>
                 <div className="mt-5 font-bold">About Me</div>
-                <div className="mt-1">{user.description}</div>
+                <div className="mt-1"></div>
               </div>
             )}
           </div>
+        </div>
+        <div>
+            <h1 className="text-center mt-16 mb-10 text-2xl font-bold">Pets</h1>
+
+            <div className="flex flex-wrap justify-center">
+              {user.pets ? (
+                user.pets.map((pet) => {
+                  return (
+                    <PetCard key={pet.id}/>
+                  )
+                })
+              ) : (
+                <div>No pets found here. Add yours now!</div>
+              )}
+            </div>
         </div>
       </div>
     </>
