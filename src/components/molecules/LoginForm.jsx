@@ -49,6 +49,8 @@ export default function RegisterForm() {
       document.cookie = `token=${data.token}`
       setToken(getToken)
       setUserId(getUserId)
+      console.log(data.token)
+      console.log(data.user.user_id)
       toast({
         title: 'Successfully logged in',
         description: 'We will redirect you to the main page',

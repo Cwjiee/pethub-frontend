@@ -4,24 +4,39 @@ import Link from "next/link";
 import AddPet from "../../../public/svg/AddPet.svg"
 import User from "../../../public/png/NewsPlaceholder.png"
 import PetCard from "@/components/organisms/PetCard";
+import { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "@/context";
+import { Spinner } from "@chakra-ui/react";
 
-export async function getServerSideProps(context) {
-  const token = context.req.cookies.token;
-  const url = process.env.NEXT_PUBLIC_API_URL
-  
-  const response = await fetch(`${url}/profile`, {
-    headers: {
-      "Authorization": `Bearer ${token}`,
-      "Accept": "application/json"
-    }
-  })
-  const user = await response.json()
-  console.log(user);
-  return { props: { user } }
-}
+export default function Profile() {
+  const { token } = useContext(GlobalContext)
+  const [tokenReady, setTokenReady] = useState(false)
+  const [user, setUser] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
 
-export default function Profile({user}) {
-  user = user.user;
+  useEffect(() => {
+    (async () => {
+      if (tokenReady) {
+        const response = await fetch(`http://localhost/api/v1/profile`, {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/json"
+          }
+        })
+        const result = await response.json()
+        console.log(result)
+        setUser(result.user)
+        setIsLoading(false)
+      }
+    })()
+  }, [tokenReady])
+
+  useEffect(() => {
+    if (token) setTokenReady(true)
+  }, [token])
+
+  if (isLoading) return <Spinner />
+
   return (
     <>
       <Navbar></Navbar>
