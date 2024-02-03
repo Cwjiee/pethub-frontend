@@ -50,7 +50,7 @@ export default function CreateAppointment() {
         duration: 3000,
         isClosable: true
       })
-      setTimeout(function() {router.push('/healtcare-facility')}, 1000)
+      setTimeout(function() {router.push(`/healtcare-facility/${petSpId}/new/`)}, 1000)
     } else (
       toast({
         title: 'Failed to create appointment',
@@ -70,7 +70,7 @@ export default function CreateAppointment() {
         </div>
         <form 
           onSubmit={submitForm}
-          className="w-[80%] sm:w-[40%] mt-12 m-auto py-11 px-20 bg-white"
+          className="w-[80%] sm:w-[40%] mt-12 m-auto py-11 px-20 bg-white shadow-lg rounded-[10px]"
         >
           <div className="flex flex-col justify-between gap-[50px]">
             <h2 className="mx-auto font-bold text-xl">Make Appointment for Pet A</h2>
