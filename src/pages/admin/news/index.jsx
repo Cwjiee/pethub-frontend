@@ -34,7 +34,7 @@ export default function AdminNews() {
             <div className="flex flex-col">
               <div className="text-2xl mx-auto font-bold">News</div>
             </div>
-            <NewsTable news={news}/>
+            <NewsTable news={news} token={token}/>
           </div>
         </div>
         <AdminFooter />

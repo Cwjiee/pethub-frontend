@@ -2,7 +2,7 @@ import { useToast } from "@chakra-ui/react"
 import Link from "next/link"
 import { v4 } from "uuid"
 
-export default function NewsTable({ news }) {
+export default function NewsTable({ news, token }) {
   const toast = useToast()
 
   const handleSubmit = async (application, newsId) => {
