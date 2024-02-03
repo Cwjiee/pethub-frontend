@@ -8,6 +8,7 @@ import Image from "next/image";
 import Bank from "@/../public/svg/Bank.svg"
 
 export default function CreateAppointment() {
+  const [image, setImage] = useState(null)
   const router = useRouter()
   const petSpId = router.query.id
   const petId = router.query.pet_id
