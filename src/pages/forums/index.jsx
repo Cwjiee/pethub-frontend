@@ -43,9 +43,7 @@ export default function Forum() {
     fetchData()
   }, [token, url])
 
-  if (isLoading) return <Spinner />
-
-  return (
+  return !isLoading ? (
     <>
       <Navbar title={true}>Forums</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
@@ -68,7 +66,7 @@ export default function Forum() {
             </span>
           </div>
         </div>
-        {posts.length > 0 ? 
+        {posts ? 
           posts.map((post) => {
             return <Posts key={post.post_id} post={post}/>
           })
@@ -80,5 +78,9 @@ export default function Forum() {
         }
       </div>
     </>
-  );
+  ) : (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner size={'xl'} thickness="5px" />
+      </div>
+  )
 }
