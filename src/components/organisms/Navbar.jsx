@@ -30,7 +30,7 @@ export default function Navbar({ children, title }) {
 
   return (
     <header className="bg-white">
-      <nav className="mx-auto w-[80%] flex items-center justify-between p-5 py-4">
+      <nav className="mx-auto w-[80%] flex items-center justify-between py-4">
         <div className="flex gap-x-2">
           <Image src="/logo.svg" alt="logo" width={34} height={34} />
           <Image src="/Pethub.svg" alt="pethub" width={83} height={83} />
