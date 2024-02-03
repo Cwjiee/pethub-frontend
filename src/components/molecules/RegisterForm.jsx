@@ -55,8 +55,9 @@ export default function PetOwnerRegisterForm() {
     });
 
     const data = await response.json()
-    console.log(data.token)
-    console.log(data.user.id)
+    
+    console.log(data);
+
     let getToken = data.token
     let getUserId = data.user.user_id
     document.cookie = `token=${data.token}`

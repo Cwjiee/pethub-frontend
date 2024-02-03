@@ -1,7 +1,8 @@
 import Navbar from "@/components/organisms/Navbar";
 import Searchbar from "@/components/molecules/Searchbar";
 import BookingBlock from "@/components/molecules/BookingBlock";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { GlobalContext } from "@/context";
 
 export default function Veterinary() {
   const [input, setInput] = useState("");
@@ -10,6 +11,9 @@ export default function Veterinary() {
     name: "Amy's Veterinary Clinic",
     time: "12pm - 6pm",
   };
+
+  const {token} = useContext(GlobalContext)
+  console.log(token);
 
   return (
     <>

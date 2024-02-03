@@ -3,6 +3,7 @@ import { GlobalContext } from "@/context";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { useToast } from '@chakra-ui/react'
+import { useParams } from "next/navigation";
 
 export default function Add() {
     const [petName, setPetName] = useState("");
@@ -14,7 +15,7 @@ export default function Add() {
     const [errors, setErrors] = useState();
     const { token, userId } = useContext(GlobalContext);
     const toast = useToast();
-    
+    const params = useParams()
     const router = useRouter();
 
     const uploadToClient = (e) => {
@@ -38,8 +39,8 @@ export default function Add() {
 
         const url = process.env.NEXT_PUBLIC_API_URL;
         
-        const response = await fetch(`${url}/pets`, {
-            method: "POST",
+        const response = await fetch(`${url}/pets/${params}`, {
+            method: "PUT",
             body: body,
             headers: {
                 Accept: "application/json",
@@ -73,14 +74,12 @@ export default function Add() {
               router.push('/profile')
             }, 1000)
           }
-
-        /* router.push('/pet-owners/pets'); */
     }
     return (
         <>
             <Navbar/>
             <div className="bg-white rounded-lg shadow-lg mx-auto w-[530px] py-10 px-10 mt-24">
-                <h1 className="text-center text-2xl font-bold mb-5">Add Pet</h1>
+                <h1 className="text-center text-2xl font-bold mb-5">Edit Pet</h1>
                 <form action="" className="text-sm" onSubmit={handleSubmit}>
                     <label htmlFor="pet-name">Pet Name: </label>
                     <p className="mb-3">   

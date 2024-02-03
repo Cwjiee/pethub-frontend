@@ -31,13 +31,7 @@ export default function RegisterForm() {
     if (data.user?.user_status === 'pending') {
       router.push('/service-providers/status')
       return
-    }
-
-    console.log(data)
-    console.log(data.token)
-    let getToken = data.token
-    let getUserId = data.user.user_id
-    document.cookie = `token=${data.token}`
+    }    
 
     if (!response.ok) {
       setEmail("")
@@ -50,6 +44,9 @@ export default function RegisterForm() {
         isClosable: true
       })
     } else {
+      let getToken = data.token
+      let getUserId = data.user.user_id
+      document.cookie = `token=${data.token}`
       setToken(getToken)
       setUserId(getUserId)
       toast({
