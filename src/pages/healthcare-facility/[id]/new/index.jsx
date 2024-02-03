@@ -4,11 +4,14 @@ import { Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context"
 import Link from "next/link"
+import { useRouter } from "next/router"
 
 export default function SelectPet() {
   const [pets, setPets] = useState()
   const [pet, setPet] = useState()
   const { token } = useContext(GlobalContext)
+  const router = useRouter()
+  const facilityId = router.query.id
 
   const url = process.env.NEXT_PUBLIC_API_URL
 
@@ -51,7 +54,7 @@ export default function SelectPet() {
           </RadioGroup>
         </div>
         <Link
-          href={`./appointments/new/pet_id`}
+          href={`./healthcare-facility/${facilityId}/new/pet_id`}
           className="w-full h-10 rounded-[10px] bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white cursor-pointer flex justify-center items-center"
         >
           Next
