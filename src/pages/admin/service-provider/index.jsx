@@ -4,26 +4,37 @@ import BackButton from "@/components/atoms/BackButton"
 import ServiceProviderApplicationTable from "@/components/organisms/ServiceProviderApplicationTable"
 import { GlobalContext } from "@/context"
 import { useEffect, useState, useContext } from "react"
+import { Spinner } from "@chakra-ui/react";
 
 export default function AdminServiceProvider() {
   const [users, setUsers] = useState([])
   const { token } = useContext(GlobalContext)
+  const [tokenReady, setTokenReady] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-
-    (async () => {
-      const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
-      const response = await fetch(`${url}/sp_application`, {
-        headers: {
-          "Content-type": "application/json",
-          "Authorization": `Bearer ${token}`,
-          "Accept": "application/json"
+      (async () => {
+        if (tokenReady) {
+          const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
+          const response = await fetch(`${url}/sp_application`, {
+            headers: {
+              "Content-type": "application/json",
+              "Authorization": `Bearer ${token}`,
+              "Accept": "application/json"
+            }
+          })
+          const result = await response.json()
+          setUsers(result.users)
+          setIsLoading(false);
         }
-      })
-      const result = await response.json()
-      setUsers(result.users)
-    })()
-  }, [token, users])
+      })()
+  }, [tokenReady])
+
+  useEffect(() => {
+    if (token) setTokenReady(true)
+  }, [token])
+
+  if (isLoading) return <Spinner />
 
   return (
     <>

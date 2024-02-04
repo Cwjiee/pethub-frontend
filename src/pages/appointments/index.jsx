@@ -3,12 +3,15 @@ import BackButton from "@/components/atoms/BackButton"
 import AppointmentsTable from "@/components/organisms/AppointmentsTable"
 import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context"
+import { Spinner } from "flowbite-react"
 
-export default function AppointmentPage() {
+export default function Appointments() {
   const [appointments, setAppointments] = useState()
   const { token } = useContext(GlobalContext)
   const url = process.env.NEXT_PUBLIC_API_URL
-
+  const [tokenReady, setTokenReady] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  
   useEffect(() => {
     (async () => {
       const response = await fetch(`${url}/appointments`, {
@@ -18,10 +21,18 @@ export default function AppointmentPage() {
         }
       })
       const result = await response.json()
-      setAppointments(result.appointment)
-      console.log(result.appointment)
+      console.log(result);
+      setAppointments(result.appointments)
+      console.log(result.appointments)
+      setIsLoading(false)
     })()
-  }, [])
+  }, [tokenReady])
+
+  useEffect(() => {
+    if (token) setTokenReady(true)
+  }, [token])
+
+  if (isLoading) return <Spinner />
 
   return (
     <>
