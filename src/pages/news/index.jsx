@@ -7,11 +7,14 @@ import NewsBlock from "@/components/molecules/NewsBlock";
 import { GlobalContext } from "@/context";
 import Empty from "../../../public/svg/EmptyNews.svg"
 import Image from "next/image";
+import LoadSpinner from "@/components/atoms/LoadSpinner";
 
 export default function News() {
   const [input, setInput] = useState("");
   const { token } = useContext(GlobalContext)
   const [news, setNews] = useState([])
+  const [tokenReady, setTokenReady] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const tags = ["Events", "Missing", "Promotions", "Adoptions"];
   const href = "/news/create" 
@@ -19,20 +22,27 @@ export default function News() {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(`${url}/news`, {
-        headers: {
-          'Content-type': "application/json",
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json'
-        }
-      })
+      if (tokenReady) {
+        const response = await fetch(`${url}/news`, {
+          headers: {
+            'Content-type': "application/json",
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json'
+          }
+        })
 
-      const data = await response.json()
-      setNews(data.news)
+        const data = await response.json()
+        setNews(data.news)
+        setIsLoading(false)
+      }
     })()
-  }, [token, url])
+  }, [tokenReady])
 
-  return (
+  useEffect(() => {
+    if (token) setTokenReady(true)
+  }, [token])
+
+  return !isLoading ? (
     <>
       <Navbar title={true}>Pet News</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
@@ -59,5 +69,7 @@ export default function News() {
         }
       </div>
     </>
-  );
+  ) : (
+    <LoadSpinner />
+  )
 }

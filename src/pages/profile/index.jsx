@@ -6,12 +6,12 @@ import User from "../../../public/png/NewsPlaceholder.png"
 import PetCard from "@/components/organisms/PetCard";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
-import { Spinner } from "@chakra-ui/react";
+import LoadSpinner from "@/components/atoms/LoadSpinner";
 
 export default function Profile() {
   const { token } = useContext(GlobalContext)
-  const [tokenReady, setTokenReady] = useState(false)
   const [user, setUser] = useState({})
+  const [tokenReady, setTokenReady] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -35,9 +35,7 @@ export default function Profile() {
     if (token) setTokenReady(true)
   }, [token])
 
-  if (isLoading) return <Spinner />
-
-  return (
+  return !isLoading ? (
     <>
       <Navbar></Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
@@ -93,5 +91,7 @@ export default function Profile() {
         </div>
       </div>
     </>
+  ) : (
+    <LoadSpinner />
   )
 }

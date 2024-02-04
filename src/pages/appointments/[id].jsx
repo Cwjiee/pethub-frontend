@@ -1,8 +1,7 @@
 import BackButton from "@/components/atoms/BackButton"
+import LoadSpinner from "@/components/atoms/LoadSpinner"
 import Navbar from "@/components/organisms/Navbar"
 import { GlobalContext } from "@/context"
-import { Spinner } from "flowbite-react"
-import { useParams } from "next/navigation"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 
@@ -36,9 +35,7 @@ export default function AppointmentPage() {
         if (token && id) setTokenReady(true)
     }, [token, id])
 
-    if (isLoading) return <Spinner />
-    
-    return (
+    return !isLoading ? (
         <>
             <Navbar/>
             <div className="w-[90%] m-auto mt-10">
@@ -86,5 +83,7 @@ export default function AppointmentPage() {
             </div>
             </div>
         </>
+    ) : (
+      <LoadSpinner />
     )
 }

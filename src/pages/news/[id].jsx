@@ -4,6 +4,7 @@ import NewsPlaceholder from "../../../public/png/NewsPlaceholder.png";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
+import LoadSpinner from "@/components/atoms/LoadSpinner";
 
 export default function NewsPage() {
   const router = useRouter()
@@ -11,22 +12,31 @@ export default function NewsPage() {
   const url = process.env.NEXT_PUBLIC_API_URL
   const { token } = useContext(GlobalContext)
   const [news, setNews] = useState({})
+  const [tokenReady, setTokenReady] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(`${url}/news/${id}`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          'Accept': 'application/json'
-        }
-      })
+      if (tokenReady) {
+        const response = await fetch(`${url}/news/${id}`, {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            'Accept': 'application/json'
+          }
+        })
 
-      const result = await response.json()
-      setNews(result.news)
+        const result = await response.json()
+        setNews(result.news)
+        setIsLoading(false)
+      }
     })()
-  }, [token, url, id])
+  }, [tokenReady, id])
 
-  return (
+  useEffect(() => {
+    if (token && id) setTokenReady(true)
+  }, [token, id])
+
+  return !isLoading ? (
     <>
       <Navbar title={false}>Pet News</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
@@ -47,5 +57,7 @@ export default function NewsPage() {
         </div>
       </div>
     </>
+  ) : (
+    <LoadSpinner />
   )  
 }

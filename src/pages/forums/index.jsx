@@ -7,7 +7,7 @@ import { v4 } from "uuid";
 import { GlobalContext } from "@/context";
 import Image from "next/image";
 import Empty from "../../../public/svg/EmptyNews.svg"
-import { Spinner } from "@chakra-ui/react";
+import LoadSpinner from "@/components/atoms/LoadSpinner";
 
 export default function Forum() {
   const [input, setInput] = useState("");
@@ -24,24 +24,29 @@ export default function Forum() {
     "Grooming",
   ];
   const url = process.env.NEXT_PUBLIC_API_URL
+  const [tokenReady, setTokenReady] = useState(false)
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`${url}/posts`, {
-        headers: {
-          'Content-type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json'
-        }
-      })
-      const result = await response.json()
-      setPosts(result.post)
-      setIsLoading(false)
-      console.log(posts)
-    }
+    (async () => {
+      if (tokenReady) {
+        const response = await fetch(`${url}/posts`, {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json'
+          }
+        })
+        const result = await response.json()
+        setPosts(result.post)
+        setIsLoading(false)
+        console.log(posts)
+      }
+    })()
+  }, [tokenReady])
 
-    fetchData()
-  }, [token, url])
+  useEffect(() => {
+    if (token) setTokenReady(true)
+  }, [token])
 
   return !isLoading ? (
     <>
@@ -79,8 +84,6 @@ export default function Forum() {
       </div>
     </>
   ) : (
-      <div className="flex justify-center items-center h-screen">
-        <Spinner size={'xl'} thickness="5px" />
-      </div>
+    <LoadSpinner />
   )
 }
