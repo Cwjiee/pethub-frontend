@@ -55,7 +55,7 @@ export default function News() {
           </div>
         </div>
 
-        {news.length > 0 ? 
+        {news ? 
           <div className="flex flex-row flex-wrap justify-between gap-5">
             {news.map((news) => {
               return <NewsBlock key={news.news_id} news={news}/>

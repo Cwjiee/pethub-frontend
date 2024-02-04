@@ -3,9 +3,11 @@ import BackButton from "@/components/atoms/BackButton"
 import { useRouter } from "next/router"
 import { useState, useContext, useEffect } from "react"
 import { GlobalContext } from "@/context"
+import { useToast } from "@chakra-ui/react"
 
 export default function CreateForum() {
   const router = useRouter()
+  const toast = useToast()
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const { userId, token } = useContext(GlobalContext)

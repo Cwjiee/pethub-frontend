@@ -55,7 +55,7 @@ export default function Forum() {
         <Searchbar input={input} setInput={setInput} label={"New Forums"} href={"/forums/create"}/>
         <div className="flex justify-between mt-4 mb-6">
           <div className="flex gap-x-[12px]">
-            {tags.map((tag) => {
+            {posts.categories.map((tag) => {
               return <Tag tag={tag} tagId={v4()} key={v4()} />;
             })}
           </div>

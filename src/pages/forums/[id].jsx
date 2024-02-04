@@ -5,30 +5,41 @@ import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context"
 import { Avatar } from '@chakra-ui/react'
 import DateTimeBlock from "@/components/atoms/DateTimeBlock"
+import LoadSpinner from "@/components/atoms/LoadSpinner"
 
 export default function ForumsPage() {
   const router = useRouter()
   const id = router.query.id
   const { token, userId } = useContext(GlobalContext)
   const [post, setPost] = useState()
+  const [tokenReady, setTokenReady] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const url = process.env.NEXT_PUBLIC_API_URL
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(`${url}/posts/${id}`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          'Accept': 'application/json'
-        }
-      })
+      if (tokenReady) {
+        const response = await fetch(`${url}/posts/${id}`, {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            'Accept': 'application/json'
+          }
+        })
 
-      const result = await response.json()
-      setPost(result.post)
+        const result = await response.json()
+        setPost(result.post)
+        console.log(result.post)
+        setIsLoading(false)
+      }
     })()
-  }, [id, url, token])
+  }, [tokenReady, id])
 
-  return (
+  useEffect(() => {
+    if (token) setTokenReady(true)
+  }, [token, id])
+
+  return !isLoading ? (
     <>
       <Navbar title={false}>Forums</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
@@ -65,5 +76,7 @@ export default function ForumsPage() {
         </div>
       }
     </>
+  ) : (
+    <LoadSpinner />
   )
 }

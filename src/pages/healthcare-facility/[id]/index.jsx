@@ -4,9 +4,12 @@ import Image from "next/image"
 import SpPlaceholder from "@/../public/svg/SpPlaceholder.svg"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { useState, useEffect } from "react"
 
 export default function HealthcareFacilityInfo() {
   const router = useRouter()
+  const [tokenReady, setTokenReady] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const facilityId = router.query.id
 
   return (
