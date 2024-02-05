@@ -77,7 +77,7 @@ export default function Profile() {
         <div>
             <h1 className="text-center mt-16 mb-10 text-2xl font-bold">Pets</h1>
 
-            <div className="flex flex-wrap justify-center">
+            <div className="flex flex-wrap justify-center gap-x-8">
               {user.pets ? (
                 user.pets.map((pet) => {
                   return (
