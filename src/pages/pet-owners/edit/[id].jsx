@@ -5,18 +5,22 @@ import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { useToast } from "@chakra-ui/react"
 import { GlobalContext } from "@/context";
-export default function EditPetOwner() {
 
+export default function EditPetOwner() {
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [description, setDescription] = useState('')
   const [contact, setContact] = useState('')
   const [image, setImage] = useState(null)
+  const [errors, setErrors] = useState();
   const router = useRouter()
   const toast = useToast()
 
-  const { setToken, setUserId } = useContext(GlobalContext)
+  const id = router.query.id;
+
+  const { token } = useContext(GlobalContext)
 
   const uploadToClient = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -38,31 +42,19 @@ export default function EditPetOwner() {
     body.append("contact_number", contact)
     body.append("image", image)
 
-    if(password !== confirmPassword) {
-      return (
-        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-          <span class="font-medium">Error!</span> Wrong confirmation password
-        </div>
-      )
-    }
-
     const url = process.env.NEXT_PUBLIC_API_URL
     
-    const response = await fetch(`${url}/register`, {
+    const response = await fetch(`${url}/petowner/edit/${id}`, {
       method: "POST",
       body: body,
       headers: {
         "Accept": "application/json",
+        "Authorization": "Bearer " + token
       },
     });
 
     const data = await response.json()
-    
-    console.log(data);
 
-    let getToken = data.token
-    let getUserId = data.user.user_id
-    document.cookie = `token=${data.token}`
     if (!response.ok) {
       setErrors(data.errors)
       toast({
@@ -74,8 +66,6 @@ export default function EditPetOwner() {
       })
       console.log(errors)
     } else {
-      setToken(getToken)
-      setUserId(getUserId)
       toast({
         title: 'Account created',
         description: 'We will redirect you to the main page',
@@ -83,7 +73,7 @@ export default function EditPetOwner() {
         duration: 9000,
         isClosable: true
       })
-      setTimeout(function () {router.push('/healthcare-facility')}, 1000)
+      setTimeout(function () {router.push('/profile')}, 1000)
     }
   }
 
@@ -101,55 +91,62 @@ export default function EditPetOwner() {
               <span className="font-semibold">Name:</span>
               <input
                 type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid ring-[#E1E1E1] border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
                 onChange={(e) => setName(e.target.value)}
               />
+              {errors && errors.full_name && <p className="text-red-500">{errors.full_name.toString()}</p>}
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Email:</span>
               <input
                 type="email"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid ring-[#E1E1E1] border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
                 onChange={(e) => setEmail(e.target.value)}
               />
+              {errors && errors.email && <p className="text-red-500">{errors.email.toString()}</p>}
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Password:</span>
               <input
                 type="password"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid ring-[#E1E1E1] border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {errors && errors.password && <p className="text-red-500">{errors.password.toString()}</p>}
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Confirm Password:</span>
               <input
                 type="password"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid ring-[#E1E1E1] border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
+              {password !== confirmPassword && <p className="text-red-500">Password does not match</p>}
             </div>
           </div>
           <div>
             <div className="flex flex-col">
               <span className="font-semibold">Description:</span>
               <textarea
-                className="rounded-[10px] h-[132px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] h-[132px] bg-transparent px-6 py-2 outline-none border border-solid ring-[#E1E1E1] border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
                 onChange={(e) => setDescription(e.target.value)}
               />
+              {errors && errors.description && <p className="text-red-500">{errors.description.toString()}</p>}
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Contact Number:</span>
               <input
                 type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid ring-[#E1E1E1] border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
                 onChange={(e) => setContact(e.target.value)}
               />
+              {errors && errors.contact_number && <p className="text-red-500">{errors.contact_number.toString()}</p>}
             </div>
             <div className="flex flex-col mt-[28px]">
               <label class="block text-sm font-medium dark:text-white" for="file_input">Upload Profile Image
-                <input id="file_input" type="file" onChange={uploadToClient} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
+                <input id="file_input" type="file" onChange={uploadToClient} class="block w-full text-sm text-gray-900 border border-solid  border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
               </label>
+              {errors && errors.image && <p className="text-red-500">{errors.image.toString()}</p>}
             </div>
           </div>
         </div>
@@ -170,4 +167,3 @@ export default function EditPetOwner() {
    </>
   )
 }
-
