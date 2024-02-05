@@ -4,6 +4,7 @@ import { useRouter } from "next/router"
 import { useState, useContext, useEffect } from "react"
 import { GlobalContext } from "@/context"
 import { useToast } from "@chakra-ui/react"
+import LoadSpinner from "@/components/atoms/LoadSpinner"
 
 export default function CreateForum() {
   const router = useRouter()
@@ -13,26 +14,35 @@ export default function CreateForum() {
   const { userId, token } = useContext(GlobalContext)
   const [category, setCategory] = useState([])
   const [categories, setCategories] = useState([])
+  const [tokenReady, setTokenReady] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const url = process.env.NEXT_PUBLIC_API_URL
 
   useEffect(() => {
     (async () => {
-      try {
-        const response = await fetch(`${url}/categories/post`, {
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            'Content-type': "application/json",
-          }
-        })
-        const result = await response.json()
-        setCategories(result.categories)
-      } catch (error) {
-        console.error('Error : ', error)
+      if (tokenReady) {
+        try {
+          const response = await fetch(`${url}/categories/post`, {
+            headers: {
+              "Authorization": `Bearer ${token}`,
+              'Content-type': "application/json",
+            }
+          })
+          const result = await response.json()
+          setCategories(result.categories)
+          setIsLoading(false)
+        } catch (error) {
+          console.error('Error : ', error)
+        }
       }
     })()
 
-  }, [url, token])
+  }, [tokenReady])
+
+  useEffect(() => {
+    if (token) setTokenReady(true)
+  }, [token])
 
   const handleChange = (e) => {
     const selectedOption = e.target.value
@@ -84,11 +94,11 @@ export default function CreateForum() {
         duration: 3000,
         isClosable: true
       })
-      router.push('./forums')
+      router.push('./')
     }
   }
 
-  return (
+  return !isLoading ? (
     <>
       <Navbar title={false}>Forums</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
@@ -133,5 +143,7 @@ export default function CreateForum() {
         </div>
       </div>
     </>
+  ) : (
+    <LoadSpinner />
   )
 }
