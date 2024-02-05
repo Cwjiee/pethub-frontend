@@ -22,6 +22,13 @@ export default function CreateAppointment() {
   const submitForm = async (e) => {
     e.preventDefault()
 
+    console.log(userId)
+    console.log(petId)
+    console.log(petSpId)
+    console.log(date)
+    console.log(time)
+    console.log(issue)
+    console.log(details)
     const response = await fetch(`${url}/appointments`, {
       method: "POST",
       body: JSON.stringify({
@@ -37,6 +44,7 @@ export default function CreateAppointment() {
       headers: {
         "Accept": "application/json",
         "Authorization": `Bearer ${token}`,
+        "Content-type": "application/json"
       },
     })
 
@@ -50,8 +58,13 @@ export default function CreateAppointment() {
         duration: 3000,
         isClosable: true
       })
-      setTimeout(function() {router.push(`/healtcare-facility/${petSpId}/new/`)}, 1000)
-    } else (
+      setTimeout(function() {router.push(`/healthcare-facility/${petSpId}/new/${petId}/confirm`)}, 1000)
+    } else {
+      setDate('')
+      setTime('')
+      setIssue('')
+      setDetails('')
+
       toast({
         title: 'Failed to create appointment',
         description: 'Please try again',
@@ -59,62 +72,66 @@ export default function CreateAppointment() {
         duration: 3000,
         isClosable: true
       })
-    )
+    }
   }
 
   return (
     <>
       <Navbar title={false}></Navbar>
-        <div className="w-[80%] m-auto pt-6 px-1">
-          <BackButton/>
-        </div>
-        <form 
-          onSubmit={submitForm}
-          className="w-[80%] sm:w-[40%] mt-12 m-auto py-11 px-20 bg-white shadow-lg rounded-[10px]"
-        >
-          <div className="flex flex-col justify-between gap-[50px]">
-            <h2 className="mx-auto font-bold text-xl">Make Appointment for Pet A</h2>
-            <div>
-              <div className="font-semibold">Appointment Date:</div>
-              <input 
-                type="text"
-                onChange={(e) => setDate(e.target.value)}
-                className="w-full h-10 rounded-[10px] border-2 border-neutral-200 p-2 placeholder:text-md outline-neutral-500"
-              /> 
-            </div>
-            <div>
-              <div className="font-semibold">Appointment Time:</div>
-              <input 
-                type="text"
-                onChange={(e) => setTime(e.target.value)}
-                className="w-full h-10 rounded-[10px] border-2 border-neutral-200 p-2 placeholder:text-md outline-neutral-500"
-              /> 
-            </div>
-            <div>
-              <div className="font-semibold">Issues of pet:</div>
-              <textarea
-                id="issue"
-                rows="4"
-                class="block p-2.5 px-6 w-full h-52 text-gray-900 rounded-[10px] border border-neutral-200 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your content here..."
-                onChange={(e) => setIssue(e.target.value)}
-              >
-              </textarea>
-            </div> 
-            <div>
-              <div className="font-semibold">Important details of pet:</div>
-              <textarea
-                id="details"
-                rows="4"
-                class="block p-2.5 px-6 w-full h-52 text-gray-900 rounded-[10px] border border-neutral-200 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your content here..."
-                onChange={(e) => setDetails(e.target.value)}
-              >
-              </textarea>
-            </div> 
+      <div className="w-[80%] m-auto pt-6 px-1">
+        <BackButton/>
+      </div>
+      <form 
+        onSubmit={submitForm}
+        className="w-[80%] sm:w-[40%] mt-10 m-auto py-11 px-20 bg-white shadow-lg rounded-[10px]"
+      >
+        <div className="flex flex-col justify-between gap-[50px]">
+          <h2 className="mx-auto font-bold text-xl">Make Appointment for Pet A</h2>
+          <div>
+            <div className="font-semibold">Appointment Date:</div>
             <input 
-              type="submit"
-              value="Submit"
-              className="w-full h-14 rounded-[10px] text-lg font-semibold bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white cursor-pointer"
-            />
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="w-full h-10 rounded-[10px] border-2 border-neutral-200 p-2 placeholder:text-md outline-neutral-500"
+            /> 
+          </div>
+          <div>
+            <div className="font-semibold">Appointment Time:</div>
+            <input 
+              type="time"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              className="w-full h-10 rounded-[10px] border-2 border-neutral-200 p-2 placeholder:text-md outline-neutral-500"
+            /> 
+          </div>
+          <div>
+            <div className="font-semibold">Issues of pet:</div>
+            <textarea
+              id="issue"
+              rows="4"
+              class="block p-2.5 px-6 w-full h-52 text-gray-900 rounded-[10px] border border-neutral-200 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your content here..."
+              onChange={(e) => setIssue(e.target.value)}
+              value={issue}
+            >
+            </textarea>
+          </div> 
+          <div>
+            <div className="font-semibold">Important details of pet:</div>
+            <textarea
+              id="details"
+              rows="4"
+              class="block p-2.5 px-6 w-full h-52 text-gray-900 rounded-[10px] border border-neutral-200 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your content here..."
+              onChange={(e) => setDetails(e.target.value)}
+              value={details}
+            >
+            </textarea>
+          </div> 
+          <input 
+            type="submit"
+            value="Submit"
+            className="w-full h-14 rounded-[10px] text-lg font-semibold bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white cursor-pointer"
+          />
         </div>
       </form>
     </>

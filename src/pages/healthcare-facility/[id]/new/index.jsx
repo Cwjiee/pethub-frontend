@@ -9,7 +9,7 @@ import LoadSpinner from "@/components/atoms/LoadSpinner"
 
 export default function SelectPet() {
   const [pets, setPets] = useState()
-  const [pet, setPet] = useState()
+  const [petId, setPetId] = useState('')
   const { token } = useContext(GlobalContext)
   const router = useRouter()
   const facilityId = router.query.id
@@ -50,16 +50,16 @@ export default function SelectPet() {
         <div className="w-[80%] sm:w-[25%] mt-12 m-auto py-11 px-20 bg-white flex flex-col justify-center gap-y-14 shadow-lg rounded-[10px]">
           <div className="text-lg mx-auto font-bold text-center">Select which pet would you like to make an appointment for</div>
           <div>
-            <RadioGroup onChange={setPet} value={pet}>
+            <RadioGroup onChange={setPetId} value={petId}>
               <Stack direction='column'>
                 {pets.map((pet) => {
-                  return <Radio value={pet.pet_name}>{pet.pet_id}</Radio>
+                  return <Radio value={`${pet.pet_id}`}>{pet.pet_name}</Radio>
                 })}
               </Stack>
             </RadioGroup>
           </div>
           <Link
-            href={`./healthcare-facility/${facilityId}/new/pet_id`}
+            href={`/healthcare-facility/${facilityId}/new/${petId}`}
             className="w-full h-10 rounded-[10px] bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white cursor-pointer flex justify-center items-center"
           >
             Next

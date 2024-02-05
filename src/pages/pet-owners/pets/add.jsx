@@ -159,8 +159,9 @@ export default function Add() {
                         </div>
                         
                         <input 
+                            value="Submit"
                             type="submit" 
-                            className="bg-primary-500 hover:bg-primary-600 active:bg-primary-700 rounded-lg w-full text-white py-3 mt-5"
+                            className="bg-primary-500 hover:bg-primary-600 active:bg-primary-700 rounded-lg w-full text-white py-3 mt-5 hover:cursor-pointer"
                         />
                     </form>
                 </div>

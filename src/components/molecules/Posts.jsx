@@ -11,7 +11,7 @@ export default function Posts({ isAdmin, post }) {
 
   return (
     <div
-      className="rounded-[10px] bg-white h-auto py-4 px-8 my-[10px] relative mt-[30px]"
+      className="rounded-[10px] bg-white h-auto py-4 px-8 my-[10px] relative mt-[15px]"
       style={{
         boxShadow:
         "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
