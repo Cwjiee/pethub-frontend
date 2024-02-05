@@ -2,28 +2,38 @@ import { v4 } from "uuid"
 import Link from "next/link"
 import { useEffect, useState, useContext } from "react"
 import { GlobalContext } from "@/context"
+import LoadSpinner from "../atoms/LoadSpinner"
 
 export default function ReportTable() {
   const [reports, setReports] = useState([])
   const { token } = useContext(GlobalContext)
+  const [tokenReady, setTokenReady] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
 
   useEffect(() => {
-    
     (async() => {
-      const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
-      const response = await fetch(`${url}/report`, { 
-        headers: {
-        "Authorization": `Bearer ${token}`
-        }
-      })
-      const data = await response.json()
-      console.log(data.report)
+      if (tokenReady) {
+        const response = await fetch(`${url}/report`, { 
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        })
+        const data = await response.json()
+        console.log(data.report)
 
-      setReports(data.report)
+        setReports(data.report)
+        setIsLoading(false)
+      }
     })()
-  }, [token])
+  }, [tokenReady])
 
-  return (
+  useEffect(() => {
+    if (token) setTokenReady(true)
+  }, [token, url])
+
+  return !isLoading ? (
     <>
       <section class="sm:py-5 antialiased">
         <div class="mx-auto">
@@ -62,5 +72,7 @@ export default function ReportTable() {
         </div>
       </section>
     </>
+  ) : (
+    <LoadSpinner />
   )
 }
