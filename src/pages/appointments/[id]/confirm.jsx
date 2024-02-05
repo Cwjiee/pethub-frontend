@@ -1,21 +1,47 @@
 import Navbar from "@/components/organisms/Navbar";
 import BackButton from "@/components/atoms/BackButton";
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useToast } from '@chakra-ui/react'
 import { GlobalContext } from "@/context";
 import Image from "next/image";
 import Bank from "@/../public/svg/Bank.svg"
+import LoadSpinner from "@/components/atoms/LoadSpinner";
 
 export default function CreateAppointment() {
+  const [appointment, setAppointment] = useState({})
   const [image, setImage] = useState(null)
   const router = useRouter()
-  const petSpId = router.query.id
-  const petId = router.query.pet_id
-  const { token, userId } = useContext(GlobalContext)
+  const { token } = useContext(GlobalContext)
+  const aptId = router.query.id
   const toast = useToast()
+  const [isLoading, setIsLoading] = useState(true)
+  const [tokenReady, setTokenReady] = useState(false)
 
   const url = process.env.NEXT_PUBLIC_API_URL
+
+  useEffect(() => {
+    (async () => {
+      if (tokenReady) {
+        const response = await fetch(`${url}/appointments/${aptId}`, {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json'
+          }
+        })
+        const result = await response.json()
+        console.log(result.appointment)
+        setAppointment(result.appointment)
+        console.log(appointment)
+      }
+    })()
+    setIsLoading(false)
+  }, [tokenReady, url])
+
+  useEffect(() => {
+    if (token && aptId) setTokenReady(true)
+  }, [token, aptId])
 
   const uploadToClient = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -27,9 +53,41 @@ export default function CreateAppointment() {
 
   const submitForm = async (e) => {
     e.preventDefault()
+
+    const body = new FormData()
+    body.append("upload_payment_proof", image)
+
+    const response = await fetch(`${url}/appointments/payment_proof/${aptId}`, {
+      method: "POST",
+      body: body,
+      headers: {
+        "Accept": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    })
+    console.log(response)
+
+    if (response.ok) {
+      toast({
+        title: 'Payment proof submitted',
+        description: 'Please wait for admin to validate the payment',
+        status: 'success',
+        duration: 3000,
+        isClosable: true
+      })
+      setTimeout(function() {router.push(`/appointments/${aptId}/status`)}, 1000)
+    } else (
+      toast({
+        title: 'Failed to submit payment proof',
+        description: 'Please try again',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
+    )
   }
 
-  return (
+  return !isLoading ? (
     <>
       <Navbar title={false}></Navbar>
       <div className="w-[80%] m-auto pt-6 px-1">
@@ -42,12 +100,14 @@ export default function CreateAppointment() {
             <Image src={Bank} width={295} height={400} alt="bank" />
           </div>
           <div>Or</div>
-          <div className="w-full p-5 border border-black flex flex-col gap-y-2">
-            <div>Bank Name: Maybank</div>
-            <div>Bank Acc No: 1234 5678 9999</div>
-            <div>Beneficary Name: Tharshen</div>
-            <div>Deposit Amount: RM 10</div>
-          </div>
+          {appointment && appointment.service_provider && (
+            <div className="w-full p-5 border border-black flex flex-col gap-y-2">
+              <div>Bank Name: {appointment.service_provider.bank_name}</div>
+              <div>Bank Acc No: {appointment.service_provider.beneficiary_acc_number}</div>
+              <div>Beneficary Name: {appointment.service_provider.beneficiary_name}</div>
+              <div>Deposit Amount: RM {appointment.service_provider.deposit_range.toFixed(2)}</div>
+            </div>
+          )}
           <div className="text-justify">
             To confirm your appointment, please deposit the stated amount to the respective veterinary/pet boarder and upload proof of it.
             Your appointment status will be confirmed in 1 or 2 days. You may choose to scan the qr code or pay using the system with the details given.
@@ -66,5 +126,7 @@ export default function CreateAppointment() {
         </div>
       </div>
     </>
+  ) : (
+    <LoadSpinner />
   )
 }

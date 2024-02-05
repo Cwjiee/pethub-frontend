@@ -4,6 +4,7 @@ import AppointmentsTable from "@/components/organisms/AppointmentsTable"
 import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context"
 import { Spinner } from "flowbite-react"
+import LoadSpinner from "@/components/atoms/LoadSpinner"
 
 export default function Appointments() {
   const [appointments, setAppointments] = useState()
@@ -32,9 +33,7 @@ export default function Appointments() {
     if (token) setTokenReady(true)
   }, [token])
 
-  if (isLoading) return <Spinner />
-
-  return (
+  return !isLoading ? (
     <>
       <div className="flex flex-col justify-between min-h-screen">
         <Navbar title={false}></Navbar>
@@ -49,5 +48,7 @@ export default function Appointments() {
         </div>
       </div>
     </>
+  ) : (
+    <LoadSpinner />
   )
 }
