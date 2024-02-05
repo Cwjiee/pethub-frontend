@@ -9,58 +9,60 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("")
   const router = useRouter()
   const toast = useToast()
+  const url = process.env.NEXT_PUBLIC_API_URL
 
   const { setToken, setUserId } = useContext(GlobalContext)
 
   const submitForm = async (e) => {
     e.preventDefault()
-    const url = process.env.NEXT_PUBLIC_API_URL
 
-    const response = await fetch(`${url}/login`, {
-      method: "POST",
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    if (url) {
+      const response = await fetch(`${url}/login`, {
+        method: "POST",
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    const data = await response.json()
-    if (data.user?.user_status === 'pending') {
-      router.push('/service-providers/status')
-      return
-    }    
+      const data = await response.json()
+      if (data.user?.user_status === 'pending') {
+        router.push('/service-providers/status')
+        return
+      }    
 
-    if (!response.ok) {
-      setEmail("")
-      setPassword("")
-      toast({
-        title: 'Login failed',
-        description: 'Please try again',
-        status: 'error',
-        duration: 3000,
-        isClosable: true
-      })
-    } else {
-      let getToken = data.token
-      let getUserId = data.user.user_id
-      document.cookie = `token=${data.token}`
-      setToken(getToken)
-      setUserId(getUserId)
-      console.log(data.token)
-      console.log(data.user.user_id)
-      toast({
-        title: 'Successfully logged in',
-        description: 'We will redirect you to the main page',
-        status: 'success',
-        duration: 3000,
-        isClosable: true
-      })
-      setTimeout(function () {
-        router.push('/healthcare-facility')
-      }, 1000)
+      if (!response.ok) {
+        setEmail("")
+        setPassword("")
+        toast({
+          title: 'Login failed',
+          description: 'Please try again',
+          status: 'error',
+          duration: 3000,
+          isClosable: true
+        })
+      } else {
+        let getToken = data.token
+        let getUserId = data.user.user_id
+        document.cookie = `token=${data.token}`
+        setToken(getToken)
+        setUserId(getUserId)
+        console.log(data.token)
+        console.log(data.user.user_id)
+        toast({
+          title: 'Successfully logged in',
+          description: 'We will redirect you to the main page',
+          status: 'success',
+          duration: 3000,
+          isClosable: true
+        })
+        setTimeout(function () {
+          router.push('/healthcare-facility')
+        }, 1000)
+      }
     }
   }
 
@@ -71,6 +73,7 @@ export default function RegisterForm() {
         <input
           type="text"
           className="rounded-[10px] px-6 py-2 outline-none border border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
@@ -79,6 +82,7 @@ export default function RegisterForm() {
         <input
           type="text"
           className="rounded-[10px] px-6 py-2 outline-none border border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
