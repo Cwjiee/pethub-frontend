@@ -5,7 +5,7 @@ import React, { useContext, useState } from "react";
 import { useToast } from '@chakra-ui/react'
 import BackButton from "@/components/atoms/BackButton";
 
-export default function Add() {
+export default function EditPet() {
     const [petName, setPetName] = useState("");
     const [type, setType] = useState("");
     const [breed, setBreed] = useState("");
@@ -15,67 +15,69 @@ export default function Add() {
     const [errors, setErrors] = useState();
     const { token, userId } = useContext(GlobalContext);
     const toast = useToast();
-    
     const router = useRouter();
+    const id = router.query.id;
+    const url = process.env.NEXT_PUBLIC_API_URL;
+    
 
     const uploadToClient = (e) => {
         if (e.target.files && e.target.files[0]) {
           const i = e.target.files[0]
           setImage(i)
         }
-      }
+    }
     
     async function handleSubmit(e) {
         e.preventDefault();
 
-        const body = new FormData()
-        body.append("user_id", userId);
-        body.append("pet_name", petName);
-        body.append("type", type);
-        body.append("breed", breed);
-        body.append("age", age);
-        body.append("image", image);
-        body.append("description", description);
+        if(url && userId) {
+            const body = new FormData()
+           
+            body.append("user_id", userId);
+            body.append("pet_name", petName);
+            body.append("type", type);
+            body.append("breed", breed);
+            body.append("age", age);
+            body.append("image", image);
+            body.append("description", description);
+            console.log(body.entries())
+            
+            const response = await fetch(`${url}/pets/${id}`, {
+                method: "POST",
+                body: body,
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + token 
+                },
+            });
 
-        const url = process.env.NEXT_PUBLIC_API_URL;
-        
-        const response = await fetch(`${url}/pets`, {
-            method: "POST",
-            body: body,
-            headers: {
-                Accept: "application/json",
-                Authorization: "Bearer " + token 
-            },
-        });
+            const result = await response.json();
+            console.log(result);
+            if(result.errors) {
+                setErrors(result.errors)
+            }
 
-        const result = await response.json();
-       console.log(result);
-        if(result.errors) {
-            setErrors(result.errors)
+            if (!response.ok) {
+                toast({
+                    title: 'Failed to edit pet info',
+                    description: 'Please try again...',
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true
+                })
+            } else {
+                toast({
+                    title: 'Successfully edited pet details!',
+                    description: 'Redirecting you back...',
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true
+                })
+                setTimeout(function () {
+                    router.push('/profile')
+                }, 1000)
+            }
         }
-
-        if (!response.ok) {
-            toast({
-              title: 'Login failed',
-              description: 'Please try again...',
-              status: 'error',
-              duration: 3000,
-              isClosable: true
-            })
-          } else {
-            toast({
-              title: 'Successfully created pet!',
-              description: 'Redirecting you back...',
-              status: 'success',
-              duration: 3000,
-              isClosable: true
-            })
-            setTimeout(function () {
-              router.push('/profile')
-            }, 1000)
-          }
-
-        /* router.push('/pet-owners/pets'); */
     }
     return (
         <>
@@ -84,7 +86,7 @@ export default function Add() {
                 <BackButton/>
                 <div className="bg-white rounded-lg shadow-lg mx-auto w-[530px] py-10 px-10 m-6">
                     
-                    <h1 className="text-center text-2xl font-bold mb-5">Add Pet</h1>
+                    <h1 className="text-center text-2xl font-bold mb-5">Edit Pet</h1>
                     <form action="" className="text-sm" onSubmit={handleSubmit}>
                         <div className="mt-3">
                             <label htmlFor="pet-name">Pet Name: </label>

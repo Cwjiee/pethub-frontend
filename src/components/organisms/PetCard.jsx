@@ -60,7 +60,7 @@ export default function PetCard({pet}) {
             <div><b>Description: </b>{pet.description}</div>
 
             <div className="flex justify-end gap-3">
-            <button onClick={() => redirect('/pet-owners/pets/edit')}>
+            <button onClick={() => router.push(`/pet-owners/pets/edit/${pet.pet_id}`)}>
                 <Image
                 src={"/edit.svg"}
                 alt="edit"
