@@ -2,19 +2,17 @@ import { useToast } from "@chakra-ui/react"
 import Link from "next/link"
 import { v4 } from "uuid"
 
-export default function NewsTable({ news, token }) {
+export default function NewsTable({ news, token, setReloadNews }) {
   const toast = useToast()
 
   const handleSubmit = async (application, newsId) => {
     
     const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
 
-    const answer = application === 'Accept' ? 'approved' : 'rejected'
-
     const response = await fetch(`${url}/news_application/${newsId}`, {
       method: "PUT",
       body: JSON.stringify({
-        news_status: answer,
+        news_status: application,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -32,6 +30,7 @@ export default function NewsTable({ news, token }) {
         duration: 3000,
         isClosable: true
       })
+      setReloadNews(true)
     } else {
       toast({
         title: 'Error',
@@ -80,12 +79,12 @@ export default function NewsTable({ news, token }) {
                               </Link>
                             </td>
                             <td class="px-4 py-3 flex flex-row gap-x-2 justify-end">
-                              <button onClick={() => handleSubmit('Accept', news.news_id)} className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E]">
+                              <button onClick={() => handleSubmit('approved', news.news_id)} className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E]">
                                 <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
                                   Accept
                                 </div>
                               </button>
-                              <button onClick={() => handleSubmit('Reject', news.news_id)} className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444]">
+                              <button onClick={() => handleSubmit('rejected', news.news_id)} className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444]">
                                 <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
                                   Reject
                                 </div>

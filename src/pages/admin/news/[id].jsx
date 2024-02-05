@@ -4,8 +4,8 @@ import { useRouter } from "next/router"
 import BackButton from "@/components/atoms/BackButton" 
 import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context"
-import Image from "next/image"
 import { useToast } from "@chakra-ui/react"
+import LoadSpinner from "@/components/atoms/LoadSpinner"
 
 export default function NewsDetails() {
   const router = useRouter()
@@ -14,9 +14,11 @@ export default function NewsDetails() {
   const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
   const { token } = useContext(GlobalContext)
   const [news, setNews] = useState({})
+  const [tokenReady, setTokenReady] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const handleSubmit = async (application, newsId) => {
-    
+
     const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
     const answer = application === 'Accept' ? 'approved' : 'rejected'
 
@@ -42,7 +44,7 @@ export default function NewsDetails() {
         duration: 3000,
         isClosable: true
       })
-      router.push('./admin/news')
+      router.push('/admin/news')
     } else {
       toast({
         title: 'Error',
@@ -56,30 +58,35 @@ export default function NewsDetails() {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(`${url}/news_application/${id}`, {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      })
+      if (tokenReady) {
+        const response = await fetch(`${url}/news_application/${id}`, {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/json"
+          }
+        })
 
-      const result = await response.json()
-      console.log(result.news.categories)
-      const categories = result.news.categories
-      console.log(categories[0].category_name)
-      setNews(result.news)
+        const result = await response.json()
+        setNews(result.news)
+        setIsLoading(false)
+      }
     })()
-  }, [id, token, url])
+  }, [tokenReady, url])
 
-  return (
+  useEffect(() => {
+    if (token && url) setTokenReady(true)
+  }, [token, url])
+
+  return !isLoading ? (
     <>
       <div className="flex flex-col justify-between min-h-screen">
         <AdminNavbar />
-        <div className="w-full m-auto flex-auto pt-6 px-16 bg-[#F3F4F6]">
+        <div className="w-full m-auto mb-20 flex-auto pt-6 px-16 bg-[#F3F4F6]">
           <BackButton/>
           {news && 
             <div>
-              <div className="flex justify-center items-center">
+              <div className="flex justify-center items-center mb-5">
                 <div className="flex flex-row gap-x-4">
                   <button onClick={() => handleSubmit('Accept', news.news_id)} className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E] w-[160px] text-sm font-bold">
                     <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
@@ -96,8 +103,8 @@ export default function NewsDetails() {
               <div className="w-[60%] mx-auto bg-white mt-6 pt-20 pb-10 px-24 flex flex-col justify-center items-center gap-y-4">
                 <div className="font-bold text-2xl">{news.news_title}</div>
                 <img src={news.image} width="632px" heigth="382px" alt="news-image" />
-                <div>
-                  {news.categories.length > 0 ? 
+                <div className="flex flex-row gap-x-2">
+                  {news.categories && ( 
                     news.categories.map((_, idx) => {
                       return (
                         <div key={news.categories[idx].category_id} className="flex justify-between">
@@ -107,22 +114,27 @@ export default function NewsDetails() {
                         </div>
                       )
                     })
-                  :
-                      <div key={news.categories[0].category_id} className="flex justify-between">
-                        <div className="flex justify-center items-center bg-white rounded-[40px] h-6 px-5 w-auto border border-[#D3D3D3]">
-                          <span className="font-semibold text-sm spacing">{news.categories[0].category_name}</span>
-                        yay
-                        </div>
-                      </div>
-                  }
+                  )}
                 </div>
                 <div>{news.news_description}</div>
               </div>
             </div>
           }
-          </div>
+        </div>
         <AdminFooter />
       </div>
+    </>
+  ) : (
+      <LoadSpinner />
+    )
+}
+
+NewsDetails.getLayout = function getLayout(page) {
+  return (
+    <>
+      <main>
+        {page}
+      </main>
     </>
   )
 }

@@ -4,30 +4,39 @@ import BackButton from "@/components/atoms/BackButton"
 import UserTable from "@/components/organisms/UserTable"
 import { GlobalContext } from "@/context"
 import { useContext, useEffect, useState } from "react"
+import LoadSpinner from "@/components/atoms/LoadSpinner"
 
 export default function AdminUser() {
   const [users, setUsers] = useState([])
   const { token } = useContext(GlobalContext)
+  const [tokenReady, setTokenReady] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
 
   useEffect(() => {
-
     (async () => {
-      const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
-      const response = await fetch(`${url}/user`, {
-        headers: {
-          "Content-type": "application/json",
-          "Authorization": `Bearer ${token}`,
-          "Accept": "application/json"
-        }
-      })
-      const result = await response.json()
+      if (tokenReady) {
+        const response = await fetch(`${url}/user`, {
+          headers: {
+            'Content-type': "application/json",
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json'
+          }
+        })
 
-      const user = result.user.filter((user) => user.user_status !== 'rejected')
-      setUsers(user)
+        const data = await response.json()
+        setUsers(data.user)
+        setIsLoading(false)
+      }
     })()
-  }, [token, users])
+  }, [tokenReady])
 
-  return (
+  useEffect(() => {
+    if (token) setTokenReady(true)
+  }, [token])
+
+  return !isLoading ? (
     <>
       <div className="flex flex-col justify-between min-h-screen">
         <AdminNavbar />
@@ -43,6 +52,8 @@ export default function AdminUser() {
         <AdminFooter />
       </div>
     </>
+  ) : (
+    <LoadSpinner />
   )
 }
 
