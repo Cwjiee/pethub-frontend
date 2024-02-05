@@ -15,7 +15,7 @@ export default function DateTimeBlock({ datetimeString }) {
     const minutes = dateTime.getMinutes();
     const seconds = dateTime.getSeconds();
 
-    const formattedDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
+    const formattedDate = `${day < 10 ? '0' : ''}${day}/${month < 10 ? '0' : ''}${month}/${year}`;
 
     // Format time to 12-hour format with "am" or "pm"
     const period = hours >= 12 ? 'pm' : 'am';
