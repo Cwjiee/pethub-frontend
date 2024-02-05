@@ -15,6 +15,7 @@ export default function PetOwnerRegisterForm() {
   const toast = useToast()
 
   const { setToken, setUserId } = useContext(GlobalContext)
+  const url = process.env.NEXT_PUBLIC_API_URL
 
   const uploadToClient = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -37,51 +38,61 @@ export default function PetOwnerRegisterForm() {
     body.append("image", image)
 
     if(password !== confirmPassword) {
-      return (
-        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-          <span class="font-medium">Error!</span> Wrong confirmation password
-        </div>
-      )
-    }
-
-    const url = process.env.NEXT_PUBLIC_API_URL
-    
-    const response = await fetch(`${url}/register`, {
-      method: "POST",
-      body: body,
-      headers: {
-        "Accept": "application/json",
-      },
-    });
-
-    const data = await response.json()
-    
-    console.log(data);
-
-    let getToken = data.token
-    let getUserId = data.user.user_id
-    document.cookie = `token=${data.token}`
-    if (!response.ok) {
-      setErrors(data.errors)
+      setPassword("")
+      setConfirmPassword("")
       toast({
-        title: 'Registration failed',
+        title: 'password does not match confirmation',
         description: 'Please try again',
         status: 'error',
-        duration: 9000,
+        duration: 3000,
         isClosable: true
       })
-      console.log(errors)
-    } else {
-      setToken(getToken)
-      setUserId(getUserId)
-      toast({
-        title: 'Account created',
-        description: 'We will redirect you to the main page',
-        status: 'success',
-        duration: 9000,
-        isClosable: true
-      })
-      setTimeout(function () {router.push('/healthcare-facility')}, 1000)
+    }
+
+    if (url) {
+      const response = await fetch(`${url}/register`, {
+        method: "POST",
+        body: body,
+        headers: {
+          "Accept": "application/json",
+        },
+      });
+
+      const data = await response.json()
+
+      console.log(data);
+
+      let getToken = data.token
+      let getUserId = data.user.user_id
+      document.cookie = `token=${data.token}`
+      if (!response.ok) {
+        setName("")
+        setEmail("")
+        setPassword("")
+        setConfirmPassword("")
+        setDescription("")
+        setContact("")
+        setErrors(data.errors)
+        toast({
+          title: 'Registration failed',
+          description: 'Please try again',
+          status: 'error',
+          duration: 3000,
+          isClosable: true
+        })
+        console.log(errors)
+      } else {
+        setToken(getToken)
+        setUserId(getUserId)
+        toast({
+          title: 'Account created',
+          description: 'We will redirect you to the main page',
+          status: 'success',
+          duration: 3000,
+          isClosable: true
+        })
+        setTimeout(function () {router.push('/healthcare-facility')}, 1000)
+      }
     }
   }
  
@@ -96,6 +107,7 @@ export default function PetOwnerRegisterForm() {
                 type="text"
                 className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
                 onChange={(e) => setName(e.target.value)}
+                value={name}
               />
             </div>
             <div className="flex flex-col mt-[25px]">
@@ -104,6 +116,7 @@ export default function PetOwnerRegisterForm() {
                 type="email"
                 className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
                 onChange={(e) => setEmail(e.target.value)}
+                value={email}
               />
             </div>
             <div className="flex flex-col mt-[25px]">
@@ -112,6 +125,7 @@ export default function PetOwnerRegisterForm() {
                 type="password"
                 className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
                 onChange={(e) => setPassword(e.target.value)}
+                value={password}
               />
             </div>
             <div className="flex flex-col mt-[25px]">
@@ -120,6 +134,7 @@ export default function PetOwnerRegisterForm() {
                 type="password"
                 className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                value={confirmPassword}
               />
             </div>
           </div>
@@ -129,6 +144,7 @@ export default function PetOwnerRegisterForm() {
               <textarea
                 className="rounded-[10px] h-[132px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
                 onChange={(e) => setDescription(e.target.value)}
+                value={description}
               />
             </div>
             <div className="flex flex-col mt-[25px]">
@@ -137,6 +153,7 @@ export default function PetOwnerRegisterForm() {
                 type="text"
                 className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
                 onChange={(e) => setContact(e.target.value)}
+                value={contact}
               />
             </div>
             <div className="flex flex-col mt-[28px]">
