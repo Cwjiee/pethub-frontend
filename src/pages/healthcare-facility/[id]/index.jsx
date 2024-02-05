@@ -4,38 +4,75 @@ import Image from "next/image"
 import SpPlaceholder from "@/../public/svg/SpPlaceholder.svg"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
+import LoadSpinner from "@/components/atoms/LoadSpinner"
+import { GlobalContext } from "@/context"
+import TimeConvert from "@/utils/TimeConvert"
 
 export default function HealthcareFacilityInfo() {
   const router = useRouter()
+  const { token } = useContext(GlobalContext)
   const [tokenReady, setTokenReady] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const facilityId = router.query.id
+  const [healthcare, setHealthcare] = useState()
+  const [time, setTime] = useState({})
 
-  return (
+  const url = process.env.NEXT_PUBLIC_API_URL
+
+  useEffect(() => {
+    (async () => {
+      if (tokenReady) {
+        const response = await fetch(`${url}/healthcare/${facilityId}`, {
+          headers: {
+            'Content-type': "application/json",
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json'
+          }
+        })
+
+        const data = await response.json()
+        console.log(data)
+        setHealthcare(data.service_provider)
+        setIsLoading(false)
+      }
+    })()
+  }, [tokenReady])
+
+  useEffect(() => {
+    if (token && facilityId) setTokenReady(true)
+  }, [token, facilityId])
+
+  useEffect(() => {
+    if(healthcare) {
+      timeBlock(healthcare.opening_hour, healthcare.closing_hour)
+    }
+  }, [healthcare])
+
+  const timeBlock = (openTimeString, closeTimeString) => {
+    setTime(TimeConvert(openTimeString, closeTimeString))
+  }
+
+  return !isLoading ? (
     <>
-      <Navbar title={false}>Pet News</Navbar>
+      <Navbar title={false}></Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
         <BackButton/>
         <div className="mt-7 flex flex-col gap-12 w-full mx-auto justify-center items-center">
           <div className="ring-[5px] ring-white rounded-[10px]">
-            <Image src={SpPlaceholder} width={320} height={210} alt="service-provider-image" />
+            <img src={healthcare.image} width={320} height={210} alt="service-provider-image" />
           </div>
           <div className="shadow-lg rounded-[10px] p-10 bg-white w-[70%] flex flex-col gap-y-12">
             <div className="flex flex-col gap-y-4">
-              <div>Name: My Clinic</div>
-              <div>Contact Number:  6003823209842</div>
-              <div>Opening Hours: 10:00pm to 12:00am</div>
-              <div>Service Type: Healthcare Facility</div>
-              <div>Deposit Range: RM10.00</div>
+              <div>Name: {healthcare.full_name}</div>
+              <div>Contact Number:  {healthcare.contact_number}</div>
+              <div>Opening Hours: {`${time.openTime} to ${time.closeTime}`}</div>
+              <div>Service Type: {healthcare.service_type}</div>
+              <div>Deposit Range: RM{healthcare.deposit_range.toFixed(2)}</div>
             </div>
             <div className="flex flex-col gap-y-5">
-              <div className="font-semibold">About My Clinic</div>
-              <div>
-                Animal lover dedicated to connecting pets and their owners. 
-                Committed to making the lives of our furry friends happier and healthier.
-                Join me on this pawsome journey
-              </div>
+              <div className="font-semibold">About {healthcare.full_name}</div>
+              <div>{healthcare.description}</div>
             </div>
           </div>
           <Link
@@ -47,5 +84,7 @@ export default function HealthcareFacilityInfo() {
         </div>
       </div>
     </>
+  ) : (
+    <LoadSpinner />
   )
 }
