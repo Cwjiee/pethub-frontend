@@ -1,7 +1,8 @@
 export default function TimeConvert( openingHour, closingHour ) {
 
+  console.log(openingHour)
   const splitDateTime = (timeString) => {
-    let [hours, minutes, seconds]= timeString.split(':')
+    let [hours, minutes, seconds] = timeString.split(':')
     hours = parseInt(hours)
     minutes = parseInt(minutes)
 
@@ -11,6 +12,7 @@ export default function TimeConvert( openingHour, closingHour ) {
     return `${formattedHours < 10 ? '0' : ''}${formattedHours}:${minutes < 10 ? '0' : ''}${minutes}${period}`;
   };
 
+  console.log(openingHour)
   const openTime = splitDateTime(openingHour)
   const closeTime = splitDateTime(closingHour)
 

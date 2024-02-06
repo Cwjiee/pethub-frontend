@@ -11,21 +11,19 @@ export default function NewsDetails() {
   const router = useRouter()
   const toast = useToast()
   const id = router.query.id
-  const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
   const { token } = useContext(GlobalContext)
   const [news, setNews] = useState({})
   const [tokenReady, setTokenReady] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
-  const handleSubmit = async (application, newsId) => {
+  const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
 
-    const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
-    const answer = application === 'Accept' ? 'approved' : 'rejected'
+  const handleSubmit = async (application, newsId) => {
 
     const response = await fetch(`${url}/news_application/${newsId}`, {
       method: "PUT",
       body: JSON.stringify({
-        news_status: answer,
+        news_status: application,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +74,7 @@ export default function NewsDetails() {
 
   useEffect(() => {
     if (token && url) setTokenReady(true)
-  }, [token, url])
+  }, [token, id])
 
   return !isLoading ? (
     <>
@@ -88,12 +86,12 @@ export default function NewsDetails() {
             <div>
               <div className="flex justify-center items-center mb-5">
                 <div className="flex flex-row gap-x-4">
-                  <button onClick={() => handleSubmit('Accept', news.news_id)} className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E] w-[160px] text-sm font-bold">
+                  <button onClick={() => handleSubmit('approved', news.news_id)} className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E] w-[160px] text-sm font-bold">
                     <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
                       Accept
                     </div>
                   </button>
-                  <button onClick={() => handleSubmit('Reject', news.news_id)} className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444] w-[160px] text-sm font-bold">
+                  <button onClick={() => handleSubmit('rejected', news.news_id)} className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444] w-[160px] text-sm font-bold">
                     <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
                       Reject
                     </div>

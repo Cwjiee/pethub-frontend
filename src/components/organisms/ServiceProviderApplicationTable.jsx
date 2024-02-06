@@ -8,16 +8,14 @@ export default function ServiceProviderApplicationTable({ users }) {
   const { token } = useContext(GlobalContext)
   const toast = useToast()
 
+  const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
+
   const handleSubmit = async (application, userId) => {
-    
-    const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
 
-    const answer = application === 'Accept' ? 'approved' : 'rejected'
-
-    const response = await fetch(`${url}/service_provider_application/${userId}`, {
+    const response = await fetch(`${url}/sp_application/${userId}`, {
       method: "PUT",
       body: JSON.stringify({
-        user_status: answer,
+        user_status: application,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +23,6 @@ export default function ServiceProviderApplicationTable({ users }) {
       },
     })
     const result = await response.json()
-
     console.log(result)
 
     if (response.ok) {
@@ -68,21 +65,21 @@ export default function ServiceProviderApplicationTable({ users }) {
                         </tr>
                     </thead>
                     <tbody>
-                      {users.map((user, idx) => {
+                      {users.map((user) => {
                         return (
                           <tr class="border-b dark:border-gray-700" key={v4()}>
                             <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{user.full_name}</th>
                             <td class="px-4 py-3 max-w-[12rem] truncate">{user.contact_number}</td>
                             <td class="px-4 py-3">{user.service_type}</td>
                             <td class="px-4 py-3 justify-start">
-                              <Link href={`./news/${idx}`} className="text-[#0055D4] underline">
+                              <Link href={`/admin/service-provider/${user.user_id}`} className="text-[#0055D4] underline">
                                 More Details
                               </Link>
                             </td>
                             <td class="px-4 py-3 flex flex-row gap-x-2 justify-end">
                               <button
                                 className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E]"
-                                onClick={() => handleSubmit('Accept', user.user_id)}
+                                onClick={() => handleSubmit('approved', user.user_id)}
                               >
                                 <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
                                   Accept
@@ -90,7 +87,7 @@ export default function ServiceProviderApplicationTable({ users }) {
                               </button>
                               <button
                                 className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444]"
-                                onClick={() => handleSubmit('Reject', user.user_id)}
+                                onClick={() => handleSubmit('rejected', user.user_id)}
                               >
                                 <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
                                   Reject

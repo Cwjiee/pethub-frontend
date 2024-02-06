@@ -22,13 +22,6 @@ export default function CreateAppointment() {
   const submitForm = async (e) => {
     e.preventDefault()
 
-    console.log(userId)
-    console.log(petId)
-    console.log(petSpId)
-    console.log(date)
-    console.log(time)
-    console.log(issue)
-    console.log(details)
     const response = await fetch(`${url}/appointments`, {
       method: "POST",
       body: JSON.stringify({
@@ -49,6 +42,8 @@ export default function CreateAppointment() {
     })
 
     console.log(response)
+    const result = await response.json()
+    const aptId = result.appointment.appointment_id
 
     if (response.ok) {
       toast({
@@ -58,7 +53,7 @@ export default function CreateAppointment() {
         duration: 3000,
         isClosable: true
       })
-      setTimeout(function() {router.push(`/healthcare-facility/${petSpId}/new/${petId}/confirm`)}, 1000)
+      setTimeout(function() {router.push(`/appointments/${aptId}/confirm`)}, 1000)
     } else {
       setDate('')
       setTime('')

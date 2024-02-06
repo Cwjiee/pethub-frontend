@@ -4,7 +4,7 @@ import BackButton from "@/components/atoms/BackButton"
 import ServiceProviderApplicationTable from "@/components/organisms/ServiceProviderApplicationTable"
 import { GlobalContext } from "@/context"
 import { useEffect, useState, useContext } from "react"
-import { Spinner } from "@chakra-ui/react";
+import LoadSpinner from "@/components/atoms/LoadSpinner"
 
 export default function AdminServiceProvider() {
   const [users, setUsers] = useState([])
@@ -34,9 +34,7 @@ export default function AdminServiceProvider() {
     if (token) setTokenReady(true)
   }, [token])
 
-  if (isLoading) return <Spinner />
-
-  return (
+  return !isLoading ? (
     <>
       <div className="flex flex-col justify-between min-h-screen">
         <AdminNavbar />
@@ -52,6 +50,8 @@ export default function AdminServiceProvider() {
         <AdminFooter />
       </div>
     </>
+  ) : (
+    <LoadSpinner />
   )
 }
 
