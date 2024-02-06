@@ -14,7 +14,7 @@ export default function AppointmentApplication({ appointments }) {
         const stringAppointmentId = appointmentId.toString()
         if(url) {
             const response = await fetch(`${url}/service-provider/appointments/${userId}/${stringAppointmentId}`, {
-                method: "PUT",
+                method: "POST",
                 body: JSON.stringify({
                     user_status: status,
                 }),
@@ -68,13 +68,14 @@ export default function AppointmentApplication({ appointments }) {
                             </tr>
                         </thead>
                         <tbody>
-                        {appointments.map((appointment) => {
+                        {appointments && appointments.map((appointment) => {
                             return (
                             <tr class="border-b dark:border-gray-700" key={v4()}>
                                 <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{appointment.pet.pet_name}</th>
                                 <td class="px-4 py-3 max-w-[12rem] truncate">{appointment.date}</td>
                                 <td class="px-4 py-3">{appointment.time}</td>
                                 <td class="px-4 py-3 justify-start">
+                                    
                                 <Link href={`./appointments/${appointment.appointment_id}`} className="text-[#0055D4] underline">
                                     More Details
                                 </Link>
