@@ -1,6 +1,5 @@
 import SPFooter from "@/components/organisms/SPFooter"
 import SPNavbar from "@/components/organisms/SPNavbar"
-import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
@@ -8,6 +7,7 @@ import LoadSpinner from "@/components/atoms/LoadSpinner";
 import { TimeConvertNotForDateTime } from "@/utils/TimeConvertNotForDateTime";
 import { useRouter } from "next/router";
 import BackButton from "@/components/atoms/BackButton";
+import { useToast } from "@chakra-ui/react";
 export default function ServiceProviderSpecificAppointment() {
     const { token, userId } = useContext(GlobalContext)
     const [appointment, setAppointment] = useState({})
@@ -41,39 +41,40 @@ export default function ServiceProviderSpecificAppointment() {
     }, [token, aptId])
 
     async function handleSubmit(e, status) {
-        e.preventDefault();
-        if(url) {
-            const response = await fetch(`${url}/service-provider/appointments/${userId}/${stringAppointmentId}`, {
-                method: "POST",
-                body: JSON.stringify({
-                    user_status: status,
-                }),
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-            })
-    
-            const result = await response.json()
-            console.log(result)
-    
-            if (response.ok) {
-                toast({
-                    title: 'Success',
-                    description: 'User status updated',
-                    status: 'success',
-                    duration: 3000,
-                    isClosable: true
-                })
-            } else {
-                toast({
-                    title: 'Error',
-                    description: 'Failed in updating user status',
-                    status: 'error',
-                    duration: 3000,
-                    isClosable: true
-                })
-            }
+      e.preventDefault();
+      if(url) {
+        const response = await fetch(`${url}/service-provider/appointments/${userId}/${stringAppointmentId}`, {
+          method: "POST",
+          body: JSON.stringify({
+              user_status: status,
+          }),
+          headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+          },
+        })
+
+        const result = await response.json()
+        console.log(result)
+
+        if (response.ok) {
+          toast({
+            title: 'Success',
+            description: 'User status updated',
+            status: 'success',
+            duration: 3000,
+            isClosable: true
+          })
+        } else {
+          toast({
+            title: 'Error',
+            description: 'Failed in updating user status',
+            status: 'error',
+            duration: 3000,
+            isClosable: true
+          })
+        }
+      }
     }
   
     return !isLoading ?  (
@@ -145,4 +146,4 @@ ServiceProviderSpecificAppointment.getLayout = function getLayout(page) {
         </main>
       </>
     )
-  }
+}
