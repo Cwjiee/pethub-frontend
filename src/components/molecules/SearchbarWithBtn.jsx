@@ -1,7 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
+import Fuse from 'fuse.js'
 
-export default function SearchbarWithBtn({ input, setInput, label, href }) {
+export default function SearchbarWithBtn({ setResult, label, href, results, data }) {
+
+  const handleSearch = (pattern) => {
+    if (!pattern || !href) {
+      setResult(data)
+      console.log('nope')
+      return
+    }
+
+    const type = label.split(" ")[1].toLowerCase()
+
+    const fuse = new Fuse(data, {
+      keys: [`${type}_title`],
+    })
+
+    const result = fuse.search(pattern)
+    const matches = []
+    if (!results.length) {
+      setResult(data)
+    } else {
+      result.forEach(({item}) => {
+        matches.push(item)
+      })
+      setResult(matches)
+    }
+  }
+
   return (
     <div className="flex justify-between h-[40px] w-full">
       <input
@@ -11,8 +38,7 @@ export default function SearchbarWithBtn({ input, setInput, label, href }) {
             "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
         }}
         placeholder="Search..."
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => handleSearch(e.target.value)}
       />
       <Link href={href} className="flex justify-around px-5 w-[15%] rounded-[10px] bg-primary-500 hover:bg-primary-600 active:bg-primary-700">
         <Image src="/add.svg" alt="add" width={20} height={20} />

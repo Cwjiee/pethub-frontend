@@ -12,6 +12,7 @@ import LoadSpinner from "@/components/atoms/LoadSpinner";
 export default function Forum() {
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([])
+  const [results, setResults] = useState([])
   const [isLoading, setIsLoading] = useState(true);
   const [tokenReady, setTokenReady] = useState(false)
   const { token } = useContext(GlobalContext)
@@ -39,6 +40,7 @@ export default function Forum() {
         })
         const result = await response.json()
         setPosts(result.posts)
+        setResults(result.posts)
         console.log(posts[0])
         setIsLoading(false)
         setReloadPost(false)
@@ -54,7 +56,7 @@ export default function Forum() {
     <>
       <Navbar title={true}>Forums</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
-        <Searchbar input={input} setInput={setInput} label={"New Forums"} href={"/forums/create"}/>
+        <Searchbar setResult={setResults} label={"New Post"} href={"/forums/create"} results={results} data={posts}/>
         <div className="flex justify-between mt-4 mb-6">
           <div className="flex gap-x-[12px]">
             {tags.map((tag) => {
@@ -73,8 +75,8 @@ export default function Forum() {
             </span>
           </div>
         </div>
-        {posts ? 
-          posts.map((post) => {
+        {results ? 
+          results.map((post) => {
             return <Posts key={post.post_id} post={post} isAdmin setReloadPost={setReloadPost}/>
           })
         :

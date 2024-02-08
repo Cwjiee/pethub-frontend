@@ -13,6 +13,7 @@ export default function News() {
   const [input, setInput] = useState("");
   const { token } = useContext(GlobalContext)
   const [news, setNews] = useState([])
+  const [results, setResults] = useState([])
   const [tokenReady, setTokenReady] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -33,6 +34,7 @@ export default function News() {
 
         const data = await response.json()
         setNews(data.news)
+        setResults(data.news)
         setIsLoading(false)
       }
     })()
@@ -46,7 +48,7 @@ export default function News() {
     <>
       <Navbar title={true}>Pet News</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
-        <Searchbar input={input} setInput={setInput} label={"New News"} href={href}/>
+        <Searchbar setResult={setResults} label={"New News"} href={href} results={results} data={news}/>
         <div className="flex justify-between mt-4 mb-6">
           <div className="flex gap-x-[12px]">
             {tags.map((tag) => {
@@ -55,9 +57,9 @@ export default function News() {
           </div>
         </div>
 
-        {news ? 
+        {results ? 
           <div className="flex flex-row flex-wrap justify-between gap-5">
-            {news.map((news) => {
+            {results.map((news) => {
               return <NewsBlock key={news.news_id} news={news}/>
             })}
           </div>
