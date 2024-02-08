@@ -7,6 +7,10 @@ export default function SPNavbar({ children, title }) {
   const router = useRouter()
   const links = [
     {
+      href: "/service-providers/dashboard",
+      label: "Dashboard" 
+    },
+    {
       href: "/service-providers/news",
       label: "Pet News",
     },
@@ -17,10 +21,6 @@ export default function SPNavbar({ children, title }) {
     {
       href: "/service-providers/forums",
       label: "Forums",
-    },
-    {
-      href: "/service-providers/dashboard",
-      label: "Dashboard" 
     }
   ];
 
