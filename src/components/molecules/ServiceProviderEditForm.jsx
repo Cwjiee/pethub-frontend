@@ -3,7 +3,7 @@ import { useToast } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 
-export default function ServiceProviderRegisterForm() {
+export default function ServiceProviderEditForm() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -130,7 +130,8 @@ export default function ServiceProviderRegisterForm() {
         setTimeout(function () {router.push('/service-providers/status')}, 1000)
       }
     }
-  }
+}
+
     return (
       <>
         <div>
@@ -189,11 +190,6 @@ export default function ServiceProviderRegisterForm() {
                   onChange={(e) => setDeposit(e.target.value)}
                   value={deposit}
                 />
-              </div>
-              <div className="flex flex-col mt-[28px]">
-                <label class="block text-sm font-medium dark:text-white" for="file_input">Upload SSSM Certification here:
-                  <input id="file_input" type="file" onChange={uploadCert} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
-                </label>
               </div>
               <div className="flex flex-col mt-[28px]">
                 <label class="block text-sm font-medium dark:text-white" for="file_input">Upload Facility Image here:
@@ -269,8 +265,12 @@ export default function ServiceProviderRegisterForm() {
                   value={accName}
                 />
               </div>
-              <button
-                className="mx-auto rounded-[10px] text-white flex justify-center items-center mt-[45px] hover:cursor-pointer w-3/6 px-6 py-3 bg-primary-500 hover:bg-primary-600 active:bg-primary-700"
+              
+            </div>
+            
+          </div>
+          <button
+                className="mx-auto rounded-[10px] text-white flex justify-center items-center mt-[45px] hover:cursor-pointer px-24 py-3 bg-primary-500 hover:bg-primary-600 active:bg-primary-700"
                 style={{
                   boxShadow:
                   "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
@@ -278,9 +278,7 @@ export default function ServiceProviderRegisterForm() {
                 onClick={submitForm}
               >
                 Submit
-              </button>
-            </div>
-          </div>
+            </button>
         </div>
       </>
     )
