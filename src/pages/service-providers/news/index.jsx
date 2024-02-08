@@ -46,7 +46,7 @@ export default function ServiceProviderNewsPage() {
   
     return !isLoading ? (
       <>
-        <SPNavbar/>
+        <SPNavbar title={true}>Pet News</SPNavbar>
         <div className="w-[80%] m-auto pt-6 px-6">
           <Searchbar input={input} setInput={setInput} label={"New News"} href={href}/>
           <div className="flex justify-between mt-4 mb-6">

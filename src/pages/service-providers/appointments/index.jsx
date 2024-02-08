@@ -42,7 +42,7 @@ export default function AdminServiceProvider() {
   return (
     <>
       <div className="flex flex-col justify-between min-h-screen">
-        <SPNavbar />
+      <SPNavbar title={true}>Appointments</SPNavbar>
         <div className="w-full m-auto flex-auto pt-6 px-16 bg-[#F3F4F6]">
           <BackButton/>
           <div className="w-full m-auto py-11">

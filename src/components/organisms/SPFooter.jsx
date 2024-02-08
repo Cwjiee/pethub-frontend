@@ -19,6 +19,9 @@ export default function SPFooter() {
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Navigation</h2>
               <ul className="text-gray-600 dark:text-gray-400">
                 <li className="mb-4">
+                  <Link href="https://flowbite.com" className="hover:underline">Dashboard</Link>
+                </li>
+                <li className="mb-4">
                   <Link href="https://flowbite.com" className="hover:underline">Pet News</Link>
                 </li>
                 <li className="mb-4">

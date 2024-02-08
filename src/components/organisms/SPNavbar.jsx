@@ -7,17 +7,21 @@ export default function SPNavbar({ children, title }) {
   const router = useRouter()
   const links = [
     {
-      href: "/service-provider/news",
+      href: "/service-providers/news",
       label: "Pet News",
     },
     {
-      href: "/service-provider/appointments",
+      href: "/service-providers/appointments",
       label: "Appointments",
     },
     {
-      href: "/service-provider/forums",
+      href: "/service-providers/forums",
       label: "Forums",
     },
+    {
+      href: "/service-providers/dashboard",
+      label: "Dashboard" 
+    }
   ];
 
   const goToProfile = () => {

@@ -9,6 +9,7 @@ import { GlobalContext } from "@/context";
 import Image from "next/image";
 import Empty from "../../../../public/svg/EmptyNews.svg"
 import LoadSpinner from "@/components/atoms/LoadSpinner";
+import BackButton from "@/components/atoms/BackButton";
 
 export default function ServiceProviderPostPage() {
     const [input, setInput] = useState("");
@@ -51,7 +52,7 @@ export default function ServiceProviderPostPage() {
     }, [token])
     return !isLoading ? (
     <>
-        <SPNavbar/>
+        <SPNavbar title={true}>Forums</SPNavbar>
             <div className="w-[80%] m-auto pt-6 px-6">
                 <Searchbar input={input} setInput={setInput} label={"New Forums"} href={"/service-providers/forums/create"}/>
                 <div className="flex justify-between mt-4 mb-6">

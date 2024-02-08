@@ -35,7 +35,7 @@ export default function ServiceProviderDashBoard() {
   return (
     <>
       <div className="flex flex-col justify-between min-h-screen">
-        <SPNavbar />
+        <SPNavbar title={true}>Dashboard</SPNavbar>
         <div className="w-full m-auto pt-10 pb-14 px-16 bg-[#F3F4F6]">
           <div className="w-4/5 m-auto text-center">
             <div className="text-2xl font-bold">Service Provider Dashboard</div>
