@@ -11,7 +11,7 @@ export default function CommentBlock({ name, date, desc }) {
             <div>{name}</div>
             <DateTimeBlock datetimeString={date}/>
           </div>
-          <div className="text-[#4E4E4E] text-[12px]">{desc}</div>
+          <div className="text-[#4E4E4E] text-[14px]">{desc}</div>
         </div>
       </div>
     </div>

@@ -135,7 +135,7 @@ export default function ForumsPage() {
                   <div>{post.user.full_name}</div>
                   <DateTimeBlock datetimeString={post.created_at}/>
                 </div>
-                <div className="text-[#4E4E4E] text-[12px]">{post.post_description}</div>
+                <div className="text-[#4E4E4E] text-[14px]">{post.post_description}</div>
               </div>
             </div>
           </div>
