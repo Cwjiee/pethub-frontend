@@ -18,15 +18,6 @@ module.exports = {
         secondary: { 500: "#636363", 600: "#4E4E4E", 700: "#333333" },
       },
     },
-    screens: {
-      phone: "320px",
-
-      tablet: "640px",
-
-      laptop: "1024px",
-
-      desktop: "1280px",
-    },
   },
   plugins: [require("flowbite/plugin")],
 };

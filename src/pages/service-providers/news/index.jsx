@@ -18,7 +18,7 @@ export default function ServiceProviderNewsPage() {
     const [isLoading, setIsLoading] = useState(true)
   
     const tags = ["Events", "Missing", "Promotions", "Adoptions"];
-    const href = "/news/create" 
+    const href = "/service-providers/news/create" 
     const url = process.env.NEXT_PUBLIC_API_URL
   
     useEffect(() => {
@@ -77,3 +77,12 @@ export default function ServiceProviderNewsPage() {
     )
   }
   
+ServiceProviderNewsPage.getLayout = function getLayout(page) {
+    return (
+        <>
+        <main>
+            {page}
+        </main>
+        </>
+    )
+}

@@ -41,16 +41,16 @@ export default function NewsPage() {
       <Navbar title={false}>Pet News</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
         <BackButton/>
-        <div className="mt-7 flex flex-row gap-12 w-full mx-auto">
-          <div className="flex flex-col w-[65%] justify-center items-center mx-auto bg-white">
-            <h4 className="font-bold text-2xl">{news.news_title}</h4>
-            <img height={470} width={427} src={news.image} alt="news-image"/>
-            <div className="mt-4 flex justify-center items-center">
+        <div className="mt-7 flex justify-center gap-12 w-full mx-auto">
+          <div className="w-[550px] max-w-[90%] items-center mx-auto bg-white rounded-lg py-8 px-10 shadow-lg">
+            <h4 className="font-bold laptop:text-2xl text-center mb-5 tablet:text-xl phone:text-lg">{news.news_title}</h4>
+            <img className="mx-auto rounded-md" height={470} width={427} src={news.image} alt="news-image"/>
+            <div className="mt-4 flex justify-center gap-x-3">
               <div className="py-[6px] px-6 text-center text-neutral-800 text-sm font-bold font-['Nunito'] rounded-[40px] border border-neutral-300">
                 Events
               </div>
             </div>
-            <div className="mt-8">
+            <div className="mt-8 text-justify tablet:text-md phone:tablet-sm">
               {news.news_description}
             </div>
           </div>
