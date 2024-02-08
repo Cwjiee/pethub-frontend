@@ -9,6 +9,7 @@ import LoadSpinner from "@/components/atoms/LoadSpinner"
 import CommentBlock from "@/components/molecules/CommentBlock"
 import Image from "next/image"
 import SendButton from "@/../public/svg/SendButton.svg"
+import { v4 } from "uuid"
 
 export default function ForumsPage() {
   const router = useRouter()
@@ -120,7 +121,7 @@ export default function ForumsPage() {
           <div className="flex justify-left gap-x-1">
             {post.categories.map((category) => {
               return (
-                <div className="flex justify-center items-center bg-white rounded-[40px] h-6 px-5 w-auto border border-[#D3D3D3]">
+                <div key={v4()} className="flex justify-center items-center bg-white rounded-[40px] h-6 px-5 w-auto border border-[#D3D3D3]">
                   <span key={category.category_id} className="font-medium text-sm spacing">{category.category_name}</span>
                 </div>
               )}
@@ -143,7 +144,7 @@ export default function ForumsPage() {
             <div className="text-[16px] font-bold">Comments</div>
             <div className="mt-2 mb-8 flex flex-col gap-y-1">
               {post.comments.map((comment) => {
-                return <CommentBlock name={comment.user.full_name} date={comment.updated_at} desc={comment.comment_description} />
+                return <CommentBlock key={v4()} name={comment.user.full_name} date={comment.updated_at} desc={comment.comment_description} />
               })}
             </div>
             <div>
