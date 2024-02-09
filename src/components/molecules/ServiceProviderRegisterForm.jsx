@@ -20,6 +20,7 @@ export default function ServiceProviderRegisterForm() {
   const [bankName, setBankName] = useState('')
   const [accNumber, setAccNumber] = useState('')
   const [accName, setAccName] = useState('')
+  const [errors, setErrors] = useState('')
   const router = useRouter()
   const toast = useToast()
 
@@ -57,7 +58,7 @@ export default function ServiceProviderRegisterForm() {
     body.append("full_name", name)
     body.append("email", email)
     body.append("password", password)
-    body.append("permission_level", 2)
+    body.append("permission_level", "2")
     body.append("image", image)
     body.append("contact_number", contact)
     body.append("description", description)
@@ -80,7 +81,7 @@ export default function ServiceProviderRegisterForm() {
     }
 
     if (url) {
-      const response = await fetch(`${url}/register`, {
+      const response = await fetch(`${url}/register-service-provider`, {
         method: "POST",
         body: body,
         headers: {
@@ -89,10 +90,8 @@ export default function ServiceProviderRegisterForm() {
       });
 
       const data = await response.json()
-      console.log(data.token)
-      console.log(data.user.id)
-      let getToken = data.token
-      let getUserId = data.user.user_id
+      console.log(data);
+      
       document.cookie = `token=${data.token}`
       if (!response.ok) {
         setName("")
@@ -118,6 +117,8 @@ export default function ServiceProviderRegisterForm() {
         })
         console.log(errors)
       } else {
+        let getToken = data.token ?? null
+        let getUserId = data.user.user_id ?? null
         setToken(getToken)
         setUserId(getUserId)
         toast({
@@ -142,8 +143,9 @@ export default function ServiceProviderRegisterForm() {
                   type="text"
                   className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
                   onChange={(e) => setName(e.target.value)}
-                  value={name}
                 />
+                {errors && errors.full_name && <p className="text-red-500">{errors.full_name.toString()}</p>} 
+              
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Email:</span>
@@ -153,6 +155,7 @@ export default function ServiceProviderRegisterForm() {
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                 />
+                {errors && errors.email && <p className="text-red-500">{errors.email.toString()}</p>}
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Password:</span>
@@ -162,6 +165,7 @@ export default function ServiceProviderRegisterForm() {
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                 />
+                { errors && errors.password && <p className="text-red-500">{errors.password.toString()}</p> } 
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Confirm Password:</span>
@@ -171,6 +175,7 @@ export default function ServiceProviderRegisterForm() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   value={confirmPassword}
                 />
+                
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Contact Number:</span>
@@ -180,6 +185,7 @@ export default function ServiceProviderRegisterForm() {
                   onChange={(e) => setContact(e.target.value)}
                   value={contact}
                 />
+                { errors && errors.contact_number && <p className="text-red-500">{errors.contact_number.toString()}</p> } 
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Deposit value:</span>
@@ -189,21 +195,25 @@ export default function ServiceProviderRegisterForm() {
                   onChange={(e) => setDeposit(e.target.value)}
                   value={deposit}
                 />
+                { errors && errors.deposit_range && <p className="text-red-500">{errors.deposit_range.toString()}</p> } 
               </div>
               <div className="flex flex-col mt-[28px]">
                 <label class="block text-sm font-medium dark:text-white" for="file_input">Upload SSSM Certification here:
                   <input id="file_input" type="file" onChange={uploadCert} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
                 </label>
+                { errors && errors.sssm_certificate && <p className="text-red-500">{errors.sssm_certificate.toString()}</p> } 
               </div>
               <div className="flex flex-col mt-[28px]">
                 <label class="block text-sm font-medium dark:text-white" for="file_input">Upload Facility Image here:
                   <input id="file_input" type="file" onChange={uploadToClient} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
                 </label>
+                { errors && errors.image && <p className="text-red-500">{errors.image.toString()}</p> } 
               </div>
               <div className="flex flex-col mt-[28px]">
                 <label class="block text-sm font-medium dark:text-white" for="file_input">Upload QrCode here:
                   <input id="file_input" type="file" onChange={uploadQr} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
                 </label>
+                { errors && errors.qr_code_image && <p className="text-red-500">{errors.qr_code_image.toString()}</p> } 
               </div>
             </div>
             <div>
@@ -214,6 +224,7 @@ export default function ServiceProviderRegisterForm() {
                   onChange={(e) => setDescription(e.target.value)}
                   value={description}
                 />
+                { errors && errors.description && <p className="text-red-500">{errors.description.toString()}</p> } 
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Operation Hours (start):</span>
@@ -223,6 +234,7 @@ export default function ServiceProviderRegisterForm() {
                   onChange={(e) => setStartOperaton(e.target.value)}
                   value={startOperation}
                 />
+                { errors && errors.opening_hour && <p className="text-red-500">{errors.opening_hour.toString()}</p> } 
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Operation Hours (end):</span>
@@ -232,6 +244,7 @@ export default function ServiceProviderRegisterForm() {
                   onChange={(e) => setEndOperaton(e.target.value)}
                   value={endOperation}
                 />
+                { errors && errors.closing_hour && <p className="text-red-500">{errors.closing_hour.toString()}</p> } 
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Service Type:</span>
@@ -241,6 +254,7 @@ export default function ServiceProviderRegisterForm() {
                   onChange={(e) => setServiceType(e.target.value)}
                   value={serviceType}
                 />
+                { errors && errors.service_type && <p className="text-red-500">{errors.service_type.toString()}</p> } 
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Bank Name:</span>
@@ -250,6 +264,7 @@ export default function ServiceProviderRegisterForm() {
                   onChange={(e) => setBankName(e.target.value)}
                   value={bankName}
                 />
+                { errors && errors.bank_name && <p className="text-red-500">{errors.bank_name.toString()}</p> } 
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Beneficiary Account Number:</span>
@@ -259,6 +274,7 @@ export default function ServiceProviderRegisterForm() {
                   onChange={(e) => setAccNumber(e.target.value)}
                   value={accNumber}
                 />
+                { errors && errors.beneficiary_acc_number && <p className="text-red-500">{errors.beneficiary_acc_number.toString()}</p> } 
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Beneficiary Name:</span>
@@ -268,6 +284,7 @@ export default function ServiceProviderRegisterForm() {
                   onChange={(e) => setAccName(e.target.value)}
                   value={accName}
                 />
+                 { errors && errors.beneficiary_name && <p className="text-red-500">{errors.beneficiary_name.toString()}</p> }
               </div>
               <button
                 className="mx-auto rounded-[10px] text-white flex justify-center items-center mt-[45px] hover:cursor-pointer w-3/6 px-6 py-3 bg-primary-500 hover:bg-primary-600 active:bg-primary-700"

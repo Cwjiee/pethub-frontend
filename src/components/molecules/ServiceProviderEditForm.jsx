@@ -141,7 +141,7 @@ export default function ServiceProviderEditForm() {
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                 />
-                {errors && errors.email && <p className="text-red-500">{errors.email.toString()}</p>}
+{errors && errors.email && <p className="text-red-500">{errors.email.toString()}</p>}                
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Password:</span>
