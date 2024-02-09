@@ -52,6 +52,7 @@ export default function ServiceProviderRegisterForm() {
   }
 
   const submitForm = async (e) => {
+    setErrors('');
     e.preventDefault
 
     const body = new FormData()
