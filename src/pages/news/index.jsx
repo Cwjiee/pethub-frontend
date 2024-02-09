@@ -10,16 +10,21 @@ import Image from "next/image";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 
 export default function News() {
-  const [input, setInput] = useState("");
   const { token } = useContext(GlobalContext)
   const [news, setNews] = useState([])
   const [results, setResults] = useState([])
   const [tokenReady, setTokenReady] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
-  const tags = ["Events", "Missing", "Promotions", "Adoptions"];
   const href = "/news/create" 
   const url = process.env.NEXT_PUBLIC_API_URL
+
+  const tags = [
+    "Events",
+    "Missing",
+    "Promotions",
+    "Adoption",
+  ];
 
   useEffect(() => {
     (async () => {
@@ -48,15 +53,7 @@ export default function News() {
     <>
       <Navbar title={true}>Pet News</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
-        <Searchbar setResult={setResults} label={"New News"} href={href} results={results} data={news}/>
-        <div className="flex justify-between mt-4 mb-6">
-          <div className="flex gap-x-[12px]">
-            {tags.map((tag) => {
-              return <Tag tag={tag} tagId={v4()} key={v4()} />;
-            })}
-          </div>
-        </div>
-
+        <Searchbar setResult={setResults} label={"New News"} href={href} results={results} data={news} tags={tags}/>
         {results ? 
           <div className="flex flex-row flex-wrap justify-between gap-5">
             {results.map((news) => {
