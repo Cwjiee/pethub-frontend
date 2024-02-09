@@ -10,7 +10,6 @@ export default function ServiceProviderEditForm() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [contact, setContact] = useState('')
   const [deposit, setDeposit] = useState('')
-  const [cert, setCert] = useState(null)
   const [image, setImage] = useState(null)
   const [qrcode, setQrcode] = useState(null)
   const [description, setDescription] = useState('')
@@ -20,25 +19,17 @@ export default function ServiceProviderEditForm() {
   const [bankName, setBankName] = useState('')
   const [accNumber, setAccNumber] = useState('')
   const [accName, setAccName] = useState('')
+  const [errors, setErrors] = useState('');
   const router = useRouter()
   const toast = useToast()
-
-  const { setToken, setUserId } = useContext(GlobalContext)
   const url = process.env.NEXT_PUBLIC_API_URL
+  const {token, userId} = useContext(GlobalContext)
 
   const uploadToClient = (e) => {
     if (e.target.files && e.target.files[0]) {
       const i = e.target.files[0]
 
       setImage(i)
-    }
-  }
-
-  const uploadCert = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      const i = e.target.files[0]
-
-      setCert(i)
     }
   }
 
@@ -51,13 +42,12 @@ export default function ServiceProviderEditForm() {
   }
 
   const submitForm = async (e) => {
-    e.preventDefault
+    e.preventDefault()
 
     const body = new FormData()
     body.append("full_name", name)
     body.append("email", email)
     body.append("password", password)
-    body.append("permission_level", 2)
     body.append("image", image)
     body.append("contact_number", contact)
     body.append("description", description)
@@ -65,7 +55,6 @@ export default function ServiceProviderEditForm() {
     body.append("service_type", serviceType)
     body.append("opening_hour", startOperation)
     body.append("closing_hour", endOperation)
-    body.append("sssm_certificate", cert)
     body.append("qr_code_image", qrcode)
     body.append("bank_name", bankName)
     body.append("beneficiary_acc_number", accNumber)
@@ -80,19 +69,18 @@ export default function ServiceProviderEditForm() {
     }
 
     if (url) {
-      const response = await fetch(`${url}/register`, {
+      const response = await fetch(`${url}/service-provider/edit/${userId}`, {
         method: "POST",
         body: body,
         headers: {
           "Accept": "application/json",
+          Authorization: "Bearer " + token
         },
       });
 
       const data = await response.json()
-      console.log(data.token)
-      console.log(data.user.id)
-      let getToken = data.token
-      let getUserId = data.user.user_id
+      console.log(data)
+    
       document.cookie = `token=${data.token}`
       if (!response.ok) {
         setName("")
@@ -118,8 +106,6 @@ export default function ServiceProviderEditForm() {
         })
         console.log(errors)
       } else {
-        setToken(getToken)
-        setUserId(getUserId)
         toast({
           title: 'Account created',
           description: 'Account is now on pending',
@@ -127,7 +113,7 @@ export default function ServiceProviderEditForm() {
           duration: 3000,
           isClosable: true
         })
-        setTimeout(function () {router.push('/service-providers/status')}, 1000)
+        setTimeout(function () {router.push('/service-providers/profile')}, 1000)
       }
     }
 }
@@ -145,6 +131,7 @@ export default function ServiceProviderEditForm() {
                   onChange={(e) => setName(e.target.value)}
                   value={name}
                 />
+                 {errors && errors.full_name && <p className="text-red-500">{errors.full_name.toString()}</p>}
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Email:</span>
@@ -154,6 +141,7 @@ export default function ServiceProviderEditForm() {
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                 />
+                {errors && errors.email && <p className="text-red-500">{errors.email.toString()}</p>}
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Password:</span>
@@ -163,6 +151,7 @@ export default function ServiceProviderEditForm() {
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                 />
+                {errors && errors.password && <p className="text-red-500">{errors.password.toString()}</p>}
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Confirm Password:</span>
@@ -181,6 +170,7 @@ export default function ServiceProviderEditForm() {
                   onChange={(e) => setContact(e.target.value)}
                   value={contact}
                 />
+                {errors && errors.contact_number && <p className="text-red-500">{errors.contact_number.toString()}</p>}
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Deposit value:</span>
@@ -190,16 +180,19 @@ export default function ServiceProviderEditForm() {
                   onChange={(e) => setDeposit(e.target.value)}
                   value={deposit}
                 />
+                {errors && errors.deposit_range && <p className="text-red-500">{errors.deposit_range.toString()}</p>}
               </div>
               <div className="flex flex-col mt-[28px]">
                 <label class="block text-sm font-medium dark:text-white" for="file_input">Upload Facility Image here:
                   <input id="file_input" type="file" onChange={uploadToClient} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
                 </label>
+                {errors && errors.image && <p className="text-red-500">{errors.image.toString()}</p>}
               </div>
               <div className="flex flex-col mt-[28px]">
                 <label class="block text-sm font-medium dark:text-white" for="file_input">Upload QrCode here:
                   <input id="file_input" type="file" onChange={uploadQr} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
                 </label>
+                {errors && errors.qr_code_image && <p className="text-red-500">{errors.qr_code_image.toString()}</p>}
               </div>
             </div>
             <div>
@@ -210,6 +203,7 @@ export default function ServiceProviderEditForm() {
                   onChange={(e) => setDescription(e.target.value)}
                   value={description}
                 />
+                {errors && errors.description && <p className="text-red-500">{errors.description.toString()}</p>}
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Operation Hours (start):</span>
@@ -219,6 +213,7 @@ export default function ServiceProviderEditForm() {
                   onChange={(e) => setStartOperaton(e.target.value)}
                   value={startOperation}
                 />
+                {errors && errors.opening_hour && <p className="text-red-500">{errors.opening_hour.toString()}</p>}
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Operation Hours (end):</span>
@@ -228,6 +223,7 @@ export default function ServiceProviderEditForm() {
                   onChange={(e) => setEndOperaton(e.target.value)}
                   value={endOperation}
                 />
+                {errors && errors.closing_hour && <p className="text-red-500">{errors.closing_hour.toString()}</p>}
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Service Type:</span>
@@ -237,6 +233,7 @@ export default function ServiceProviderEditForm() {
                   onChange={(e) => setServiceType(e.target.value)}
                   value={serviceType}
                 />
+                {errors && errors.service_type && <p className="text-red-500">{errors.service_type.toString()}</p>}
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Bank Name:</span>
@@ -246,6 +243,7 @@ export default function ServiceProviderEditForm() {
                   onChange={(e) => setBankName(e.target.value)}
                   value={bankName}
                 />
+                {errors && errors.bank_name && <p className="text-red-500">{errors.bank_name.toString()}</p>}
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Beneficiary Account Number:</span>
@@ -255,6 +253,7 @@ export default function ServiceProviderEditForm() {
                   onChange={(e) => setAccNumber(e.target.value)}
                   value={accNumber}
                 />
+                {errors && errors.beneficiary_acc_number && <p className="text-red-500">{errors.beneficiary_acc_number.toString()}</p>}
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Beneficiary Name:</span>
@@ -264,6 +263,7 @@ export default function ServiceProviderEditForm() {
                   onChange={(e) => setAccName(e.target.value)}
                   value={accName}
                 />
+                {errors && errors.beneficiary_name && <p className="text-red-500">{errors.beneficiary_name.toString()}</p>}
               </div>
               
             </div>
