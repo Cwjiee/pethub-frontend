@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Form from "@/components/molecules/LoginForm";
-import { useState } from "react";
 import { Inter, Nunito } from 'next/font/google'
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useToast } from "@chakra-ui/react";
 
 const inter = Nunito({
   subsets: ["latin"],
@@ -9,6 +11,21 @@ const inter = Nunito({
 });
 
 export default function Login() {
+  const router = useRouter()
+  const toast = useToast()
+
+  useEffect(() => {
+    let notAuth = router.query.result
+    if (notAuth) {
+      toast({
+        title: 'Unauthorized Access',
+        description: 'Please login before you proceed',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  }, [router, toast])
   
   return (
     <div className="flex w-full h-screen">

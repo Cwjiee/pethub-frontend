@@ -2,7 +2,7 @@ import { GlobalContext } from "@/context";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import Link from "next/link";
-import { Toast, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 
 export default function RegisterForm() {
   const [email, setEmail] = useState("")
