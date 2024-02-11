@@ -11,8 +11,8 @@ import SPNavbar from "@/components/organisms/SPNavbar";
 import SPFooter from "@/components/organisms/SPFooter";
 
 export default function ServiceProviderNewsPage() {
-    const [input, setInput] = useState("");
     const { token } = useContext(GlobalContext)
+    const [results, setResults] = useState([])
     const [news, setNews] = useState([])
     const [tokenReady, setTokenReady] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
@@ -35,6 +35,7 @@ export default function ServiceProviderNewsPage() {
           const data = await response.json()
           console.log(data);
           setNews(data.news)
+          setResults(data.news)
           setIsLoading(false)
         }
       })()
@@ -48,18 +49,10 @@ export default function ServiceProviderNewsPage() {
       <>
         <SPNavbar title={true}>Pet News</SPNavbar>
         <div className="w-[80%] m-auto pt-6 px-6">
-          <Searchbar input={input} setInput={setInput} label={"New News"} href={href}/>
-          <div className="flex justify-between mt-4 mb-6">
-            <div className="flex gap-x-[12px]">
-              {tags.map((tag) => {
-                return <Tag tag={tag} tagId={v4()} key={v4()} />;
-              })}
-            </div>
-          </div>
-  
-          {news ? 
+          <Searchbar results={results} setResult={setResults} label={"New News"} href={href} data={news} tags={tags}/>
+          {results ? 
             <div className="flex flex-row flex-wrap justify-between gap-5">
-              {news.map((news) => {
+              {results.map((news) => {
                 return <NewsBlock key={news.news_id} news={news}/>
               })}
             </div>
