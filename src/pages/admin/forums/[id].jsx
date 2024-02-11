@@ -1,4 +1,3 @@
-import Navbar from "@/components/organisms/Navbar"
 import BackButton from "@/components/atoms/BackButton"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
@@ -10,8 +9,9 @@ import CommentBlock from "@/components/molecules/CommentBlock"
 import Image from "next/image"
 import SendButton from "@/../public/svg/SendButton.svg"
 import { v4 } from "uuid"
+import AdminNavbar from "@/components/organisms/AdminNavbar"
 
-export default function ForumsPage() {
+export default function AdminForumsPage() {
   const router = useRouter()
   const id = router.query.id
   const { token, userId } = useContext(GlobalContext)
@@ -109,7 +109,7 @@ export default function ForumsPage() {
 
   return !isLoading ? (
     <>
-      <Navbar title={false}>Forums</Navbar>
+      <AdminNavbar />
       <div className="w-[70%] m-auto pt-6 px-6">
         <BackButton/>
       </div>
@@ -144,7 +144,7 @@ export default function ForumsPage() {
             <div className="text-[16px] font-bold">Comments</div>
             <div className="mt-2 mb-8 flex flex-col gap-y-1">
               {post.comments.map((comment) => {
-                return <CommentBlock key={comment.comment_id} id={comment.comment_id} name={comment.user.full_name} date={comment.updated_at} desc={comment.comment_description} setReloadComment={setReloadComment} />
+                return <CommentBlock key={v4()} id={comment.comment_id} name={comment.user.full_name} date={comment.updated_at} desc={comment.comment_description} isAdmin={true} setReloadComment={setReloadComment} />
               })}
             </div>
             <div>

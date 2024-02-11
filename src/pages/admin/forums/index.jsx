@@ -1,16 +1,13 @@
 import Navbar from "@/components/organisms/Navbar";
 import Searchbar from "@/components/molecules/SearchbarWithBtn";
 import Posts from "@/components/molecules/Posts";
-import Tag from "@/components/atoms/Tag";
 import { useContext, useEffect, useState } from "react";
-import { v4 } from "uuid";
 import { GlobalContext } from "@/context";
 import Image from "next/image";
 import Empty from "@/../../public/svg/EmptyNews.svg"
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 
-export default function Forum() {
-  const [input, setInput] = useState("");
+export default function AdminForum() {
   const [posts, setPosts] = useState([])
   const [results, setResults] = useState([])
   const [isLoading, setIsLoading] = useState(true);
@@ -41,7 +38,6 @@ export default function Forum() {
         const result = await response.json()
         setPosts(result.posts)
         setResults(result.posts)
-        console.log(posts[0])
         setIsLoading(false)
         setReloadPost(false)
       }

@@ -39,7 +39,6 @@ export default function Forum() {
         setPosts(result.posts)
         setResults(result.posts)
         setIsLoading(false)
-        console.log(posts)
       }
     })()
   }, [tokenReady, url])
@@ -47,10 +46,6 @@ export default function Forum() {
   useEffect(() => {
     if (token) setTokenReady(true)
   }, [token])
-
-  useEffect(() => {
-    console.log(posts)
-  }, [posts])
 
   return !isLoading ? (
     <>

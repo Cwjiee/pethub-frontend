@@ -26,7 +26,11 @@ export default function Posts({ isAdmin, post, setReloadPost }) {
   const [time, setTime] = useState()
 
   const handleRoute = () => {
-    router.push(`./forums/${post.post_id}`)
+    if (isAdmin) {
+      router.push(`/admin/forums/${post.post_id}`)
+    } else {
+      router.push(`/forums/${post.post_id}`)
+    }
   }
 
   const handleDelete = async () => {
@@ -96,7 +100,7 @@ export default function Posts({ isAdmin, post, setReloadPost }) {
         <div className="flex justify-left gap-x-2">
           {post.categories.map((category) => {
             return (
-              <div className="flex justify-center items-center rounded-[40px] h-6 px-5 w-auto border border-[#D3D3D3]">
+              <div key={category.category_id} className="flex justify-center items-center rounded-[40px] h-6 px-5 w-auto border border-[#D3D3D3]">
                 <span className="font-semibold text-sm spacing">{category.category_name}</span>
               </div>
             )}
