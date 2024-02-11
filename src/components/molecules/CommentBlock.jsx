@@ -91,7 +91,8 @@ export default function CommentBlock({ id, name, date, desc, isAdmin, isSP, setR
         isClosable: true
       })
       setReloadComment(true)
-
+      onCloseEdit()
+      setEditedComment('')
     } else {
       toast({
         title: 'Error',

@@ -47,6 +47,10 @@ export default function Forum() {
     if (token) setTokenReady(true)
   }, [token])
 
+  useEffect(() => {
+    if (posts) console.log(posts[0])
+  }, [posts])
+
   return !isLoading ? (
     <>
       <Navbar title={true}>Forums</Navbar>

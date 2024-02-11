@@ -13,11 +13,11 @@ import {
   TagCloseButton,
 } from '@chakra-ui/react'
 import { v4 } from "uuid";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
 
 export default function SearchbarWithBtn({ setResult, label, href, results, data, tags }) {
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState()
   const [selectedTag, setSelectedTag] = useState('')
   const [isSelected, setIsSelected] = useState(false)
   const url = process.env.NEXT_PUBLIC_API_URL
@@ -86,6 +86,10 @@ export default function SearchbarWithBtn({ setResult, label, href, results, data
     const result = await response.json()
     setCategories(result.categories)
   }
+
+  useEffect(() => {
+    if (categories) console.log(categories)
+  }, [categories])
 
   return (
     <>

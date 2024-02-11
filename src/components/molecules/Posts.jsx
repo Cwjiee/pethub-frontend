@@ -17,7 +17,7 @@ import {
   Button,
 } from '@chakra-ui/react'
 
-export default function Posts({ isAdmin, post, setReloadPost }) {
+export default function Posts({ isAdmin, isSP, post, setReloadPost }) {
   const router = useRouter()
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -28,6 +28,8 @@ export default function Posts({ isAdmin, post, setReloadPost }) {
   const handleRoute = () => {
     if (isAdmin) {
       router.push(`/admin/forums/${post.post_id}`)
+    } else if (isSP){
+      router.push(`/service-providers/forums/${post.post_id}`)
     } else {
       router.push(`/forums/${post.post_id}`)
     }
@@ -122,7 +124,7 @@ export default function Posts({ isAdmin, post, setReloadPost }) {
               className="mt-1"
             />
             {post.comments && (
-              <span className="text-sm font-semibold">{post.comments.length}</span>
+              <span className="text-sm font-semibold">{post.comments}</span>
             )}
           </div>
           <div className="bg-[#D9D9D9] rounded-full w-3 h-3"></div>

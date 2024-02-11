@@ -8,7 +8,6 @@ import LoadSpinner from "@/components/atoms/LoadSpinner"
 import CommentBlock from "@/components/molecules/CommentBlock"
 import Image from "next/image"
 import SendButton from "@/../public/svg/SendButton.svg"
-import { v4 } from "uuid"
 import SPNavbar from "@/components/organisms/SPNavbar"
 import SPFooter from "@/components/organisms/SPFooter"
 
@@ -122,8 +121,8 @@ export default function ServiceProviderSpecificPostPage() {
                 <div className="flex justify-left gap-x-1">
                 {post.categories.map((category) => {
                     return (
-                    <div key={v4()} className="flex justify-center items-center bg-white rounded-[40px] h-6 px-5 w-auto border border-[#D3D3D3]">
-                        <span key={category.category_id} className="font-medium text-sm spacing">{category.category_name}</span>
+                    <div key={category.category_id} className="flex justify-center items-center bg-white rounded-[40px] h-6 px-5 w-auto border border-[#D3D3D3]">
+                        <span className="font-medium text-sm spacing">{category.category_name}</span>
                     </div>
                     )}
                 )}
@@ -145,7 +144,7 @@ export default function ServiceProviderSpecificPostPage() {
                 <div className="text-[16px] font-bold">Comments</div>
                 <div className="mt-2 mb-8 flex flex-col gap-y-1">
                     {post.comments.map((comment) => {
-                    return <CommentBlock key={v4()} name={comment.user.full_name} date={comment.updated_at} desc={comment.comment_description} />
+                    return <CommentBlock key={comment.comment_id} id={comment.comment_id} isSP={true} name={comment.user.full_name} date={comment.updated_at} desc={comment.comment_description} setReloadComment={setReloadComment}/>
                     })}
                 </div>
                 <div>

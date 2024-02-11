@@ -55,7 +55,7 @@ export default function AdminForum() {
         <Searchbar setResult={setResults} label={"New Post"} href={"/forums/create"} results={results} data={posts} tags={tags}/>
         {results ? 
           results.map((post) => {
-            return <Posts key={post.post_id} post={post} isAdmin setReloadPost={setReloadPost}/>
+            return <Posts key={post.post_id} post={post} isAdmin={true} setReloadPost={setReloadPost}/>
           })
         :
           <div className="flex flex-col justify-center items-center mt-20">
