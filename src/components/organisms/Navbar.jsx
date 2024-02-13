@@ -19,6 +19,10 @@ export default function Navbar({ children, title }) {
       label: "Pet News",
     },
     {
+      href: "/pet-grooming",
+      label: 'Pet Grooming'
+    },
+    {
       href: "/healthcare-facility",
       label: "Healthcare Facility",
     },

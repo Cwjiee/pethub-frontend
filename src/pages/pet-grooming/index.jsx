@@ -5,9 +5,9 @@ import { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "@/context";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 
-export default function Veterinary() {
+export default function PetGrooming() {
   const [input, setInput] = useState("");
-  const [vet, setVet] = useState()
+  const [groom, setGroom] = useState()
   const { token } = useContext(GlobalContext)
   const [isLoading, setIsLoading] = useState(true)
   const [tokenReady, setTokenReady] = useState(false)
@@ -17,7 +17,7 @@ export default function Veterinary() {
   useEffect(() => {
     (async () => {
       if (tokenReady) {
-        const response = await fetch(`${url}/healthcare`, {
+        const response = await fetch(`${url}/grooming`, {
           headers: {
             'Content-type': "application/json",
             'Authorization': `Bearer ${token}`,
@@ -26,7 +26,7 @@ export default function Veterinary() {
         })
 
         const data = await response.json()
-        setVet(data.healthcare_facilities)
+        setGroom(data.grooming)
         setIsLoading(false)
       }
     })()
@@ -38,12 +38,12 @@ export default function Veterinary() {
 
   return !isLoading ? (
     <>
-      <Navbar title={true}>Healthcare Facility</Navbar>
+      <Navbar title={true}>Pet Grooming</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
         <Searchbar input={input} setInput={setInput} />
         <div className="flex flex-row flex-wrap justify-between gap-3 mt-10">
-        {vet && (
-          vet.map((v) => {
+        {groom && (
+          groom.map((v) => {
             return <BookingBlock key={v.user_id} vet={v}/>
           })
         )}
