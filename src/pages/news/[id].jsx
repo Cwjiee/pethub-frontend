@@ -5,8 +5,9 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
+import checkAuth from "@/utils/checkAuth";
 
-export default function NewsPage() {
+function NewsPage() {
   const router = useRouter()
   const id = router.query.id
   const url = process.env.NEXT_PUBLIC_API_URL
@@ -61,3 +62,5 @@ export default function NewsPage() {
     <LoadSpinner />
   )  
 }
+
+export default checkAuth(NewsPage)

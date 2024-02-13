@@ -52,7 +52,7 @@ export default function Navbar({ children, title }) {
     } else {
       toast({
         title: "sign out successfully",
-        description: 'We will redirect back to forums page',
+        description: 'We will redirect back to landing page',
         status: 'success',
         duration: 3000,
         isClosable: true

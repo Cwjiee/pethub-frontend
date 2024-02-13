@@ -10,13 +10,13 @@ import { GlobalContext } from "@/context"
 import TimeConvert from "@/utils/TimeConvert"
 import checkAuth from "@/utils/checkAuth"
 
-function HealthcareFacilityInfo() {
+function GroomingInfo() {
   const router = useRouter()
   const { token } = useContext(GlobalContext)
   const [tokenReady, setTokenReady] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const facilityId = router.query.id
-  const [healthcare, setHealthcare] = useState()
+  const [grooming, setGrooming] = useState()
   const [time, setTime] = useState({})
 
   const url = process.env.NEXT_PUBLIC_API_URL
@@ -34,7 +34,7 @@ function HealthcareFacilityInfo() {
 
         const data = await response.json()
         console.log(data)
-        setHealthcare(data.service_provider)
+        setGrooming(data.service_provider)
         setIsLoading(false)
       }
     })()
@@ -45,10 +45,10 @@ function HealthcareFacilityInfo() {
   }, [token, facilityId])
 
   useEffect(() => {
-    if(healthcare) {
-      timeBlock(healthcare.opening_hour, healthcare.closing_hour)
+    if(grooming) {
+      timeBlock(grooming.opening_hour, grooming.closing_hour)
     }
-  }, [healthcare])
+  }, [grooming])
 
   const timeBlock = (openTimeString, closeTimeString) => {
     setTime(TimeConvert(openTimeString, closeTimeString))
@@ -61,19 +61,19 @@ function HealthcareFacilityInfo() {
         <BackButton/>
         <div className="mt-7 flex flex-col gap-12 w-full mx-auto justify-center items-center">
           <div className="ring-[5px] ring-white rounded-[10px]">
-            <img src={healthcare.image} width={320} height={210} alt="service-provider-image" />
+            <img src={grooming.image} width={320} height={210} alt="service-provider-image" />
           </div>
           <div className="shadow-lg rounded-[10px] p-10 bg-white w-[70%] flex flex-col gap-y-12">
             <div className="flex flex-col gap-y-4">
-              <div>Name: {healthcare.full_name}</div>
-              <div>Contact Number:  {healthcare.contact_number}</div>
+              <div>Name: {grooming.full_name}</div>
+              <div>Contact Number:  {grooming.contact_number}</div>
               <div>Opening Hours: {`${time.openTime} to ${time.closeTime}`}</div>
-              <div>Service Type: {healthcare.service_type}</div>
-              <div>Deposit Range: RM{healthcare.deposit_value.toFixed(2)}</div>
+              <div>Service Type: {grooming.service_type}</div>
+              <div>Deposit Range: RM{grooming.deposit_value.toFixed(2)}</div>
             </div>
             <div className="flex flex-col gap-y-5">
-              <div className="font-semibold">About {healthcare.full_name}</div>
-              <div>{healthcare.description}</div>
+              <div className="font-semibold">About {grooming.full_name}</div>
+              <div>{grooming.description}</div>
             </div>
           </div>
           <Link
@@ -90,4 +90,4 @@ function HealthcareFacilityInfo() {
   )
 }
 
-export default checkAuth(HealthcareFacilityInfo)
+export default checkAuth(GroomingInfo)

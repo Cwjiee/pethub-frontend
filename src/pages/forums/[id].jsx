@@ -10,8 +10,9 @@ import CommentBlock from "@/components/molecules/CommentBlock"
 import Image from "next/image"
 import SendButton from "@/../public/svg/SendButton.svg"
 import { v4 } from "uuid"
+import checkAuth from "@/utils/checkAuth"
 
-export default function ForumsPage() {
+function ForumsPage() {
   const router = useRouter()
   const id = router.query.id
   const { token, userId } = useContext(GlobalContext)
@@ -164,3 +165,6 @@ export default function ForumsPage() {
     <LoadSpinner />
   )
 }
+
+
+export default checkAuth(ForumsPage)
