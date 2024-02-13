@@ -6,8 +6,8 @@ import { GlobalContext } from "@/context";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 
 export default function PetGrooming() {
-  const [input, setInput] = useState("");
-  const [groom, setGroom] = useState()
+  const [results, setResults] = useState([])
+  const [groom, setGroom] = useState([])
   const { token } = useContext(GlobalContext)
   const [isLoading, setIsLoading] = useState(true)
   const [tokenReady, setTokenReady] = useState(false)
@@ -27,6 +27,7 @@ export default function PetGrooming() {
 
         const data = await response.json()
         setGroom(data.grooming)
+        setResults(data.grooming)
         setIsLoading(false)
       }
     })()
@@ -40,11 +41,12 @@ export default function PetGrooming() {
     <>
       <Navbar title={true}>Pet Grooming</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
-        <Searchbar input={input} setInput={setInput} />
-        <div className="flex flex-row flex-wrap justify-between gap-3 mt-10">
-        {groom && (
-          groom.map((v) => {
-            return <BookingBlock key={v.user_id} vet={v}/>
+        <Searchbar results={results} setResult={setResults} data={groom} />
+
+        <div className="flex flex-row flex-wrap justify-left gap-[19px] mt-10 w-full mx-auto">
+        {results && (
+          results.map((groom) => {
+            return <BookingBlock key={groom.user_id} vet={groom}/>
           })
         )}
         </div>

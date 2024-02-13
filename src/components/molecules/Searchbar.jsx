@@ -1,4 +1,30 @@
-export default function Searchbar({ input, setInput }) {
+import Fuse from "fuse.js"
+
+export default function Searchbar({ setResult, results, data }) {
+
+  const handleSearch = (pattern) => {
+    if (!pattern) {
+      setResult(data)
+      console.log('couldn\' search')
+      return
+    }
+
+    const fuse = new Fuse(data, {
+      keys: ['full_name'],
+    })
+
+    const result = fuse.search(pattern)
+    const matches = []
+    if (!results.length) {
+      setResult(data)
+    } else {
+      result.forEach(({item}) => {
+        matches.push(item)
+      })
+      setResult(matches)
+    }
+  }
+
   return (
     <div className="flex justify-between h-[45px] w-full">
       <input
@@ -8,8 +34,7 @@ export default function Searchbar({ input, setInput }) {
             "0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.10)",
         }}
         placeholder="Search..."
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => handleSearch(e.target.value)}
       />
     </div>
   );

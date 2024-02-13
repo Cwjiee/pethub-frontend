@@ -6,8 +6,8 @@ import { GlobalContext } from "@/context";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 
 export default function Veterinary() {
-  const [input, setInput] = useState("");
-  const [vet, setVet] = useState()
+  const [results, setResults] = useState([])
+  const [vet, setVet] = useState([])
   const { token } = useContext(GlobalContext)
   const [isLoading, setIsLoading] = useState(true)
   const [tokenReady, setTokenReady] = useState(false)
@@ -27,6 +27,7 @@ export default function Veterinary() {
 
         const data = await response.json()
         setVet(data.healthcare_facilities)
+        setResults(data.healthcare_facilities)
         setIsLoading(false)
       }
     })()
@@ -40,11 +41,11 @@ export default function Veterinary() {
     <>
       <Navbar title={true}>Healthcare Facility</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
-        <Searchbar input={input} setInput={setInput} />
-        <div className="flex flex-row flex-wrap justify-between gap-3 mt-10">
-        {vet && (
-          vet.map((v) => {
-            return <BookingBlock key={v.user_id} vet={v}/>
+        <Searchbar results={results} setResult={setResults} data={vet} />
+        <div className="flex flex-row flex-wrap justify-left gap-[19px] mt-10 w-full mx-auto">
+        {results && (
+          results.map((vet) => {
+            return <BookingBlock key={vet.user_id} vet={vet}/>
           })
         )}
         </div>
