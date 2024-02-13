@@ -8,12 +8,14 @@ export default function checkAuth(Component) {
     const { userId } = useContext(GlobalContext)
 
     useEffect(() => {
-      if (!userId) {
+
+      if (userId === undefined) {
         router.push({
           pathname: '/login',
           query: { result: true }
         })
       }
+
     }, [router, userId])
 
     return <Component {...props} />

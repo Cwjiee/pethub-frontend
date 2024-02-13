@@ -7,6 +7,8 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
 import checkAuth from "@/utils/checkAuth"
+import Image from "next/image"
+import Empty from "@/../../public/svg/EmptyNews.svg"
 
 function SelectPet() {
   const [pets, setPets] = useState()
@@ -67,7 +69,11 @@ function SelectPet() {
           </Link>
         </div>
       ) : (
-          <div>empty</div>
+          <div className="flex flex-col justify-center items-center mt-20">
+            <Image src={Empty} width={200} height={245} alt="empty news"/>
+            <div className="flex justify-center text-2xl mx-20 mt-20 font-bold text-secondary-500">You don&apos;t have any pets in your profile</div>
+            <div className="flex justify-center text-2xl mx-20 font-bold text-secondary-500">Create a profile for your pet now!</div>
+          </div>
         )}
     </>
   ) : (
