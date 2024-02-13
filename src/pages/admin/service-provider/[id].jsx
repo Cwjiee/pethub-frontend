@@ -152,7 +152,7 @@ export default function ServiceProviderDetails() {
                 </div>
                 <div className="flex flex-col gap-y-1">
                   <div>Deposit Value:</div>
-                  <div className="text-[#555555]">{`RM ${user.deposit_range.toFixed(2)}`}</div>
+                  <div className="text-[#555555]">{`RM ${user.deposit_value.toFixed(2)}`}</div>
                 </div>
                 <div className="flex flex-col gap-y-1">
                   <div>QR Code Image:</div>

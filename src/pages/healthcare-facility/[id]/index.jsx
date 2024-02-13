@@ -68,7 +68,7 @@ export default function HealthcareFacilityInfo() {
               <div>Contact Number:  {healthcare.contact_number}</div>
               <div>Opening Hours: {`${time.openTime} to ${time.closeTime}`}</div>
               <div>Service Type: {healthcare.service_type}</div>
-              <div>Deposit Range: RM{healthcare.deposit_range.toFixed(2)}</div>
+              <div>Deposit Range: RM{healthcare.deposit_value.toFixed(2)}</div>
             </div>
             <div className="flex flex-col gap-y-5">
               <div className="font-semibold">About {healthcare.full_name}</div>

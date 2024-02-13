@@ -51,7 +51,7 @@ export default function ServiceProviderEditForm() {
     body.append("image", image)
     body.append("contact_number", contact)
     body.append("description", description)
-    body.append("deposit_range", deposit)
+    body.append("deposit_value", deposit)
     body.append("service_type", serviceType)
     body.append("opening_hour", startOperation)
     body.append("closing_hour", endOperation)

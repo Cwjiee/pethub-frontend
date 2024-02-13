@@ -105,7 +105,7 @@ export default function CreateAppointment() {
               <div>Bank Name: {appointment.service_provider.bank_name}</div>
               <div>Bank Acc No: {appointment.service_provider.beneficiary_acc_number}</div>
               <div>Beneficary Name: {appointment.service_provider.beneficiary_name}</div>
-              <div>Deposit Amount: RM {appointment.service_provider.deposit_range.toFixed(2)}</div>
+              <div>Deposit Amount: RM {appointment.service_provider.deposit_value.toFixed(2)}</div>
             </div>
           )}
           <div className="text-justify">
