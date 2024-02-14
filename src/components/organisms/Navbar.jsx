@@ -57,6 +57,7 @@ export default function Navbar({ children, title }) {
         duration: 3000,
         isClosable: true
       })
+      document.cookie = "roles=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
       sessionStorage.clear()
       router.push('/')
     }

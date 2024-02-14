@@ -47,7 +47,7 @@ export default function RegisterForm() {
       } else {
         let getToken = data.token
         let getUserId = data.user.user_id
-        document.cookie = `token=${data.token}`
+        document.cookie = `roles=${data.user.permission_level}`
         setToken(getToken)
         setUserId(getUserId)
         console.log(data.token)
