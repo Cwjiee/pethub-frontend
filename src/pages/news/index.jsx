@@ -1,19 +1,14 @@
 import Navbar from "@/components/organisms/Navbar";
 import Searchbar from "@/components/molecules/SearchbarWithBtn";
-import Tag from "@/components/atoms/Tag";
-import { useContext, useEffect, useState } from "react";
-import { v4 } from "uuid";
+import { useEffect, useState } from "react";
 import NewsBlock from "@/components/molecules/NewsBlock";
-import { GlobalContext } from "@/context";
 import Empty from "../../../public/svg/EmptyNews.svg"
 import Image from "next/image";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 
 export default function News() {
-  const { token } = useContext(GlobalContext)
   const [news, setNews] = useState([])
   const [results, setResults] = useState([])
-  const [tokenReady, setTokenReady] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
   const href = "/news/create" 
@@ -28,26 +23,14 @@ export default function News() {
 
   useEffect(() => {
     (async () => {
-      if (tokenReady) {
-        const response = await fetch(`${url}/news`, {
-          headers: {
-            'Content-type': "application/json",
-            'Authorization': `Bearer ${token}`,
-            'Accept': 'application/json'
-          }
-        })
+      const response = await fetch(`${url}/news`)
+      const data = await response.json()
 
-        const data = await response.json()
-        setNews(data.news)
-        setResults(data.news)
-        setIsLoading(false)
-      }
+      setNews(data.news)
+      setResults(data.news)
+      setIsLoading(false)
     })()
-  }, [tokenReady])
-
-  useEffect(() => {
-    if (token) setTokenReady(true)
-  }, [token])
+  }, [])
 
   return !isLoading ? (
     <>

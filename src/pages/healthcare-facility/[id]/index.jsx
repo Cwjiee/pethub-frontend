@@ -24,7 +24,7 @@ function HealthcareFacilityInfo() {
   useEffect(() => {
     (async () => {
       if (tokenReady) {
-        const response = await fetch(`${url}/healthcare/${facilityId}`, {
+        const response = await fetch(`${url}/service-provider/${facilityId}`, {
           headers: {
             'Content-type': "application/json",
             'Authorization': `Bearer ${token}`,

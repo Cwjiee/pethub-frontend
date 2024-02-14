@@ -1,41 +1,26 @@
 import Navbar from "@/components/organisms/Navbar";
 import Searchbar from "@/components/molecules/Searchbar";
 import BookingBlock from "@/components/molecules/BookingBlock";
-import { useContext, useState, useEffect } from "react";
-import { GlobalContext } from "@/context";
+import { useState, useEffect } from "react";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 
 export default function PetGrooming() {
   const [results, setResults] = useState([])
   const [groom, setGroom] = useState([])
-  const { token } = useContext(GlobalContext)
   const [isLoading, setIsLoading] = useState(true)
-  const [tokenReady, setTokenReady] = useState(false)
 
   const url = process.env.NEXT_PUBLIC_API_URL
 
   useEffect(() => {
     (async () => {
-      if (tokenReady) {
-        const response = await fetch(`${url}/grooming`, {
-          headers: {
-            'Content-type': "application/json",
-            'Authorization': `Bearer ${token}`,
-            'Accept': 'application/json'
-          }
-        })
+      const response = await fetch(`${url}/grooming`)
+      const data = await response.json()
 
-        const data = await response.json()
-        setGroom(data.grooming)
-        setResults(data.grooming)
-        setIsLoading(false)
-      }
+      setGroom(data.grooming)
+      setResults(data.grooming)
+      setIsLoading(false)
     })()
-  }, [tokenReady])
-
-  useEffect(() => {
-    if (token) setTokenReady(true)
-  }, [token])
+  }, [])
 
   return !isLoading ? (
     <>

@@ -1,8 +1,7 @@
 import Navbar from "@/components/organisms/Navbar";
 import Searchbar from "@/components/molecules/SearchbarWithBtn";
 import Posts from "@/components/molecules/Posts";
-import { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "@/context";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Empty from "../../../public/svg/EmptyNews.svg"
 import LoadSpinner from "@/components/atoms/LoadSpinner";
@@ -11,9 +10,8 @@ export default function Forum() {
   const [posts, setPosts] = useState([])
   const [results, setResults] = useState([])
   const [isLoading, setIsLoading] = useState(true);
-  const { token } = useContext(GlobalContext)
+
   const url = process.env.NEXT_PUBLIC_API_URL
-  const [tokenReady, setTokenReady] = useState(false)
 
   const tags = [
     "Dogs",
@@ -27,29 +25,14 @@ export default function Forum() {
 
   useEffect(() => {
     (async () => {
-      if (tokenReady) {
-        const response = await fetch(`${url}/posts`, {
-          headers: {
-            'Content-type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-            'Accept': 'application/json'
-          }
-        })
-        const result = await response.json()
-        setPosts(result.posts)
-        setResults(result.posts)
-        setIsLoading(false)
-      }
+      const response = await fetch(`${url}/posts`)
+      const result = await response.json()
+
+      setPosts(result.posts)
+      setResults(result.posts)
+      setIsLoading(false)
     })()
-  }, [tokenReady, url])
-
-  useEffect(() => {
-    if (token) setTokenReady(true)
-  }, [token])
-
-  useEffect(() => {
-    if (posts) console.log(posts[0])
-  }, [posts])
+  }, [url])
 
   return !isLoading ? (
     <>
