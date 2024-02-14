@@ -89,7 +89,7 @@ export default function CreateForum() {
     } else {
       toast({
         title: `${data.message}`,
-        description: 'We will redirect back to forums page',
+        description: 'Successfully created post! Redirecting you back...',
         status: 'success',
         duration: 3000,
         isClosable: true
