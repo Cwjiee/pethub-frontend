@@ -56,7 +56,7 @@ export default function Add() {
 
         if (!response.ok) {
             toast({
-              title: 'Login failed',
+              title: 'Failed to add pet',
               description: 'Please try again...',
               status: 'error',
               duration: 3000,
@@ -64,7 +64,7 @@ export default function Add() {
             })
           } else {
             toast({
-              title: 'Successfully created pet!',
+              title: 'Successfully added pet!',
               description: 'Redirecting you back...',
               status: 'success',
               duration: 3000,
