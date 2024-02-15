@@ -59,9 +59,20 @@ export default function RegisterForm() {
           duration: 3000,
           isClosable: true
         })
-        setTimeout(function () {
-          router.push('/healthcare-facility')
-        }, 1000)
+
+        if (data.user.permission_level === '1') {
+          setTimeout(function () {
+            router.push('/healthcare-facility')
+          }, 1000)
+        } else if (data.user.permission_level === '2') {
+          setTimeout(function () {
+            router.push('/service-providers/dashboard')
+          }, 1000)
+        } else if (data.user.permission_level === '3') {
+          setTimeout(function () {
+            router.push('/admin')
+          }, 1000)
+        }
       }
     }
   }
