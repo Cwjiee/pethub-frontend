@@ -15,7 +15,7 @@ export default function Login() {
   const toast = useToast()
 
   useEffect(() => {
-    let notAuth = router.query.result
+    let notAuth = router.query.unauth
     if (notAuth) {
       toast({
         title: 'Unauthorized Access',

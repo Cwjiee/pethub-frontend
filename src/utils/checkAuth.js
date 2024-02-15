@@ -23,15 +23,25 @@ export default function checkAuth(Component) {
       return "";
     }
 
+    const checkPermission = (roles) => {
+      const pathname = router.pathname
+      const route = pathname.split('/')[1]
+
+      if (!roles) return false
+      if (route === 'admin' && roles !== '3') return false
+
+      return true
+    }
+
     useEffect(() => {
 
       const roles = getCookie()
-      console.log(roles)
+      const permit = checkPermission(roles)
 
-      if (!roles) {
+      if (!permit) {
         router.push({
           pathname: '/login',
-          query: { result: true }
+          query: { unauth: true }
         })
       } 
     }, [])
