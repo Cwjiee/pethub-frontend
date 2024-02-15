@@ -37,12 +37,11 @@ export default function Profile() {
 
   return !isLoading ? (
     <>
-      {console.log(user.image)}
       <Navbar></Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
         <div className="flex flex-row mt-5 gap-x-4">
           <div className="flex flex-col gap-y-4 justify-end">
-            <Image class="inline-block rounded-[10px] ring ring-white" src={user.image} width={250} height={250} alt="avatar"/>
+            <img class="inline-block rounded-[10px] ring ring-white" src={user.image} width={250} height={250} alt="avatar"/>
               <Link href={`./pet-owners/edit/${user.user_id}`} className="flex justify-around px-8 py-3 rounded-[10px] bg-[#222]">
                 <div className="my-auto text-white spacing tracking-[0.86px] text-sm">
                   Edit Profile 
