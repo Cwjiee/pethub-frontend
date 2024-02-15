@@ -1,14 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
 
 export default function BookingBlock({ vet }) {
   return (
     <div className="sm:basis-[24%] h-[370px] rounded-[10px] bg-white shadow p-6 flex flex-col justify-between gap-3.5">
-      <Image
+      <img
         width={255}
         height={170}
         src={vet.image}
-        alt="booking-placeholder"
+        alt="booking-image"
       />
       <div className="mx-1">
         <h4 className="font-semibold">{vet.full_name}</h4>
