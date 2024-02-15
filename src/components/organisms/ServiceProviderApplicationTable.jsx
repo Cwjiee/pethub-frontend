@@ -28,7 +28,7 @@ export default function ServiceProviderApplicationTable({ users }) {
     if (response.ok) {
       toast({
         title: 'Success',
-        description: 'User status updated',
+        description: 'Service provider status updated',
         status: 'success',
         duration: 3000,
         isClosable: true
@@ -36,7 +36,7 @@ export default function ServiceProviderApplicationTable({ users }) {
     } else {
       toast({
         title: 'Error',
-        description: 'Failed in updating user status',
+        description: 'Failed in updating service provider status',
         status: 'error',
         duration: 3000,
         isClosable: true
