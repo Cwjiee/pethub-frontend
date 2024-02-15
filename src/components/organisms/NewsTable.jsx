@@ -25,7 +25,7 @@ export default function NewsTable({ news, token, setReloadNews }) {
     if (response.ok) {
       toast({
         title: 'Success',
-        description: 'User status updated',
+        description: 'news status updated',
         status: 'success',
         duration: 3000,
         isClosable: true
@@ -34,7 +34,7 @@ export default function NewsTable({ news, token, setReloadNews }) {
     } else {
       toast({
         title: 'Error',
-        description: 'Failed in updating user status',
+        description: 'Failed in updating news status',
         status: 'error',
         duration: 3000,
         isClosable: true
