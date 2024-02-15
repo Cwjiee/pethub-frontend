@@ -30,7 +30,7 @@ export default function AppointmentApplication({ appointments }) {
             if (response.ok) {
                 toast({
                     title: 'Success',
-                    description: 'User status updated',
+                    description: 'Appointment status updated',
                     status: 'success',
                     duration: 3000,
                     isClosable: true
@@ -38,7 +38,7 @@ export default function AppointmentApplication({ appointments }) {
             } else {
                 toast({
                     title: 'Error',
-                    description: 'Failed in updating user status',
+                    description: 'Failed in updating appointment status',
                     status: 'error',
                     duration: 3000,
                     isClosable: true
