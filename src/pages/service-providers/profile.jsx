@@ -49,7 +49,7 @@ export default function ServiceProviderProfile() {
                 </Link>
             </div>
             
-            <Image class="mx-auto rounded-[10px] ring ring-white" src={"http://localhost/storage/profile/clinic_4.png"} width={350} height={300} alt="avatar"/>  
+            <img class="mx-auto rounded-[10px] ring ring-white" src={user.image} width={350} height={300} alt="avatar"/>  
             {user && (
                 <div class="flex flex-wrap justify-center gap-x-5">
                     <div className="bg-white px-6 py-5 rounded-[10px] shadow-lg w-[500px] h-[450px] mt-5">

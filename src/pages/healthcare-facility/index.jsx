@@ -27,7 +27,7 @@ export default function Veterinary() {
       <Navbar title={true}>Healthcare Facility</Navbar>
       <div className="w-[80%] m-auto pt-6 px-6">
         <Searchbar results={results} setResult={setResults} data={vet} />
-        <div className="flex flex-row flex-wrap justify-left gap-[19px] mt-10 w-full mx-auto">
+        <div className="flex flex-row flex-wrap justify-left gap-3 mt-10 w-full mx-auto">
         {results && (
           results.map((vet) => {
             return <BookingBlock key={vet.user_id} vet={vet}/>

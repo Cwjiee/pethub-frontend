@@ -28,7 +28,7 @@ export default function PetGrooming() {
       <div className="w-[80%] m-auto pt-6 px-6">
         <Searchbar results={results} setResult={setResults} data={groom} />
 
-        <div className="flex flex-row flex-wrap justify-left gap-[19px] mt-10 w-full mx-auto">
+        <div className="flex flex-row flex-wrap justify-left gap-3 mt-10 w-full mx-auto">
         {results && (
           results.map((groom) => {
             return <BookingBlock key={groom.user_id} vet={groom}/>
