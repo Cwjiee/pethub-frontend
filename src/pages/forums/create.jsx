@@ -45,15 +45,8 @@ export default function CreateForum() {
   }, [token])
 
   const handleChange = (e) => {
-    const selectedOption = e.target.value
-
-    if (category.includes(selectedOption)) {
-      setCategory((prev) => {
-        prev.filter((value) => value !== selectedOption)
-      })
-    } else {
-      setCategory((prev) => [...prev, selectedOption])
-    }
+      const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+      setCategory(selectedOptions);
   }
 
   const submitForm = async () => {
@@ -69,6 +62,7 @@ export default function CreateForum() {
       headers: {
         "Content-type": "application/json",
         "Authorization": `Bearer ${token}`,
+        "Accept": "application/json"
       }
     })
 
@@ -111,6 +105,7 @@ export default function CreateForum() {
             <div>Title:</div>
             <input 
               type="text"
+              value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="w-full h-10 rounded-[10px] border-2 border-neutral-200 px-4 placeholder:text-md outline-neutral-500"
             /> 
@@ -118,6 +113,7 @@ export default function CreateForum() {
           <div>
           <div>Description:</div>
             <textarea
+              value={description}
               id="message"
               rows="4"
               class="block p-2.5 w-full h-52 text-gray-900 rounded-[10px] border border-neutral-200 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your content here..."

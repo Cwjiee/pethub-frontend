@@ -2,7 +2,7 @@ import Navbar from "@/components/organisms/Navbar";
 import BackButton from "@/components/atoms/BackButton";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import { Select, useToast } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
 import { GlobalContext } from "@/context";
 
 export default function CreateNews() {
@@ -10,7 +10,7 @@ export default function CreateNews() {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [image, setImage] = useState(null)
-  const [category, setCategory] = useState("")
+  const [category, setCategory] = useState([])
   const [categories, setCategories] = useState([])
   const { token, userId } = useContext(GlobalContext)
   const toast = useToast()
@@ -39,15 +39,8 @@ export default function CreateNews() {
   }
 
   const handleChange = (e) => {
-    const selectedOption = e.target.value
-
-    if (category.includes(selectedOption)) {
-      setCategory((prev) => {
-        prev.filter((value) => value !== selectedOption)
-      })
-    } else {
-      setCategory((prev) => [...prev, selectedOption])
-    }
+    const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+    setCategory(selectedOptions);
   }
 
   const submitForm = async (e) => {
