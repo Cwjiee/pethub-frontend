@@ -25,6 +25,26 @@ export default function PetOwnerRegisterForm() {
     }
   }
 
+  const toastMessage = (message) => {
+      toast({
+        title: message,
+        description: 'Please try again',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
+  }
+
+  const clearField = () => {
+    setName("")
+    setEmail("")
+    setPassword("")
+    setConfirmPassword("")
+    setDescription("")
+    setContact("")
+    setImage(null)
+  }
+
   const submitForm = async (e) => {
     e.preventDefault
 
@@ -37,16 +57,23 @@ export default function PetOwnerRegisterForm() {
     body.append("contact_number", contact)
     body.append("image", image)
 
-    if(password !== confirmPassword) {
+    if (password !== confirmPassword) {
       setPassword("")
       setConfirmPassword("")
-      toast({
-        title: 'password does not match confirmation',
-        description: 'Please try again',
-        status: 'error',
-        duration: 3000,
-        isClosable: true
-      })
+      toastMessage("password does not match the confirmation")
+      return
+    }
+
+    if (contact.length != 11 && contact.length != 12) {
+      clearField()
+      toastMessage("invalid contact number length")
+      return
+    }
+
+    if (contact[0] !== '0') {
+      clearField()
+      toastMessage("contact number has to start with 0")
+      return
     }
 
     if (url) {
@@ -60,11 +87,8 @@ export default function PetOwnerRegisterForm() {
 
       const data = await response.json()
 
-      console.log(data);
+      console.log(data.message);
 
-      let getToken = data.token
-      let getUserId = data.user.user_id
-      document.cookie = `token=${data.token}`
       if (!response.ok) {
         setName("")
         setEmail("")
@@ -72,20 +96,21 @@ export default function PetOwnerRegisterForm() {
         setConfirmPassword("")
         setDescription("")
         setContact("")
-        setErrors(data.errors)
         toast({
-          title: 'Registration failed',
+          title: data.message,
           description: 'Please try again',
           status: 'error',
-          duration: 3000,
+          duration: 5000,
           isClosable: true
         })
-        console.log(errors)
       } else {
+        let getToken = data.token
+        let getUserId = data.user.user_id
+        document.cookie = `token=${data.token}`
         setToken(getToken)
         setUserId(getUserId)
         toast({
-          title: 'Account created',
+          title: data.message,
           description: 'We will redirect you to the main page',
           status: 'success',
           duration: 3000,
@@ -151,7 +176,8 @@ export default function PetOwnerRegisterForm() {
               <span className="font-semibold">Contact Number:</span>
               <input
                 type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-md"
+                placeholder="010-6673148"
                 onChange={(e) => setContact(e.target.value)}
                 value={contact}
               />

@@ -51,6 +51,35 @@ export default function ServiceProviderRegisterForm() {
     }
   }
 
+  const toastMessage = (message) => {
+      toast({
+        title: message,
+        description: 'Please try again',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
+  }
+
+  const clearField = () => {
+    setName("")
+    setEmail("")
+    setPassword("")
+    setConfirmPassword("")
+    setDescription("")
+    setContact("")
+    setImage(null)
+    setDeposit("")
+    setServiceType("")
+    setStartOperaton("")
+    setEndOperaton("")
+    setCert(null)
+    setQrcode(null)
+    setBankName("")
+    setAccName("")
+    setAccNumber("")
+  }
+
   const submitForm = async (e) => {
     setErrors('');
     e.preventDefault
@@ -74,11 +103,21 @@ export default function ServiceProviderRegisterForm() {
     body.append("beneficiary_name", accName)
 
     if(password !== confirmPassword) {
-      return (
-        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-          <span class="font-medium">Error!</span> Wrong confirmation password
-        </div>
-      )
+      clearField()
+      toastMessage("password doens't match with confirmation")
+      return
+    }
+
+    if (contact.length != 11 && contact.length != 12) {
+      clearField()
+      toastMessage("invalid contact number length")
+      return
+    }
+
+    if (contact[0] !== '0') {
+      clearField()
+      toastMessage("contact number has to start with 0")
+      return
     }
 
     if (url) {
@@ -93,7 +132,6 @@ export default function ServiceProviderRegisterForm() {
       const data = await response.json()
       console.log(data);
       
-      document.cookie = `token=${data.token}`
       if (!response.ok) {
         setName("")
         setEmail("")
@@ -110,20 +148,21 @@ export default function ServiceProviderRegisterForm() {
         setAccName("")
         setErrors(data.errors)
         toast({
-          title: 'Registration failed',
+          title: data.message,
           description: 'Please try again',
           status: 'error',
-          duration: 3000,
+          duration: 5000,
           isClosable: true
         })
         console.log(errors)
       } else {
+        document.cookie = `token=${data.token}`
         let getToken = data.token ?? null
         let getUserId = data.user.user_id ?? null
         setToken(getToken)
         setUserId(getUserId)
         toast({
-          title: 'Account created',
+          title: data.message,
           description: 'Account is now on pending',
           status: 'success',
           duration: 3000,
