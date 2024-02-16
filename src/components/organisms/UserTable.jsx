@@ -79,7 +79,7 @@ export default function UserTable({users}) {
                               onClick={() => handleDelete(user)}
                             >
                               <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
-                                Delete User
+                                Ban User
                               </div>
                             </button>
                           </td>
