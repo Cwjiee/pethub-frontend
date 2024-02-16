@@ -5,7 +5,7 @@ import { GlobalContext } from "@/context"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 
-export default function AppointmentPage() {
+function AppointmentPage() {
     const [appointment, setAppointment] = useState()
     const { token } = useContext(GlobalContext)
     const url = process.env.NEXT_PUBLIC_API_URL
@@ -87,3 +87,5 @@ export default function AppointmentPage() {
       <LoadSpinner />
     )
 }
+
+export default checkAuth(AppointmentPage)

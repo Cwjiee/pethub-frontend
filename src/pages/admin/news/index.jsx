@@ -5,8 +5,9 @@ import NewsTable from "@/components/organisms/NewsTable"
 import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
+import checkAuth from "@/utils/checkAuth"
 
-export default function AdminNews() {
+function AdminNews() {
   const [news, setNews] = useState([])
   const { token } = useContext(GlobalContext)
   const [tokenReady, setTokenReady] = useState(false)
@@ -64,3 +65,5 @@ AdminNews.getLayout = function getLayout(page) {
     </main>
   )
 }
+
+export default checkAuth(AdminNews)

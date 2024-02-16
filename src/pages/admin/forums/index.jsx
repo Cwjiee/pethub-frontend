@@ -6,8 +6,9 @@ import { GlobalContext } from "@/context";
 import Image from "next/image";
 import Empty from "@/../../public/svg/EmptyNews.svg"
 import LoadSpinner from "@/components/atoms/LoadSpinner";
+import checkAuth from "@/utils/checkAuth";
 
-export default function AdminForum() {
+function AdminForum() {
   const [posts, setPosts] = useState([])
   const [results, setResults] = useState([])
   const [isLoading, setIsLoading] = useState(true);
@@ -69,3 +70,5 @@ export default function AdminForum() {
     <LoadSpinner />
   )
 }
+
+export default checkAuth(AdminForum)

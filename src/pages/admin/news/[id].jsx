@@ -6,8 +6,9 @@ import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context"
 import { useToast } from "@chakra-ui/react"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
+import checkAuth from "@/utils/checkAuth"
 
-export default function NewsDetails() {
+function NewsDetails() {
   const router = useRouter()
   const toast = useToast()
   const id = router.query.id
@@ -136,3 +137,5 @@ NewsDetails.getLayout = function getLayout(page) {
     </>
   )
 }
+
+export default checkAuth(NewsDetails)

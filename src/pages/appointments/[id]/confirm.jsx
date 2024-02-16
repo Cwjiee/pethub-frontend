@@ -7,8 +7,9 @@ import { GlobalContext } from "@/context";
 import Image from "next/image";
 import Bank from "@/../public/svg/Bank.svg"
 import LoadSpinner from "@/components/atoms/LoadSpinner";
+import checkAuth from "@/utils/checkAuth";
 
-export default function CreateAppointment() {
+function CreateAppointment() {
   const [appointment, setAppointment] = useState({})
   const [image, setImage] = useState(null)
   const router = useRouter()
@@ -130,3 +131,5 @@ export default function CreateAppointment() {
     <LoadSpinner />
   )
 }
+
+export default checkAuth(CreateAppointment)

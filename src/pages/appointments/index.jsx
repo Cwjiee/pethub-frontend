@@ -3,10 +3,9 @@ import BackButton from "@/components/atoms/BackButton"
 import AppointmentsTable from "@/components/organisms/AppointmentsTable"
 import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context"
-import { Spinner } from "flowbite-react"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
 
-export default function Appointments() {
+function Appointments() {
   const [appointments, setAppointments] = useState()
   const { token } = useContext(GlobalContext)
   const url = process.env.NEXT_PUBLIC_API_URL
@@ -52,3 +51,5 @@ export default function Appointments() {
     <LoadSpinner />
   )
 }
+
+export default checkAuth(Appointments)

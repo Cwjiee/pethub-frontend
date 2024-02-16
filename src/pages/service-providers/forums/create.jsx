@@ -7,7 +7,7 @@ import { GlobalContext } from "@/context"
 import { useToast } from "@chakra-ui/react"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
 
-export default function ServiceProviderCreatePostPage() {
+function ServiceProviderCreatePostPage() {
   const router = useRouter()
   const toast = useToast()
   const [title, setTitle] = useState("")
@@ -154,3 +154,5 @@ ServiceProviderCreatePostPage.getLayout = function getLayout(page) {
     </>
   )
 }
+
+export default checkAuth(ServiceProviderCreatePostPage)

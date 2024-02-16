@@ -11,7 +11,7 @@ import SendButton from "@/../public/svg/SendButton.svg"
 import SPNavbar from "@/components/organisms/SPNavbar"
 import SPFooter from "@/components/organisms/SPFooter"
 
-export default function ServiceProviderSpecificPostPage() {
+function ServiceProviderSpecificPostPage() {
     const router = useRouter()
     const id = router.query.id
     const { token, userId } = useContext(GlobalContext)
@@ -167,11 +167,13 @@ export default function ServiceProviderSpecificPostPage() {
 }
 
 ServiceProviderSpecificPostPage.getLayout = function getLayout(page) {
-    return (
-      <>
-        <main>
-          {page}
-        </main>
-      </>
-    )
-  }
+  return (
+    <>
+      <main>
+        {page}
+      </main>
+    </>
+  )
+}
+
+export default checkAuth(ServiceProviderSpecificPostPage)

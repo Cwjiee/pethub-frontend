@@ -4,7 +4,7 @@ import { useState, useContext } from "react"
 import { useToast } from "@chakra-ui/react"
 import { GlobalContext } from "@/context"
 
-export default function Report() {
+function Report() {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const toast = useToast()
@@ -98,3 +98,5 @@ export default function Report() {
     </>
   )
 }
+
+export default checkAuth(Report)

@@ -1,14 +1,13 @@
 import LoadSpinner from '@/components/atoms/LoadSpinner'
 import SPFooter from '@/components/organisms/SPFooter'
 import SPNavbar from '@/components/organisms/SPNavbar'
-import Link from 'next/link'
 import Image from 'next/image'
 import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '@/context'
-import PetCard from '@/components/organisms/PetCard'
 import { useRouter } from 'next/router'
 import BackButton from '@/components/atoms/BackButton'
-export default function ServiceProviderSpecificUserProfile() {
+
+function ServiceProviderSpecificUserProfile() {
   const { token } = useContext(GlobalContext)
   const [petOwner, setPetOwner] = useState({})
   const [tokenReady, setTokenReady] = useState(false)
@@ -104,3 +103,5 @@ ServiceProviderSpecificUserProfile.getLayout = function getLayout(page) {
     </>
   )
 }
+
+export default checkAuth(ServiceProviderSpecificUserProfile)

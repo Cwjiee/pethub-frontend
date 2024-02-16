@@ -1,8 +1,4 @@
-import Image from "next/image";
 import Link from "next/link";
-import AddPet from "../../../public/svg/AddPet.svg"
-import User from "../../../public/png/NewsPlaceholder.png"
-import PetCard from "@/components/organisms/PetCard";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
@@ -10,7 +6,7 @@ import SPNavbar from "@/components/organisms/SPNavbar";
 import SPFooter from "@/components/organisms/SPFooter";
 import { TimeConvertNotForDateTime } from "@/utils/TimeConvertNotForDateTime";
 
-export default function ServiceProviderProfile() {
+function ServiceProviderProfile() {
   const { token } = useContext(GlobalContext)
   const [user, setUser] = useState({})
   const [tokenReady, setTokenReady] = useState(false)
@@ -84,11 +80,13 @@ export default function ServiceProviderProfile() {
 
 
 ServiceProviderProfile.getLayout = function getLayout(page) {
-    return (
-      <>
-        <main>
-          {page}
-        </main>
-      </>
-    )
-  }
+  return (
+    <>
+      <main>
+        {page}
+      </main>
+    </>
+  )
+}
+
+export default checkAuth(ServiceProviderProfile)

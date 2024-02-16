@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { useToast } from '@chakra-ui/react'
 import { GlobalContext } from "@/context";
 
-export default function CreateAppointment() {
+function CreateAppointment() {
   const [date, setDate] = useState()
   const [time, setTime] = useState()
   const [issue, setIssue] = useState()
@@ -132,3 +132,5 @@ export default function CreateAppointment() {
     </>
   )
 }
+
+export default checkAuth(CreateAppointment)

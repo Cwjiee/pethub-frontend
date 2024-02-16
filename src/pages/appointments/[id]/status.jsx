@@ -3,7 +3,7 @@ import AccImage from "@../../../public/svg/accountPending.svg"
 import { useRouter } from "next/router"
 import Navbar from "@/components/organisms/Navbar"
 
-export default function AppointmentStatus() {
+function AppointmentStatus() {
   const router = useRouter()
 
   const handleRoute = () => {
@@ -36,3 +36,5 @@ export default function AppointmentStatus() {
     </>
   )
 }
+
+export default checkAuth(AppointmentStatus)

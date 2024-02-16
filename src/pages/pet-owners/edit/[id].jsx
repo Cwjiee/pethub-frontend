@@ -1,12 +1,10 @@
-import PetOwnerRegisterForm from "@/components/molecules/RegisterForm";
 import Navbar from "@/components/organisms/Navbar";
-import Image from "next/image"
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { useToast } from "@chakra-ui/react"
 import { GlobalContext } from "@/context";
 
-export default function EditPetOwner() {
+function EditPetOwner() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -167,3 +165,5 @@ export default function EditPetOwner() {
    </>
   )
 }
+
+export default checkAuth(EditPetOwner)

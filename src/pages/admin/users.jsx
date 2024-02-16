@@ -5,8 +5,9 @@ import UserTable from "@/components/organisms/UserTable"
 import { GlobalContext } from "@/context"
 import { useContext, useEffect, useState } from "react"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
+import checkAuth from "@/utils/checkAuth"
 
-export default function AdminUser() {
+function AdminUser() {
   const [users, setUsers] = useState([])
   const { token } = useContext(GlobalContext)
   const [tokenReady, setTokenReady] = useState(false)
@@ -66,3 +67,5 @@ AdminUser.getLayout = function getLayout(page) {
     </>
   )
 }
+
+export default checkAuth(AdminUser)

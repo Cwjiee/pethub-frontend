@@ -1,4 +1,3 @@
-import Navbar from "@/components/organisms/Navbar";
 import BackButton from "@/components/atoms/BackButton";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
@@ -7,7 +6,7 @@ import { GlobalContext } from "@/context";
 import SPNavbar from "@/components/organisms/SPNavbar";
 import SPFooter from "@/components/organisms/SPFooter";
 
-export default function ServiceProviderCreateNewsPage() {
+function ServiceProviderCreateNewsPage() {
   const router = useRouter()
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
@@ -158,3 +157,5 @@ ServiceProviderCreateNewsPage.getLayout = function getLayout(page) {
     </>
   )
 }
+
+export default checkAuth(ServiceProviderCreateNewsPage)

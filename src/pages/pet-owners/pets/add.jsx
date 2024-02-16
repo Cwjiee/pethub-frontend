@@ -5,7 +5,7 @@ import React, { useContext, useState } from "react";
 import { useToast } from '@chakra-ui/react'
 import BackButton from "@/components/atoms/BackButton";
 
-export default function Add() {
+function Add() {
     const [petName, setPetName] = useState("");
     const [type, setType] = useState("");
     const [breed, setBreed] = useState("");
@@ -169,3 +169,5 @@ export default function Add() {
         </>
     )
 }
+
+export default checkAuth(Add)

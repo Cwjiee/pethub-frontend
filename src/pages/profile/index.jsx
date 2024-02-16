@@ -2,13 +2,12 @@ import Navbar from "@/components/organisms/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 import AddPet from "../../../public/svg/AddPet.svg"
-import User from "../../../public/png/NewsPlaceholder.png"
 import PetCard from "@/components/organisms/PetCard";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 
-export default function Profile() {
+function Profile() {
   const { token } = useContext(GlobalContext)
   const [user, setUser] = useState({})
   const [tokenReady, setTokenReady] = useState(false)
@@ -95,3 +94,5 @@ export default function Profile() {
     <LoadSpinner />
   )
 }
+
+export default checkAuth(Profile)

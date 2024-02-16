@@ -9,8 +9,9 @@ import CommentBlock from "@/components/molecules/CommentBlock"
 import Image from "next/image"
 import SendButton from "@/../public/svg/SendButton.svg"
 import AdminNavbar from "@/components/organisms/AdminNavbar"
+import checkAuth from "@/utils/checkAuth"
 
-export default function AdminForumsPage() {
+function AdminForumsPage() {
   const router = useRouter()
   const id = router.query.id
   const { token, userId } = useContext(GlobalContext)
@@ -163,3 +164,5 @@ export default function AdminForumsPage() {
     <LoadSpinner />
   )
 }
+
+export default checkAuth(AdminForumsPage)

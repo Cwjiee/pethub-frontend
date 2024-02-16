@@ -6,7 +6,7 @@ import LoadSpinner from "@/components/atoms/LoadSpinner";
 import SPNavbar from "@/components/organisms/SPNavbar";
 import SPFooter from "@/components/organisms/SPFooter";
 
-export default function ServiceProviderSpecificNewsPage() {
+function ServiceProviderSpecificNewsPage() {
   const router = useRouter()
   const id = router.query.id
   const url = process.env.NEXT_PUBLIC_API_URL
@@ -64,11 +64,13 @@ export default function ServiceProviderSpecificNewsPage() {
 }
 
 ServiceProviderSpecificNewsPage.getLayout = function getLayout(page) {
-    return (
-      <>
-        <main>
-          {page}
-        </main>
-      </>
-    )
-  }
+  return (
+    <>
+      <main>
+        {page}
+      </main>
+    </>
+  )
+}
+
+export default checkAuth(ServiceProviderSpecificNewsPage)

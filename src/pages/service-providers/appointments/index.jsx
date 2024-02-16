@@ -1,6 +1,5 @@
 
 import BackButton from "@/components/atoms/BackButton"
-import ServiceProviderApplicationTable from "@/components/organisms/ServiceProviderApplicationTable"
 import { GlobalContext } from "@/context"
 import { useEffect, useState, useContext } from "react"
 import { Spinner } from "@chakra-ui/react";
@@ -8,7 +7,7 @@ import SPNavbar from "@/components/organisms/SPNavbar";
 import SPFooter from "@/components/organisms/SPFooter";
 import AppointmentApplication from "@/components/organisms/AppointmentApplication";
 
-export default function AdminServiceProvider() {
+function AdminServiceProvider() {
   const [appointments, setAppointments] = useState([])
   const { token, userId } = useContext(GlobalContext)
   const [tokenReady, setTokenReady] = useState(false)
@@ -57,12 +56,15 @@ export default function AdminServiceProvider() {
     </>
   )
 }
+
 AdminServiceProvider.getLayout = function getLayout(page) {
-    return (
-      <>
-        <main>
-          {page}
-        </main>
-      </>
-    )
-  }
+  return (
+    <>
+      <main>
+        {page}
+      </main>
+    </>
+  )
+}
+
+export default checkAuth(AdminServiceProvider)

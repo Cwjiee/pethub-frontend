@@ -1,7 +1,5 @@
 import Searchbar from "@/components/molecules/SearchbarWithBtn";
-import Tag from "@/components/atoms/Tag";
 import { useContext, useEffect, useState } from "react";
-import { v4 } from "uuid";
 import NewsBlock from "@/components/molecules/NewsBlock";
 import { GlobalContext } from "@/context";
 import Empty from "../../../../public/svg/EmptyNews.svg"
@@ -10,7 +8,7 @@ import LoadSpinner from "@/components/atoms/LoadSpinner";
 import SPNavbar from "@/components/organisms/SPNavbar";
 import SPFooter from "@/components/organisms/SPFooter";
 
-export default function ServiceProviderNewsPage() {
+function ServiceProviderNewsPage() {
     const { token } = useContext(GlobalContext)
     const [results, setResults] = useState([])
     const [news, setNews] = useState([])
@@ -79,3 +77,5 @@ ServiceProviderNewsPage.getLayout = function getLayout(page) {
         </>
     )
 }
+
+export default checkAuth(ServiceProviderNewsPage)

@@ -8,7 +8,7 @@ import { useToast } from "@chakra-ui/react"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
 import TimeConvert from "@/utils/TimeConvert"
 
-export default function ServiceProviderDetails() {
+function ServiceProviderDetails() {
   const router = useRouter()
   const toast = useToast()
   const { token } = useContext(GlobalContext)
@@ -185,3 +185,5 @@ ServiceProviderDetails.getLayout = function getLayout(page) {
     </>
   )
 }
+
+export default checkAuth(ServiceProviderDetails)

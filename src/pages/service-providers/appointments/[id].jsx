@@ -8,7 +8,8 @@ import { TimeConvertNotForDateTime } from "@/utils/TimeConvertNotForDateTime";
 import { useRouter } from "next/router";
 import BackButton from "@/components/atoms/BackButton";
 import { useToast } from "@chakra-ui/react";
-export default function ServiceProviderSpecificAppointment() {
+
+function ServiceProviderSpecificAppointment() {
     const { token, userId } = useContext(GlobalContext)
     const [appointment, setAppointment] = useState({})
     const [tokenReady, setTokenReady] = useState(false)
@@ -43,7 +44,7 @@ export default function ServiceProviderSpecificAppointment() {
     async function handleSubmit(e, status) {
       e.preventDefault();
       if(url) {
-        const response = await fetch(`${url}/service-provider/appointments/${userId}/${stringAppointmentId}`, {
+        const response = await fetch(`${url}/service-provider/appointments/${userId}/${aptId}`, {
           method: "POST",
           body: JSON.stringify({
               user_status: status,
@@ -147,3 +148,5 @@ ServiceProviderSpecificAppointment.getLayout = function getLayout(page) {
       </>
     )
 }
+
+export default checkAuth(ServiceProviderSpecificAppointment)

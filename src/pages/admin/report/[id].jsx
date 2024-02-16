@@ -6,8 +6,9 @@ import ReportInfo from "@/components/molecules/ReportInfo"
 import { useState, useEffect, useContext } from "react"
 import { GlobalContext } from "@/context"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
+import checkAuth from "@/utils/checkAuth"
 
-export default function ReportDetails() {
+function ReportDetails() {
   const router = useRouter()
   const id = router.query.id
   const [report, setReport] = useState({})
@@ -66,3 +67,5 @@ ReportDetails.getLayout = function getLayout(page) {
     </>
   )
 }
+
+export default checkAuth(ReportDetails)

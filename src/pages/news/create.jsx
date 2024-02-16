@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { useToast } from '@chakra-ui/react'
 import { GlobalContext } from "@/context";
 
-export default function CreateNews() {
+function CreateNews() {
   const router = useRouter()
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
@@ -142,3 +142,5 @@ export default function CreateNews() {
     </>
   )
 }
+
+export default checkAuth(CreateNews)

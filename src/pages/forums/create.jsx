@@ -6,7 +6,7 @@ import { GlobalContext } from "@/context"
 import { useToast } from "@chakra-ui/react"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
 
-export default function CreateForum() {
+function CreateForum() {
   const router = useRouter()
   const toast = useToast()
   const [title, setTitle] = useState("")
@@ -143,3 +143,5 @@ export default function CreateForum() {
     <LoadSpinner />
   )
 }
+
+export default checkAuth(CreateForum)

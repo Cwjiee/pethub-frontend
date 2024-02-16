@@ -3,7 +3,7 @@ import ReportTable from "@/components/organisms/ReportTable"
 import AdminFooter from "@/components/organisms/AdminFooter"
 import AdminNavbar from "@/components/organisms/AdminNavbar"
 
-export default function Report() {
+function Report() {
   return (
     <>
       <div className="flex flex-col justify-start min-h-screen">
@@ -30,3 +30,5 @@ Report.getLayout = function getLayout(page) {
     </main>
   )
 }
+
+export default checkAuth(Report)

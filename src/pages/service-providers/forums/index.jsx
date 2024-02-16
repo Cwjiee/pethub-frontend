@@ -8,7 +8,7 @@ import Image from "next/image";
 import Empty from "../../../../public/svg/EmptyNews.svg"
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 
-export default function ServiceProviderPostPage() {
+function ServiceProviderPostPage() {
   const [results, setResults] = useState([])
   const [posts, setPosts] = useState([])
   const [isLoading, setIsLoading] = useState(true);
@@ -78,3 +78,5 @@ ServiceProviderPostPage.getLayout = function getLayout(page) {
     </>
   )
 }
+
+export default checkAuth(ServiceProviderPostPage)

@@ -6,7 +6,7 @@ import { GlobalContext } from "@/context"
 import { useEffect, useState, useContext } from "react"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
 
-export default function AdminServiceProvider() {
+function AdminServiceProvider() {
   const [users, setUsers] = useState([])
   const { token } = useContext(GlobalContext)
   const [tokenReady, setTokenReady] = useState(false)
@@ -64,3 +64,5 @@ AdminServiceProvider.getLayout = function getLayout(page) {
     </>
   )
 }
+
+export default checkAuth(AdminServiceProvider)
