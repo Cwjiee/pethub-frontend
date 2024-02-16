@@ -1,7 +1,5 @@
-import LoadSpinner from "@/components/atoms/LoadSpinner"
-import { GlobalContext } from "@/context"
 import { useRouter } from "next/router"
-import { useContext, useEffect, useState } from "react"
+import { useEffect } from "react"
 
 export default function checkAuth(Component) {
   return function CheckAuth(props) {
@@ -27,8 +25,10 @@ export default function checkAuth(Component) {
       const pathname = router.pathname
       const route = pathname.split('/')[1]
 
-      if (!roles) return false
-      if (route === 'admin' && roles !== '3') return false
+      if (!roles) return
+      if ((route !== 'service-providers' && route !== 'admin') && (roles !== '1' || roles !== '3')) return
+      if ((route === 'service-providers') && (roles !== '2' && roles !== '3')) return
+      if (route === 'admin' && roles !== '3') return
 
       return true
     }

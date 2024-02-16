@@ -6,9 +6,10 @@ import PetNews from "@/../public/svg/PetNews.svg"
 import Users from "@/../public/svg/Users.svg"
 import Forums from "@/../public/svg/Forums.svg"
 import { v4 } from "uuid";
+import checkAuth from "@/utils/checkAuth";
 
 
-export default function ServiceProviderDashBoard() {
+function ServiceProviderDashBoard() {
   const dirs = [
     {
       links: "/service-providers/appointments",
@@ -63,3 +64,5 @@ ServiceProviderDashBoard.getLayout = function getLayout(page) {
     </>
   )
 }
+
+export default checkAuth(ServiceProviderDashBoard)

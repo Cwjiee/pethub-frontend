@@ -25,6 +25,8 @@ export default function Login() {
         isClosable: true,
       });
     }
+    document.cookie = "roles=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    sessionStorage.clear()
   }, [router, toast])
   
   return (
