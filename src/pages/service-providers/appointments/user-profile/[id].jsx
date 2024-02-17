@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '@/context'
 import { useRouter } from 'next/router'
 import BackButton from '@/components/atoms/BackButton'
+import checkAuth from '@/utils/checkAuth'
 
 function ServiceProviderSpecificUserProfile() {
   const { token } = useContext(GlobalContext)

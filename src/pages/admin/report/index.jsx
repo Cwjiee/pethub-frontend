@@ -2,6 +2,7 @@ import BackButton from "@/components/atoms/BackButton"
 import ReportTable from "@/components/organisms/ReportTable"
 import AdminFooter from "@/components/organisms/AdminFooter"
 import AdminNavbar from "@/components/organisms/AdminNavbar"
+import checkAuth from "@/utils/checkAuth"
 
 function Report() {
   return (

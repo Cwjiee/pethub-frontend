@@ -10,6 +10,7 @@ import Image from "next/image"
 import SendButton from "@/../public/svg/SendButton.svg"
 import SPNavbar from "@/components/organisms/SPNavbar"
 import SPFooter from "@/components/organisms/SPFooter"
+import checkAuth from "@/utils/checkAuth"
 
 function ServiceProviderSpecificPostPage() {
     const router = useRouter()

@@ -6,6 +6,7 @@ import { Spinner } from "@chakra-ui/react";
 import SPNavbar from "@/components/organisms/SPNavbar";
 import SPFooter from "@/components/organisms/SPFooter";
 import AppointmentApplication from "@/components/organisms/AppointmentApplication";
+import checkAuth from "@/utils/checkAuth";
 
 function AdminServiceProvider() {
   const [appointments, setAppointments] = useState([])

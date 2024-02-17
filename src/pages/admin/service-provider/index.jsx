@@ -5,6 +5,7 @@ import ServiceProviderApplicationTable from "@/components/organisms/ServiceProvi
 import { GlobalContext } from "@/context"
 import { useEffect, useState, useContext } from "react"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
+import checkAuth from "@/utils/checkAuth"
 
 function AdminServiceProvider() {
   const [users, setUsers] = useState([])

@@ -5,6 +5,7 @@ import LoadSpinner from "@/components/atoms/LoadSpinner";
 import SPNavbar from "@/components/organisms/SPNavbar";
 import SPFooter from "@/components/organisms/SPFooter";
 import { TimeConvertNotForDateTime } from "@/utils/TimeConvertNotForDateTime";
+import checkAuth from "@/utils/checkAuth";
 
 function ServiceProviderProfile() {
   const { token } = useContext(GlobalContext)

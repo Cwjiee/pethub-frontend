@@ -2,6 +2,7 @@ import SPFooter from '@/components/organisms/SPFooter'
 import SPNavbar from '@/components/organisms/SPNavbar'
 import ServiceProviderEditForm from '@/components/molecules/ServiceProviderEditForm';
 import BackButton from '@/components/atoms/BackButton';
+import checkAuth from '@/utils/checkAuth';
 
 function ServiceProviderEditProfile() {
     return (

@@ -3,6 +3,7 @@ import Navbar from "@/components/organisms/Navbar"
 import { useState, useContext } from "react"
 import { useToast } from "@chakra-ui/react"
 import { GlobalContext } from "@/context"
+import checkAuth from "@/utils/checkAuth"
 
 function Report() {
   const [title, setTitle] = useState("")

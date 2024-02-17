@@ -5,6 +5,7 @@ import { useState, useContext, useEffect } from "react"
 import { GlobalContext } from "@/context"
 import { useToast } from "@chakra-ui/react"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
+import checkAuth from "@/utils/checkAuth"
 
 function CreateForum() {
   const router = useRouter()

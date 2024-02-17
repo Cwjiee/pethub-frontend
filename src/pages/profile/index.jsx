@@ -6,6 +6,7 @@ import PetCard from "@/components/organisms/PetCard";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
+import checkAuth from "@/utils/checkAuth";
 
 function Profile() {
   const { token } = useContext(GlobalContext)

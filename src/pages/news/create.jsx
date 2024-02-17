@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { useToast } from '@chakra-ui/react'
 import { GlobalContext } from "@/context";
+import checkAuth from "@/utils/checkAuth";
 
 function CreateNews() {
   const router = useRouter()

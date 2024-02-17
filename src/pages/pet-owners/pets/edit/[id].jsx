@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { useToast } from '@chakra-ui/react'
 import BackButton from "@/components/atoms/BackButton";
+import checkAuth from "@/utils/checkAuth";
 
 function EditPet() {
     const [petName, setPetName] = useState("");

@@ -2,6 +2,7 @@ import Image from "next/image"
 import AccImage from "@../../../public/svg/accountPending.svg"
 import { useRouter } from "next/router"
 import Navbar from "@/components/organisms/Navbar"
+import checkAuth from "@/utils/checkAuth"
 
 function AppointmentStatus() {
   const router = useRouter()

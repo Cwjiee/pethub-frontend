@@ -7,6 +7,7 @@ import { GlobalContext } from "@/context";
 import Image from "next/image";
 import Empty from "../../../../public/svg/EmptyNews.svg"
 import LoadSpinner from "@/components/atoms/LoadSpinner";
+import checkAuth from "@/utils/checkAuth";
 
 function ServiceProviderPostPage() {
   const [results, setResults] = useState([])

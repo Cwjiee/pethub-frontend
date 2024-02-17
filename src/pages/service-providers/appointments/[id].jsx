@@ -8,6 +8,7 @@ import { TimeConvertNotForDateTime } from "@/utils/TimeConvertNotForDateTime";
 import { useRouter } from "next/router";
 import BackButton from "@/components/atoms/BackButton";
 import { useToast } from "@chakra-ui/react";
+import checkAuth from "@/utils/checkAuth";
 
 function ServiceProviderSpecificAppointment() {
     const { token, userId } = useContext(GlobalContext)

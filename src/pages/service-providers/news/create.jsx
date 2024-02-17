@@ -5,6 +5,7 @@ import { useToast } from '@chakra-ui/react'
 import { GlobalContext } from "@/context";
 import SPNavbar from "@/components/organisms/SPNavbar";
 import SPFooter from "@/components/organisms/SPFooter";
+import checkAuth from "@/utils/checkAuth";
 
 function ServiceProviderCreateNewsPage() {
   const router = useRouter()

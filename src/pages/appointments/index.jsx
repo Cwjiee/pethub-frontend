@@ -4,6 +4,7 @@ import AppointmentsTable from "@/components/organisms/AppointmentsTable"
 import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
+import checkAuth from "@/utils/checkAuth"
 
 function Appointments() {
   const [appointments, setAppointments] = useState()

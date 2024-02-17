@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { useToast } from '@chakra-ui/react'
 import { GlobalContext } from "@/context";
+import checkAuth from "@/utils/checkAuth";
 
 function CreateAppointment() {
   const [date, setDate] = useState()

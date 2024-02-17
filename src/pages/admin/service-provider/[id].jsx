@@ -7,6 +7,7 @@ import { GlobalContext } from "@/context"
 import { useToast } from "@chakra-ui/react"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
 import TimeConvert from "@/utils/TimeConvert"
+import checkAuth from "@/utils/checkAuth"
 
 function ServiceProviderDetails() {
   const router = useRouter()

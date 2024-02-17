@@ -2,6 +2,7 @@ import BackButton from "@/components/atoms/BackButton"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
 import Navbar from "@/components/organisms/Navbar"
 import { GlobalContext } from "@/context"
+import checkAuth from "@/utils/checkAuth"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 

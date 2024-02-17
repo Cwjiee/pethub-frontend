@@ -5,6 +5,7 @@ import { GlobalContext } from "@/context";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 import SPNavbar from "@/components/organisms/SPNavbar";
 import SPFooter from "@/components/organisms/SPFooter";
+import checkAuth from "@/utils/checkAuth";
 
 function ServiceProviderSpecificNewsPage() {
   const router = useRouter()
