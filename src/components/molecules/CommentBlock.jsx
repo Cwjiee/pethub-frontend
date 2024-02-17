@@ -18,10 +18,10 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react"
-import { useContext, useState, useEffect } from "react"
+import { useContext, useState } from "react"
 import { GlobalContext } from "@/context"
 
-export default function CommentBlock({ name, date, commentId, desc, isAdmin, isSP, setReloadComment, ownComment }) {
+export default function CommentBlock({ name, date, commentId, desc, isAdmin, isSP, setReloadComment, ownComment, ownPost }) {
   const [editedComment, setEditedComment] = useState('')
   const { token } = useContext(GlobalContext)
   const url = process.env.NEXT_PUBLIC_API_URL
@@ -40,10 +40,14 @@ export default function CommentBlock({ name, date, commentId, desc, isAdmin, isS
   } = useDisclosure()
 
   const handleDelete = async () => {
+    console.log(url)
+    console.log(commentId)
     const response = await fetch(`${url}/comments/${commentId}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${token}`,
+        "Accept": "application/json",
+        "Content-type": "application/json",
       }
     })
 
@@ -69,7 +73,6 @@ export default function CommentBlock({ name, date, commentId, desc, isAdmin, isS
   }
 
   const handleEdit = async () => {
-    if(setReloadComment) console.log('available')
     const response = await fetch(`${url}/comments/${commentId}`, {
       method: "PUT",
       body: JSON.stringify({
@@ -103,10 +106,6 @@ export default function CommentBlock({ name, date, commentId, desc, isAdmin, isS
       })
     }
   }
-
-  useEffect(() => {
-    console.log(ownComment)
-  }, [ownComment])
 
   return (
     <div className="p px-4 border border-[#E0E0E0] rounded-[10px]">
@@ -150,56 +149,42 @@ export default function CommentBlock({ name, date, commentId, desc, isAdmin, isS
           </ModalFooter>
         </ModalContent>
       </Modal>
-      {!isAdmin && !isSP ? (
-        <>
-          <div className="flex flex-row my-5 justify-between gap-3">
-            <div className="flex flex-row gap-2">
-              <div className="flex justify-center items-center"><Avatar colorScheme="blue" size="sm" name={name}/></div>
-              <div className="flex flex-col">
-                <div className="flex flex-row justify-left items-center gap-2">
-                  <div>{name}</div>
-                  <DateTimeBlock datetimeString={date}/>
-                </div>
-                <div className="text-[#4E4E4E] text-[14px]">{desc}</div>
-              </div>
+      <div className="flex flex-row my-5 justify-between gap-3">
+        <div className="flex flex-row gap-2">
+          <div className="flex justify-center items-center"><Avatar colorScheme="blue" size="sm" name={name}/></div>
+          <div className="flex flex-col">
+            <div className="flex flex-row justify-left items-center gap-2">
+              <div>{name}</div>
+              <DateTimeBlock datetimeString={date}/>
             </div>
-
-            <div className="flex flex-row gap-2 items-center">
-              {ownComment && (
+            <div className="text-[#4E4E4E] text-[14px]">{desc}</div>
+          </div>
+        </div>
+        {!isAdmin && !isSP ? (
+          <>
+            {ownComment && (
+              <div className="flex flex-row gap-2 items-center">
                 <span onClick={onOpenEdit}>
                   <Image src={Edit} alt="edit button" width={17} height={17} className="cursor-pointer"/>
                 </span>
-              )}
-            </div>
-          </div>
-        </>
-      ) : (
-          <>
-            <div className="flex flex-row my-5 justify-between gap-3">
-              <div className="flex flex-row gap-2">
-                <div className="flex justify-center items-center"><Avatar colorScheme="blue" size="sm" name={name}/></div>
-                <div className="flex flex-col">
-                  <div className="flex flex-row justify-left items-center gap-2">
-                    <div>{name}</div>
-                    <DateTimeBlock datetimeString={date}/>
-                  </div>
-                  <div className="text-[#4E4E4E] text-[14px]">{desc}</div>
-                </div>
               </div>
-
+            )}
+          </>
+        ) : (
+          <>
+            {ownPost && (
               <div className="flex flex-row gap-2 items-center">
-                {isSP && (
-                  <span onClick={onOpenEdit}>
-                    <Image src={Edit} alt="edit button" width={17} height={17} className="cursor-pointer"/>
-                  </span>
-                )}
+                <span onClick={onOpenEdit}>
+                  <Image src={Edit} alt="edit button" width={17} height={17} className="cursor-pointer"/>
+                </span>
                 <span onClick={onOpenDelete}>
                   <Image src={Delete} alt="delete button" width={17} height={17} className="cursor-pointer"/>
                 </span>
               </div>
-            </div>
+            )}
           </>
         )}
+        </div>
     </div>
   )
 }
