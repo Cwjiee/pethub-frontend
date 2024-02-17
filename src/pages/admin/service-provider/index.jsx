@@ -12,6 +12,7 @@ function AdminServiceProvider() {
   const { token } = useContext(GlobalContext)
   const [tokenReady, setTokenReady] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [reloadUsers, setReloadUsers] = useState(false)
 
   useEffect(() => {
       (async () => {
@@ -27,9 +28,10 @@ function AdminServiceProvider() {
           const result = await response.json()
           setUsers(result.users)
           setIsLoading(false);
+          setReloadUsers(false)
         }
       })()
-  }, [tokenReady])
+  }, [tokenReady, reloadUsers])
 
   useEffect(() => {
     if (token) setTokenReady(true)
@@ -44,7 +46,7 @@ function AdminServiceProvider() {
           <div className="w-full m-auto py-11">
             <div className="flex flex-col">
               <div className="text-2xl mx-auto font-bold">Pet Service Provider Applications</div>
-              <ServiceProviderApplicationTable users={users}/>
+              <ServiceProviderApplicationTable users={users} setReloadUsers={setReloadUsers} />
             </div>
           </div>
         </div>

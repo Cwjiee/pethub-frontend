@@ -4,7 +4,7 @@ import { GlobalContext } from "@/context"
 import { useContext } from "react"
 import { useToast } from "@chakra-ui/react"
 
-export default function ServiceProviderApplicationTable({ users }) {
+export default function ServiceProviderApplicationTable({ users, setReloadUsers }) {
   const { token } = useContext(GlobalContext)
   const toast = useToast()
 
@@ -34,6 +34,7 @@ export default function ServiceProviderApplicationTable({ users }) {
         duration: 3000,
         isClosable: true
       })
+      setReloadUsers(true)
     } else {
       toast({
         title: 'Error',
@@ -79,7 +80,7 @@ export default function ServiceProviderApplicationTable({ users }) {
                             </td>
                             <td class="px-4 py-3 flex flex-row gap-x-2 justify-end">
                               <button
-                                className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E]"
+                                className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E] hover:bg-[#1F9D4B] active:bg-[#0E6F33]"
                                 onClick={() => handleSubmit('approved', user.user_id)}
                               >
                                 <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
@@ -87,7 +88,7 @@ export default function ServiceProviderApplicationTable({ users }) {
                                 </div>
                               </button>
                               <button
-                                className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444]"
+                                className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444] hover:bg-[#D62828] active:bg-[#B91C1C]"
                                 onClick={() => handleSubmit('rejected', user.user_id)}
                               >
                                 <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">

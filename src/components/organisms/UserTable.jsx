@@ -3,7 +3,7 @@ import { useToast } from "@chakra-ui/react"
 import { GlobalContext } from "@/context"
 import { useContext } from "react"
 
-export default function UserTable({users}) {
+export default function UserTable({ users, setReloadUsers }) {
   const toast = useToast()
   const { token } = useContext(GlobalContext)
   const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
@@ -31,6 +31,7 @@ export default function UserTable({users}) {
         duration: 3000,
         isClosable: true
       })
+      setReloadUsers(true)
     } else {
       toast({
         title: 'Error',
@@ -75,7 +76,7 @@ export default function UserTable({users}) {
                         {user.permission_level != 3 && (
                           <td class="px-4 py-3 flex items-center justify-end">
                             <button
-                              className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444]"
+                              className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444] hover:bg-[#D62828] active:bg-[#B91C1C]"
                               onClick={() => handleDelete(user)}
                             >
                               <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">

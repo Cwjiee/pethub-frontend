@@ -12,6 +12,7 @@ function AdminUser() {
   const { token } = useContext(GlobalContext)
   const [tokenReady, setTokenReady] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [reloadUsers, setReloadUsers] = useState(false)
 
   const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
 
@@ -29,9 +30,10 @@ function AdminUser() {
         const data = await response.json()
         setUsers(data.user)
         setIsLoading(false)
+        setReloadUsers(false)
       }
     })()
-  }, [tokenReady])
+  }, [tokenReady, reloadUsers])
 
   useEffect(() => {
     if (token) setTokenReady(true)
@@ -46,7 +48,7 @@ function AdminUser() {
           <div className="w-full m-auto py-8">
             <div className="flex flex-col">
               <div className="text-2xl mx-auto font-bold">Users</div>
-              <UserTable users={users}/>
+              <UserTable users={users} setReloadUsers={setReloadUsers} />
             </div>
           </div>
         </div>
