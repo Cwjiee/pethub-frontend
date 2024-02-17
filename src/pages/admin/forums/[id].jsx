@@ -144,7 +144,7 @@ function AdminForumsPage() {
             <div className="text-[16px] font-bold">Comments</div>
             <div className="mt-2 mb-8 flex flex-col gap-y-1">
               {post.comments.map((comment) => {
-                return <CommentBlock key={comment.comment_id} id={comment.comment_id} name={comment.user.full_name} date={comment.updated_at} desc={comment.comment_description} isAdmin={true} setReloadComment={setReloadComment} />
+                return <CommentBlock key={comment.comment_id} commentId={comment.comment_id} name={comment.user.full_name} desc={comment.comment_description} date={comment.updated_at} userId={user.user_id} isAdmin={true} setReloadComment={setReloadComment} />
               })}
             </div>
             <div>
