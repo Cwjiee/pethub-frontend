@@ -87,9 +87,9 @@ function NewsDetails() {
             <div>
               <div className="flex justify-center items-center mb-5">
                 <div className="flex flex-row gap-x-4">
-                  <button onClick={() => handleSubmit('approved', news.news_id)} className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E] w-[160px] text-sm font-bold">
+                  <button onClick={() => handleSubmit('approved', news.news_id)} className="flex justify-around px-4 py-[10px] rounded-[10px] bg-[#22C55E] w-[160px] text-sm font-bold">
                     <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
-                      Accept
+                      Approve
                     </div>
                   </button>
                   <button onClick={() => handleSubmit('rejected', news.news_id)} className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444] w-[160px] text-sm font-bold">

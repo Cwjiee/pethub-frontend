@@ -65,7 +65,7 @@ export default function AppointmentApplication({ appointments }) {
                                     <span class="sr-only">More Details</span>
                                 </th>
                                 <th scope="col" class="px-4 py-3">
-                                    <span class="sr-only">Accept and Reject</span>
+                                    <span class="sr-only">Approve and Reject</span>
                                 </th>
                             </tr>
                         </thead>

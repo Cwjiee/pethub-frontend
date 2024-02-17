@@ -62,7 +62,7 @@ export default function ServiceProviderApplicationTable({ users, setReloadUsers 
                                 <span class="sr-only">More Details</span>
                             </th>
                             <th scope="col" class="px-4 py-3">
-                                <span class="sr-only">Accept and Reject</span>
+                                <span class="sr-only">Approve and Reject</span>
                             </th>
                         </tr>
                     </thead>
@@ -80,11 +80,11 @@ export default function ServiceProviderApplicationTable({ users, setReloadUsers 
                             </td>
                             <td class="px-4 py-3 flex flex-row gap-x-2 justify-end">
                               <button
-                                className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E] hover:bg-[#1F9D4B] active:bg-[#0E6F33]"
+                                className="flex justify-around px-4 py-[10px] rounded-[10px] bg-[#22C55E] hover:bg-[#1F9D4B] active:bg-[#0E6F33]"
                                 onClick={() => handleSubmit('approved', user.user_id)}
                               >
                                 <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
-                                  Accept
+                                  Approve
                                 </div>
                               </button>
                               <button
