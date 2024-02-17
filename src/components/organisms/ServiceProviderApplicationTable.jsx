@@ -19,7 +19,8 @@ export default function ServiceProviderApplicationTable({ users }) {
       }),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/json"
       },
     })
     const result = await response.json()

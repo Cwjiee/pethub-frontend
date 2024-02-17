@@ -1,4 +1,3 @@
-import Navbar from "@/components/organisms/Navbar";
 import Searchbar from "@/components/molecules/SearchbarWithBtn";
 import Posts from "@/components/molecules/Posts";
 import { useContext, useEffect, useState } from "react";
@@ -7,6 +6,7 @@ import Image from "next/image";
 import Empty from "@/../../public/svg/EmptyNews.svg"
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 import checkAuth from "@/utils/checkAuth";
+import AdminNavbar from "@/components/organisms/AdminNavbar";
 
 function AdminForum() {
   const [posts, setPosts] = useState([])
@@ -51,7 +51,7 @@ function AdminForum() {
 
   return !isLoading ? (
     <>
-      <Navbar title={true}>Forums</Navbar>
+      <AdminNavbar />
       <div className="w-[80%] m-auto pt-6 px-6">
         <Searchbar setResult={setResults} label={"New Post"} href={"/forums/create"} results={results} data={posts} tags={tags}/>
         {results ? 
