@@ -8,7 +8,7 @@ import { useToast } from "@chakra-ui/react"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
 import TimeConvert from "@/utils/TimeConvert"
 import checkAuth from "@/utils/checkAuth"
-
+import Link from "next/link"
 function ServiceProviderDetails() {
   const router = useRouter()
   const toast = useToast()
@@ -161,8 +161,14 @@ function ServiceProviderDetails() {
                 </div>
                 {user.certificate && (
                   <div className="flex flex-col gap-y-1">
-                    <div>Resume:</div>
-                    <div></div>
+                    <div>SSM Certificate:</div>
+                    <Link 
+                      href={user.certificate.certificate_upload}
+                      target="_blank"
+                      className="underline text-blue-500 hover:text-blue-700 active: active:text-blue-900"
+                    >
+                      View SSM Certificate
+                    </Link>
                   </div>
                 )}
               </div>

@@ -81,7 +81,7 @@ function NewsDetails() {
     <>
       <div className="flex flex-col justify-between min-h-screen">
         <AdminNavbar />
-        <div className="w-full m-auto mb-20 flex-auto pt-6 px-16 bg-[#F3F4F6]">
+        <div className="w-full m-auto mb-20 flex-auto pt-6 px-16 bg-[#F3F4F6] rounded-lg">
           <BackButton/>
           {news && 
             <div>
@@ -99,7 +99,7 @@ function NewsDetails() {
                   </button>
                 </div>
               </div>
-              <div className="w-[60%] mx-auto bg-white mt-6 pt-20 pb-10 px-24 flex flex-col justify-center items-center gap-y-4">
+              <div className="w-[60%] mx-auto bg-white rounded-lg shadow-lg mt-6 pt-20 pb-10 px-24 flex flex-col justify-center items-center gap-y-4">
                 <div className="font-bold text-2xl">{news.news_title}</div>
                 <img src={news.image} width="632px" heigth="382px" alt="news-image" />
                 <div className="flex flex-row gap-x-2">

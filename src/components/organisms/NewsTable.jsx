@@ -70,7 +70,7 @@ export default function NewsTable({ news, token, setReloadNews }) {
                             <td class="px-4 py-3 max-w-[12rem] truncate">{news.user.full_name}</td>
                             <td class="px-4 py-3">
                               {news.categories.map((category) => {
-                                return <span key={v4()}>{category.category_name}</span>
+                                return <span key={v4()}>{category.category_name}, </span>
                               })}
                             </td>
                             <td class="px-4 py-3 justify-start">

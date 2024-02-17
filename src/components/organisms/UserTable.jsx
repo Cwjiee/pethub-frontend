@@ -67,11 +67,11 @@ export default function UserTable({ users, setReloadUsers }) {
                         <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{user.full_name}</th>
                         <td class="px-4 py-3 max-w-[12rem] truncate">{user.email}</td>
                         {user.permission_level == 1 ? (
-                          <td class="px-4 py-3">Normal</td>
-                        ) : user.permissoin_level == 2? (
-                            <td class="px-4 py-3">Pet Boarder/Veterinary</td>
+                          <td class="px-4 py-3">Pet Owner</td>
+                        ) : user.permission_level == 2 ? (
+                            <td class="px-4 py-3">Pet Service Provider</td>
                           ) : (
-                              <td class="px-4 py-3">Unknown</td>
+                              <td class="px-4 py-3">Admin</td>
                             )}
                         {user.permission_level != 3 && (
                           <td class="px-4 py-3 flex items-center justify-end">
