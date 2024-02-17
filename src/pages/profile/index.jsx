@@ -65,9 +65,9 @@ function Profile() {
             </div>
             {user && (
               <div className="bg-white px-6 py-5 rounded-[10px] shadow-lg ">
-                <div>Name: {user.full_name}</div>
-                <div className="mt-2">Email: {user.email}</div>
-                <div className="mt-2">Contact Number: {user.contact_number}</div>
+                <div><b>Name:</b> {user.full_name}</div>
+                <div className="mt-2"><b>Email:</b> {user.email}</div>
+                <div className="mt-2"><b>Contact Number:</b> {user.contact_number}</div>
                 <div className="mt-5 font-bold">About Me</div>
                 <div className="mt-1">{user.description}</div>
               </div>
