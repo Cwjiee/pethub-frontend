@@ -63,9 +63,9 @@ function ServiceProviderProfile() {
                     </div>
                     <div className="bg-white px-6 py-5 rounded-[10px] shadow-lg w-[500px] h-[450px] mt-5">
                         <h2 className="text-lg text-center font-bold mb-4">Service Provider Banking Details</h2>
-                        <div className="mt-2"><b>Bank Name: </b> {user.contact_number}</div>
-                        <div className="mt-2"><b>Beneficiary Account Number: </b>{TimeConvertNotForDateTime(user.opening_hour)}</div>
-                        <div className="mt-2 mb-2"><b>Beneficiary Account Name: </b>{TimeConvertNotForDateTime(user.closing_hour)}</div>
+                        <div className="mt-2"><b>Bank Name: </b> {user.bank_name}</div>
+                        <div className="mt-2"><b>Beneficiary Account Number: </b>{user.beneficiary_acc_number}</div>
+                        <div className="mt-2 mb-2"><b>Beneficiary Account Name: </b>{user.beneficiary_name}</div>
                         <Link target="_blank" href={user.qr_code_image} className="text-blue-500 underline hover:text-blue-600 active:text-blue-700">View QR code Image</Link>
                     </div>
                 </div> 

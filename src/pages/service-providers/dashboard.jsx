@@ -13,7 +13,7 @@ function ServiceProviderDashBoard() {
   const dirs = [
     {
       links: "/service-providers/appointments",
-      label: "Pet Service Provider Applications",
+      label: "Appointment Applications",
       image: ServiceProvider,
     },
     {

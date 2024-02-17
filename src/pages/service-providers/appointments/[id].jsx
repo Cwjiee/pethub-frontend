@@ -86,10 +86,10 @@ function ServiceProviderSpecificAppointment() {
               <BackButton/>
               <div className='flex gap-x-8 justify-center'>
                 <button
-                  className="py-[12px] px-16 bg-[#22C55E] rounded-xl text-white font-bold shadow-lg" 
+                  className="py-[12px] px-14 bg-[#22C55E] rounded-xl text-white font-bold shadow-lg" 
                   onClick={(e) => handleSubmit(e, "approved")}
                 >
-                  Accept
+                  Approve
                 </button>
                 <button 
                   className="py-[12px] px-16 bg-[#EF4444] rounded-xl text-white font-bold shadow-lg"
@@ -103,6 +103,10 @@ function ServiceProviderSpecificAppointment() {
                 <div className="mt-7">
                   <p className="font-bold">Owner Name:</p>
                   <p>{appointment.user.full_name}</p>
+                </div>
+                <div className="mt-3">
+                  <p className="font-bold">Owner Email:</p>
+                  <p>{appointment.user.email}</p>
                 </div>
                 <div className="mt-3">
                   <p className="font-bold">Pet Name:</p>
@@ -128,7 +132,7 @@ function ServiceProviderSpecificAppointment() {
                   <Link target="_blank" href={appointment.upload_payment_proof} className="underline text-blue-500 hover:text-blue-700 active: active:text-blue-900">View transaction image</Link>
                 </div>
                 <div className="mt-5">
-                  <Link href={`./user-profile/${appointment.user.user_id}`} className="underline text-blue-500 hover:text-blue-700 active: active:text-blue-900" >View owner profile</Link>
+                  <Link href={`./user-profile/${appointment.user.user_id}`} className="underline text-blue-500 hover:text-blue-700 active: active:text-blue-900" >View owner & pet profile</Link>
                 </div>  
               </div>
           </div>
@@ -140,14 +144,14 @@ function ServiceProviderSpecificAppointment() {
   )
 }
 
-ServiceProviderSpecificAppointment.getLayout = function getLayout(page) {
-    return (
-      <>
-        <main>
-          {page}
-        </main>
-      </>
-    )
-}
+// ServiceProviderSpecificAppointment.getLayout = function getLayout(page) {
+//     return (
+//       <>
+//         <main>
+//           {page}
+//         </main>
+//       </>
+//     )
+// }
 
 export default checkAuth(ServiceProviderSpecificAppointment)

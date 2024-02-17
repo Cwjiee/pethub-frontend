@@ -47,7 +47,7 @@ function AdminServiceProvider() {
           <BackButton/>
           <div className="w-full m-auto py-11">
             <div className="flex flex-col">
-              <div className="text-2xl mx-auto font-bold">Pet Service Provider Applications</div>
+              <div className="text-2xl mx-auto font-bold">Appointment Applications</div>
               <AppointmentApplication appointments={appointments}/>
             </div>
           </div>

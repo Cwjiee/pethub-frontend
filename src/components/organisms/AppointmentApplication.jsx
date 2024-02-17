@@ -3,6 +3,8 @@ import Link from "next/link"
 import { GlobalContext } from "@/context"
 import { useContext } from "react"
 import { useToast } from "@chakra-ui/react"
+import { TimeConvertNotForDateTime } from "@/utils/TimeConvertNotForDateTime"
+import { modDate } from "@/utils/modDate"
 
 export default function AppointmentApplication({ appointments }) {
     const { token, userId } = useContext(GlobalContext)
@@ -72,8 +74,8 @@ export default function AppointmentApplication({ appointments }) {
                             return (
                             <tr class="border-b dark:border-gray-700" key={v4()}>
                                 <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{appointment.pet.pet_name}</th>
-                                <td class="px-4 py-3 max-w-[12rem] truncate">{appointment.date}</td>
-                                <td class="px-4 py-3">{appointment.time}</td>
+                                <td class="px-4 py-3 max-w-[12rem] truncate">{modDate(appointment.date)}</td>
+                                <td class="px-4 py-3">{TimeConvertNotForDateTime(appointment.time)}</td>
                                 <td class="px-4 py-3 justify-start">
                                     
                                 <Link href={`./appointments/${appointment.appointment_id}`} className="text-[#0055D4] underline">
@@ -82,11 +84,11 @@ export default function AppointmentApplication({ appointments }) {
                                 </td>
                                 <td class="px-4 py-3 flex flex-row gap-x-2 justify-end">
                                 <button
-                                    className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#22C55E]"
+                                    className="flex justify-around px-4 py-[10px] rounded-[10px] bg-[#22C55E]"
                                     onClick={(e) => handleSubmit('approved', appointment.appointment_id, e)}
                                 >
                                     <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
-                                    Accept
+                                    Approve
                                     </div>
                                 </button>
                                 <button
