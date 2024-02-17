@@ -1,3 +1,4 @@
+import { TimeConvertNotForDateTime } from "@/utils/TimeConvertNotForDateTime";
 import Link from "next/link";
 
 export default function BookingBlock({ vet }) {
@@ -11,7 +12,7 @@ export default function BookingBlock({ vet }) {
       />
       <div className="mx-1">
         <h4 className="font-semibold">{vet.full_name}</h4>
-        <div className="text-sm">{vet.opening_hour} - {vet.closing_hour}</div>
+        <div className="text-sm">{TimeConvertNotForDateTime(vet.opening_hour)} - {TimeConvertNotForDateTime(vet.closing_hour)}</div>
       </div>
 
       <div className="flex flex-col gap-2">
