@@ -14,6 +14,7 @@ function ServiceProviderPostPage() {
   const [posts, setPosts] = useState([])
   const [isLoading, setIsLoading] = useState(true);
   const { token } = useContext(GlobalContext)
+  const [reloadPost, setReloadPost] = useState(false)
   const tags = [
     "Dogs",
     "Cats",
@@ -27,35 +28,54 @@ function ServiceProviderPostPage() {
   const [tokenReady, setTokenReady] = useState(false)
 
   useEffect(() => {
-    (async () => {
+    const fetchPost = async () => {
+      const response = await fetch(`${url}/posts`)
+      const result = await response.json()
+
+      setPosts(result.posts)
+      setResults(result.posts)
+    }
+
+    const fetchUser = async () => {
       if (tokenReady) {
-        const response = await fetch(`${url}/posts`, {
+        const response = await fetch(`http://localhost/api/v1/profile`, {
           headers: {
-            'Content-type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            "Authorization": `Bearer ${token}`,
             'Accept': 'application/json'
           }
         })
+
         const result = await response.json()
-        setPosts(result.posts)
-        setResults(result.posts)
-        setIsLoading(false)
+        setUser(result.user)
       }
-    })()
-  }, [tokenReady, url])
+    }
+
+    fetchUser()
+    fetchPost()
+
+    setReloadPost(false)
+    setIsLoading(false)
+  }, [tokenReady, url, reloadPost])
 
   useEffect(() => {
     if (token) setTokenReady(true)
   }, [token])
+
   return !isLoading ? (
     <>
       <SPNavbar title={true}>Forums</SPNavbar>
       <div className="w-[80%] m-auto pt-6 px-6">
         <Searchbar results={results} setResult={setResults} label={"New Post"} href={"/service-providers/forums/create"} tags={tags} data={posts}/>
         {results ? 
-          results.map((post) => {
-            return <Posts isSP={true} key={post.post_id} post={post}/>
-          })
+          user && (
+            results.map((post) => {
+            {return user.user_id === post.user_id ? (
+                <Posts key={post.post_id} isSP={true} post={post} ownPost={true} setReloadPost={setReloadPost} />
+              ) : (
+                <Posts key={post.post_id} isSP={true} post={post}/>
+              )}
+            })
+          )
           :
           <div className="flex flex-col justify-center items-center mt-20">
             <Image src={Empty} width={200} height={245} alt="empty news"/>

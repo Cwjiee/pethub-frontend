@@ -145,15 +145,13 @@ function ServiceProviderSpecificPostPage() {
                 <div className="text-[16px] font-bold">Comments</div>
                 <div className="mt-2 mb-8 flex flex-col gap-y-1">
                 {user && (
-                  post.user_id === user.user_id ? (
-                    post.comments.map((comment) => {
-                      return <CommentBlock key={comment.comment_id} commentId={comment.comment_id} isSP={true} name={comment.user.full_name} date={comment.updated_at} desc={comment.comment_description} setReloadComment={setReloadComment} ownPost={true}/>
-                    })
-                  ) : (
-                    post.comments.map((comment) => {
-                      return <CommentBlock key={comment.comment_id} commentId={comment.comment_id} isSP={true} name={comment.user.full_name} date={comment.updated_at} desc={comment.comment_description} setReloadComment={setReloadComment}/>
-                    })
-                  )
+                  post.comments.map((comment) => {
+                  {return post.user_id === user.user_id ? 
+                      <CommentBlock key={comment.comment_id} commentId={comment.comment_id} name={comment.user.full_name} date={comment.updated_at} desc={comment.comment_description} setReloadComment={setReloadComment} ownPost={true} />
+                      : 
+                      <CommentBlock key={comment.comment_id} commentId={comment.comment_id} name={comment.user.full_name} date={comment.updated_at} desc={comment.comment_description} setReloadComment={setReloadComment} ownPost={false} />
+                    }
+                  })
                 )}
                 </div>
                 <div>

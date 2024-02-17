@@ -21,7 +21,7 @@ import {
 import { useContext, useState } from "react"
 import { GlobalContext } from "@/context"
 
-export default function CommentBlock({ name, date, commentId, desc, isAdmin, isSP, setReloadComment, ownComment, ownPost }) {
+export default function CommentBlock({ name, date, commentId, desc, isAdmin, setReloadComment, ownComment, ownPost }) {
   const [editedComment, setEditedComment] = useState('')
   const { token } = useContext(GlobalContext)
   const url = process.env.NEXT_PUBLIC_API_URL
@@ -160,19 +160,9 @@ export default function CommentBlock({ name, date, commentId, desc, isAdmin, isS
             <div className="text-[#4E4E4E] text-[14px]">{desc}</div>
           </div>
         </div>
-        {!isAdmin && !isSP ? (
+        {!isAdmin && (
           <>
-            {ownComment && (
-              <div className="flex flex-row gap-2 items-center">
-                <span onClick={onOpenEdit}>
-                  <Image src={Edit} alt="edit button" width={17} height={17} className="cursor-pointer"/>
-                </span>
-              </div>
-            )}
-          </>
-        ) : (
-          <>
-            {ownPost && (
+            {(ownComment || ownPost) && (
               <div className="flex flex-row gap-2 items-center">
                 <span onClick={onOpenEdit}>
                   <Image src={Edit} alt="edit button" width={17} height={17} className="cursor-pointer"/>

@@ -17,7 +17,7 @@ import {
   Button,
 } from '@chakra-ui/react'
 
-export default function Posts({ isAdmin, isSP, post, setReloadPost }) {
+export default function Posts({ isAdmin, isSP, post, setReloadPost, ownPost }) {
   const router = useRouter()
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -132,7 +132,7 @@ export default function Posts({ isAdmin, isSP, post, setReloadPost }) {
             <span className="text-sm font-semibold">{time}</span>
           </div>
         </div>
-        {isAdmin && (
+        {(isAdmin || ownPost) && (
           <span onClick={onOpen}>
             <Image src={DeleteBtn} alt="delete button" width={17} height={17} className="absolute bottom-5 right-5 cursor-pointer"/>
           </span>
