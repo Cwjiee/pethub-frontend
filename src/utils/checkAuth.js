@@ -26,7 +26,7 @@ export default function checkAuth(Component) {
       const route = pathname.split('/')[1]
 
       if (!roles) return
-      if ((route !== 'service-providers' && route !== 'admin') && (roles !== '1' || roles !== '3')) return
+      if ((route !== 'service-providers' && route !== 'admin') && (roles !== '1' && roles !== '3')) return
       if ((route === 'service-providers') && (roles !== '2' && roles !== '3')) return
       if (route === 'admin' && roles !== '3') return
 
