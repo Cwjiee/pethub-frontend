@@ -82,7 +82,7 @@ function CreateAppointment() {
         className="w-[80%] sm:w-[40%] mt-10 m-auto py-11 px-20 bg-white shadow-lg rounded-[10px]"
       >
         <div className="flex flex-col justify-between gap-[50px]">
-          <h2 className="mx-auto font-bold text-xl">Make Appointment for Pet A</h2>
+          <h2 className="mx-auto font-bold text-xl">Make Appointment</h2>
           <div>
             <div className="font-semibold">Appointment Date:</div>
             <input 
