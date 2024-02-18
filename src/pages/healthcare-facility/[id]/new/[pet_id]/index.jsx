@@ -74,7 +74,7 @@ function CreateAppointment() {
     if (response.ok) {
       const aptId = result.appointment.appointment_id
       toast({
-        title: 'Appointment details accepted',
+        title: 'Appointment details is valid',
         description: 'Moving you to the next page...',
         status: 'success',
         duration: 3000,
@@ -88,7 +88,7 @@ function CreateAppointment() {
       setDetails('')
 
       toast({
-        title: 'Appointment details rejected',
+        title: 'Appointment details are invalid',
         description: 'Please try again',
         status: 'error',
         duration: 3000,

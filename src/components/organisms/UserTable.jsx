@@ -9,6 +9,10 @@ export default function UserTable({ users, setReloadUsers }) {
   const url = process.env.NEXT_PUBLIC_ADMIN_API_URL
 
   const handleDelete = async (user) => {
+    const confirmed = confirm(`Are you sure you want to ban ${user.full_name}?`)
+    if(!confirmed) {
+      return;
+    }
     const id = user.user_id
 
     const response = await fetch(`${url}/user/${id}`, {
@@ -26,7 +30,7 @@ export default function UserTable({ users, setReloadUsers }) {
     if (response.ok) {
       toast({
         title: 'Success',
-        description: 'User successfully deleted',
+        description: `${user.full_name} successfully banned`,
         status: 'success',
         duration: 3000,
         isClosable: true
@@ -49,7 +53,7 @@ export default function UserTable({ users, setReloadUsers }) {
         <div class="mx-auto">
           <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             <div class="overflow-x-auto">
-              <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <table class="w-full text-md text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" class="px-4 py-4">Full Name</th>
