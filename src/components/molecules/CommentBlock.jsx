@@ -73,6 +73,16 @@ export default function CommentBlock({ name, date, commentId, desc, isAdmin, set
   }
 
   const handleEdit = async () => {
+    if(!editedComment) {
+      toast({
+        title: 'Comment cannot be empty',
+        description: 'Failed in editing comment',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
+      return 
+    }
     const response = await fetch(`${url}/comments/${commentId}`, {
       method: "PUT",
       body: JSON.stringify({
