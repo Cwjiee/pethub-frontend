@@ -18,6 +18,7 @@ function SelectPet() {
   const facilityId = router.query.id
   const [tokenReady, setTokenReady] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState("");
 
   const url = process.env.NEXT_PUBLIC_API_URL
 
@@ -61,17 +62,27 @@ function SelectPet() {
               </Stack>
             </RadioGroup>
           </div>
-          { petId ? (<Link
-            href={`/healthcare-facility/${facilityId}/new/${petId}`}
-            className="w-full h-10 rounded-[10px] bg-primary-500 hover:bg-primary-600 font-bold active:bg-primary-700 text-white cursor-pointer flex justify-center items-center"
-          >
-            Next
-          </Link>) : (
-            <button
-              className="w-full h-10 rounded-[10px] bg-gray-300 text-gray-600 font-bold cursor-pointer flex justify-center items-center" 
+          
+          { petId ? (
+            <div>
+              <p className="h-8"></p>
+              <Link
+                href={`/healthcare-facility/${facilityId}/new/${petId}`}
+                className="w-full h-10 rounded-[10px] bg-primary-500 hover:bg-primary-600 font-bold active:bg-primary-700 text-white cursor-pointer flex justify-center items-center"
               >
-              Next
-            </button>
+                Next
+              </Link>
+            </div>
+          ) : (
+            <div>
+              {error ? (<p className="text-red-500 h-8 text-center">{error}</p>) : (<p className="h-8"></p>)}
+              <button
+              className="w-full h-10 rounded-[10px] bg-gray-300 text-gray-600 font-bold cursor-pointer flex justify-center items-center" 
+              onClick={() => setError("Select first before proceeding")}
+              >
+                Next
+              </button>
+            </div>
           )}
         </div>
       ) : (
