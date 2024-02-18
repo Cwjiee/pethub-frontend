@@ -66,7 +66,7 @@ function SelectPet() {
           { petId ? (
             <div>
               <p className="h-8"></p>
-              <Link
+                  <Link
                 href={`/healthcare-facility/${facilityId}/new/${petId}`}
                 className="w-full h-10 rounded-[10px] bg-primary-500 hover:bg-primary-600 font-bold active:bg-primary-700 text-white cursor-pointer flex justify-center items-center"
               >

@@ -18,7 +18,7 @@ function CreateAppointment() {
   const toast = useToast()
   const [isLoading, setIsLoading] = useState(true)
   const [tokenReady, setTokenReady] = useState(false)
-
+  const [imageError, setImageError] = useState("")
   const url = process.env.NEXT_PUBLIC_API_URL
 
   useEffect(() => {
@@ -69,6 +69,7 @@ function CreateAppointment() {
     console.log(response)
 
     if (response.ok) {
+      setImageError("");
       toast({
         title: 'Payment proof submitted',
         description: 'Please wait for admin to validate the payment',
@@ -77,7 +78,8 @@ function CreateAppointment() {
         isClosable: true
       })
       setTimeout(function() {router.push(`/appointments/${aptId}/status`)}, 1000)
-    } else (
+    } else {
+      setImageError("Payment proof is required")
       toast({
         title: 'Failed to submit payment proof',
         description: 'Please try again',
@@ -85,7 +87,7 @@ function CreateAppointment() {
         duration: 3000,
         isClosable: true
       })
-    )
+    }
   }
 
   return !isLoading ? (
@@ -95,7 +97,7 @@ function CreateAppointment() {
         <BackButton/>
       </div>
       <div className="w-[80%] sm:w-[35%] mt-12 m-auto py-11 px-20 bg-white shadow-lg rounded-[10px]">
-        <div className="flex flex-col justify-between items-center gap-[50px]">
+        <div className="flex flex-col justify-between items-center gap-[25px]">
           <h2 className="font-bold text-xl text-center">Confirm Payment With Deposit</h2>
           <div>
             <Image src={Bank} width={295} height={400} alt="bank" />
@@ -117,6 +119,7 @@ function CreateAppointment() {
             <label class="block text-sm font-semibold dark:text-white" for="file_input">Upload Image
               <input id="file_input" type="file" onChange={uploadToClient} class="bg-secondary-500 block w-full text-sm text-secondary-500 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-secondary-500 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
             </label>
+            {imageError ? (<p className="text-red-500 h-8">{imageError}</p>) : (<p className="h-8"></p>)}
           </div>
           <input 
             type="submit"

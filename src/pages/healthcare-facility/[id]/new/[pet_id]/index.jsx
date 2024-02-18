@@ -11,6 +11,10 @@ function CreateAppointment() {
   const [time, setTime] = useState()
   const [issue, setIssue] = useState()
   const [details, setDetails] = useState()
+  const [dateError, setDateError] = useState();
+  const [timeError, setTimeError] = useState();
+  const [issueError, setIssueError] = useState();
+  const [detailsError, setDetailsError] = useState();
 
   const router = useRouter()
   const petSpId = router.query.id
@@ -22,6 +26,28 @@ function CreateAppointment() {
 
   const submitForm = async (e) => {
     e.preventDefault()
+
+    if(!details) {
+      setDetailsError("Important details is required")
+    } else {
+      setDetailsError("");
+    }
+
+    if(!time) {
+      setTimeError("Appointment time is required")
+    } else {
+      setTimeError("")
+    } 
+
+    if(!date) {
+      setDateError("Appointment date is required")
+    } else {
+      setDateError("")
+    }
+
+    if(!issue) {
+      setIssueError("Issues of pet is required")
+    }
 
     const response = await fetch(`${url}/appointments`, {
       method: "POST",
@@ -44,12 +70,12 @@ function CreateAppointment() {
 
     console.log(response)
     const result = await response.json()
-    const aptId = result.appointment.appointment_id
-
+    
     if (response.ok) {
+      const aptId = result.appointment.appointment_id
       toast({
-        title: 'Appointment created',
-        description: 'Please wait for admin approve appointment',
+        title: 'Appointment details accepted',
+        description: 'Moving you to the next page...',
         status: 'success',
         duration: 3000,
         isClosable: true
@@ -62,7 +88,7 @@ function CreateAppointment() {
       setDetails('')
 
       toast({
-        title: 'Failed to create appointment',
+        title: 'Appointment details rejected',
         description: 'Please try again',
         status: 'error',
         duration: 3000,
@@ -81,8 +107,8 @@ function CreateAppointment() {
         onSubmit={submitForm}
         className="w-[80%] sm:w-[40%] mt-10 m-auto py-11 px-20 bg-white shadow-lg rounded-[10px]"
       >
-        <div className="flex flex-col justify-between gap-[50px]">
-          <h2 className="mx-auto font-bold text-xl">Make Appointment</h2>
+        <div className="flex flex-col justify-between ">
+          <h2 className="mx-auto font-bold text-xl mb-8">Make Appointment</h2>
           <div>
             <div className="font-semibold">Appointment Date:</div>
             <input 
@@ -91,6 +117,9 @@ function CreateAppointment() {
               onChange={(e) => setDate(e.target.value)}
               className="w-full h-10 rounded-[10px] border-2 border-neutral-200 p-2 placeholder:text-md outline-neutral-500"
             /> 
+            <div class="h-8">
+              {dateError && <p className="text-red-500">{dateError}</p>}
+            </div>
           </div>
           <div>
             <div className="font-semibold">Appointment Time:</div>
@@ -100,6 +129,9 @@ function CreateAppointment() {
               onChange={(e) => setTime(e.target.value)}
               className="w-full h-10 rounded-[10px] border-2 border-neutral-200 p-2 placeholder:text-md outline-neutral-500"
             /> 
+            <div class="h-8">
+              {timeError && <p className="text-red-500">{timeError}</p>}
+            </div>
           </div>
           <div>
             <div className="font-semibold">Issues of pet:</div>
@@ -111,6 +143,9 @@ function CreateAppointment() {
               value={issue}
             >
             </textarea>
+            <div class="h-8">
+              {issueError && <p className="text-red-500">{issueError}</p>}
+            </div>
           </div> 
           <div>
             <div className="font-semibold">Important details of pet:</div>
@@ -122,11 +157,14 @@ function CreateAppointment() {
               value={details}
             >
             </textarea>
+            <div class="h-8">
+              {detailsError && <p className="text-red-500">{detailsError}</p>}
+            </div>
           </div> 
           <input 
             type="submit"
             value="Submit"
-            className="w-full h-14 rounded-[10px] text-lg font-semibold bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white cursor-pointer"
+            className="w-full py-3 rounded-[10px] font-semibold bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white cursor-pointer"
           />
         </div>
       </form>
