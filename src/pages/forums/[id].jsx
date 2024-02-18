@@ -70,6 +70,18 @@ function ForumsPage() {
 
   const handleSubmit = async () => {
     console.log(userId)
+
+    if(!description) {
+      toast({
+        title: 'Comment cannot be empty',
+        description: 'Please try again',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      });
+      return 
+    }
+
     const response = await fetch(`${url}/comments`, {
       method: "POST",
       body: JSON.stringify({
@@ -97,8 +109,8 @@ function ForumsPage() {
       })
     } else {
       toast({
-        title: 'Success',
-        description: 'Comment created successfully',
+        title: 'Comment created successfully',
+        description: 'Refreshing page...',
         status: 'success',
         duration: 3000,
         isClosable: true
