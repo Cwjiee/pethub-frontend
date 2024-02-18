@@ -61,12 +61,18 @@ function SelectPet() {
               </Stack>
             </RadioGroup>
           </div>
-          <Link
+          { petId ? (<Link
             href={`/healthcare-facility/${facilityId}/new/${petId}`}
-            className="w-full h-10 rounded-[10px] bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white cursor-pointer flex justify-center items-center"
+            className="w-full h-10 rounded-[10px] bg-primary-500 hover:bg-primary-600 font-bold active:bg-primary-700 text-white cursor-pointer flex justify-center items-center"
           >
             Next
-          </Link>
+          </Link>) : (
+            <button
+              className="w-full h-10 rounded-[10px] bg-gray-300 text-gray-600 font-bold cursor-pointer flex justify-center items-center" 
+              >
+              Next
+            </button>
+          )}
         </div>
       ) : (
           <div className="flex flex-col justify-center items-center mt-20">
