@@ -41,6 +41,32 @@ export default function ServiceProviderEditForm() {
     }
   }
 
+  const toastMessage = (message) => {
+      toast({
+        title: message,
+        description: 'Please try again',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
+  }
+
+  const clearField = () => {
+    setName("")
+    setEmail("")
+    setPassword("")
+    setConfirmPassword("")
+    setDescription("")
+    setContact("")
+    setDeposit("")
+    setStartOperaton("")
+    setEndOperaton("")
+    setServiceType("")
+    setBankName("")
+    setAccNumber("")
+    setAccName("")
+  }
+
   const submitForm = async (e) => {
     e.preventDefault()
 
@@ -61,11 +87,21 @@ export default function ServiceProviderEditForm() {
     body.append("beneficiary_name", accName)
 
     if(password !== confirmPassword) {
-      return (
-        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-          <span class="font-medium">Error!</span> Wrong confirmation password
-        </div>
-      )
+      clearField()
+      toastMessage("password doens't match with confirmation")
+      return
+    }
+
+    if (contact.length != 11 && contact.length != 12) {
+      clearField()
+      toastMessage("invalid contact number length")
+      return
+    }
+
+    if (contact[0] !== '0') {
+      clearField()
+      toastMessage("contact number has to start with 0")
+      return
     }
 
     if (url) {
@@ -141,7 +177,7 @@ export default function ServiceProviderEditForm() {
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                 />
-{errors && errors.email && <p className="text-red-500">{errors.email.toString()}</p>}                
+              {errors && errors.email && <p className="text-red-500">{errors.email.toString()}</p>}                
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Password:</span>
