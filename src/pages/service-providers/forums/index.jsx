@@ -16,6 +16,7 @@ function ServiceProviderPostPage() {
   const { token } = useContext(GlobalContext)
   const [reloadPost, setReloadPost] = useState(false)
   const [user,setUser] = useState()
+  const [categories, setCategories] = useState()
   const tags = [
     "Dogs",
     "Cats",
@@ -51,8 +52,17 @@ function ServiceProviderPostPage() {
       }
     }
 
+    const fetchCategores = async () => {
+      if (tokenReady) {
+        const response = await fetch(`${url}/categories/post`)
+        const result = await response.json()
+        setCategories(result.categories)
+      }
+    }
+
     fetchUser()
     fetchPost()
+    fetchCategores()
 
     setReloadPost(false)
     setIsLoading(false)
@@ -68,10 +78,10 @@ function ServiceProviderPostPage() {
       <div className="w-[80%] m-auto pt-6 px-6">
         <Searchbar results={results} setResult={setResults} label={"New Post"} href={"/service-providers/forums/create"} tags={tags} data={posts}/>
         {results ? 
-          user && (
+          user && categories && (
             results.map((post) => {
             {return user.user_id === post.user_id ? (
-                <Posts key={post.post_id} isSP={true} post={post} ownPost={true} setReloadPost={setReloadPost} />
+                <Posts key={post.post_id} isSP={true} post={post} ownPost={true} setReloadPost={setReloadPost} categories={categories} />
               ) : (
                 <Posts key={post.post_id} isSP={true} post={post}/>
               )}

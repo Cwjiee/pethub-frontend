@@ -15,6 +15,7 @@ export default function Forum() {
   const { token } = useContext(GlobalContext)
   const [tokenReady, setTokenReady] = useState(false)
   const [reloadPost, setReloadPost] = useState(false)
+  const [categories, setCategories] = useState([])
 
   const url = process.env.NEXT_PUBLIC_API_URL
 
@@ -51,8 +52,18 @@ export default function Forum() {
       }
     }
 
+    const fetchCategores = async () => {
+      if (tokenReady) {
+        const response = await fetch(`${url}/categories/post`)
+        const result = await response.json()
+        setCategories(result.categories)
+        console.log(categories)
+      }
+    }
+
     fetchUser()
     fetchPost()
+    fetchCategores()
 
     setReloadPost(false)
     setIsLoading(false)
@@ -68,10 +79,10 @@ export default function Forum() {
       <div className="w-[80%] m-auto pt-6 px-6">
         <Searchbar setResult={setResults} label={"New Post"} href={"/forums/create"} results={results} data={posts} tags={tags}/>
         {results ? 
-          user && (
+          user && categories && (
             results.map((post) => {
             {return user.user_id === post.user_id ? (
-                <Posts key={post.post_id} post={post} ownPost={true} setReloadPost={setReloadPost} />
+                <Posts key={post.post_id} post={post} ownPost={true} setReloadPost={setReloadPost} categories={categories} />
               ) : (
                 <Posts key={post.post_id} post={post}/>
               )}

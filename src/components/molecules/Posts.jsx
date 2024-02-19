@@ -1,9 +1,10 @@
 import Image from "next/image";
-import DeleteBtn from "@/../public/svg/DeleteBtn.svg"
+import Edit from "@/../../public/edit.svg"
+import Delete from "@/../../public/delete.svg"
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
-import { useDisclosure, useToast } from "@chakra-ui/react";
+import { Select, useDisclosure, useToast } from "@chakra-ui/react";
 import formatTimeAgo from "@/utils/TimeAgo";
 
 import {
@@ -14,16 +15,38 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  FormControl,
+  FormLabel,
+  Input,
   Button,
 } from '@chakra-ui/react'
 
-export default function Posts({ isAdmin, isSP, post, setReloadPost, ownPost }) {
+export default function Posts({ isAdmin, isSP, post, setReloadPost, ownPost, categories }) {
   const router = useRouter()
   const toast = useToast()
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const { token } = useContext(GlobalContext)
+  const { token, userId } = useContext(GlobalContext)
   const url = process.env.NEXT_PUBLIC_API_URL
   const [time, setTime] = useState()
+  const [editedTitle, setEditedTitle] = useState(post.post_title)
+  const [editedComment, setEditedComment] = useState(post.post_description)
+  const [editedCategory, setEditedCategory] = useState()
+
+  const { 
+    isOpen: isOpenDelete,
+    onOpen: onOpenDelete,
+    onClose: onCloseDelete,
+  } = useDisclosure()
+
+  const { 
+    isOpen: isOpenEdit,
+    onOpen: onOpenEdit,
+    onClose: onCloseEdit,
+  } = useDisclosure()
+
+  const handleChange = (e) => {
+      const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+      setEditedCategory(selectedOptions);
+  }
 
   const handleRoute = () => {
     if (isAdmin) {
@@ -64,6 +87,54 @@ export default function Posts({ isAdmin, isSP, post, setReloadPost, ownPost }) {
     }
   }
 
+  const handleEdit = async () => {
+    if(!editedComment) {
+      toast({
+        title: 'description field is empty',
+        description: 'Failed in editing post',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
+      return 
+    }
+    const response = await fetch(`${url}/posts/${post.post_id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        user_id: userId,
+        post_title: editedTitle,
+        post_description: editedComment,
+        categories: editedCategory,
+      }),
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/json",
+        "Content-type": "application/json",
+      }
+    })
+
+    if (response.ok) {
+      toast({
+        title: 'Success',
+        description: 'Comment successfully edited',
+        status: 'success',
+        duration: 3000,
+        isClosable: true
+      })
+      setReloadPost(true)
+      onCloseEdit()
+      setEditedComment('')
+    } else {
+      toast({
+        title: 'Error',
+        description: 'Failed in editing comment',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
+    }
+  }
+
   useEffect(() => {
     if (post) {
       setTime(formatTimeAgo(post.created_at))
@@ -72,7 +143,35 @@ export default function Posts({ isAdmin, isSP, post, setReloadPost, ownPost }) {
 
   return (
     <>
-      <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
+      <Modal closeOnOverlayClick={false} isOpen={isOpenEdit} onClose={onCloseEdit}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Edit comment?</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <FormControl>
+              <FormLabel>Title</FormLabel>
+              <Input value={editedTitle} onChange={(e) => {setEditedTitle(e.target.value)}} placeholder='Edit Title' />
+              <FormLabel>Description</FormLabel>
+              <Input value={editedComment} onChange={(e) => {setEditedComment(e.target.value)}} placeholder='Edit description' />
+              <FormLabel>Categories</FormLabel>
+              <Select multiple onChange={handleChange} value={editedCategory} height={250}>
+                {categories && categories.map((cat) => {
+                  return <option key={cat.category_id} value={cat.category_id}>{cat.category_name}</option>
+                })}
+              </Select>
+            </FormControl>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='teal' mr={3} onClick={handleEdit} >
+              Edit
+            </Button>
+            <Button onClick={onCloseEdit}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+      <Modal closeOnOverlayClick={false} isOpen={isOpenDelete} onClose={onCloseDelete}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Delete post?</ModalHeader>
@@ -84,11 +183,11 @@ export default function Posts({ isAdmin, isSP, post, setReloadPost, ownPost }) {
           <ModalFooter>
             <Button colorScheme='red' mr={3} onClick={() => {
               handleDelete();
-              onClose
+              onCloseDelete
             }}>
               Delete 
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={onCloseDelete}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -132,9 +231,14 @@ export default function Posts({ isAdmin, isSP, post, setReloadPost, ownPost }) {
             <span className="text-sm font-semibold">{time}</span>
           </div>
         </div>
-        {(isAdmin || ownPost) && (
-          <span onClick={onOpen}>
-            <Image src={DeleteBtn} alt="delete button" width={17} height={17} className="absolute bottom-5 right-5 cursor-pointer"/>
+        {isAdmin && (
+          <span onClick={onOpenDelete}>
+            <Image src={Delete} alt="delete button" width={17} height={17} className="absolute bottom-5 right-5 cursor-pointer"/>
+          </span>
+        )}
+        {ownPost && !isAdmin && (
+          <span onClick={onOpenEdit}>
+            <Image src={Edit} alt="edit button" width={17} height={17} className="absolute bottom-5 right-5 cursor-pointer"/>
           </span>
         )}
       </div>
