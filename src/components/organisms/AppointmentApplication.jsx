@@ -84,7 +84,7 @@ export default function AppointmentApplication({ appointments }) {
                                 </td>
                                 <td class="px-4 py-3 flex flex-row gap-x-2 justify-end">
                                 <button
-                                    className="flex justify-around px-4 py-[10px] rounded-[10px] bg-[#22C55E]"
+                                    className="flex justify-center px-4 py-[10px] rounded-[10px] bg-[#22C55E] hover:bg-[#1F9D4B] active:bg-[#0E6F33]"
                                     onClick={(e) => handleSubmit('approved', appointment.appointment_id, e)}
                                 >
                                     <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
@@ -92,7 +92,7 @@ export default function AppointmentApplication({ appointments }) {
                                     </div>
                                 </button>
                                 <button
-                                    className="flex justify-around px-6 py-[10px] rounded-[10px] bg-[#EF4444]"
+                                    className="flex justify-center px-6 py-[10px] rounded-[10px] bg-[#EF4444] hover:bg-[#D62828] active:bg-[#B91C1C]"
                                     onClick={(e) => handleSubmit('reject', appointment.appointment_id, e)}
                                 >
                                     <div className="my-auto text-white font-bold spacing tracking-[0.86px] text-md">
