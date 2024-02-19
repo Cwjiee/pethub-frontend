@@ -13,7 +13,8 @@ function AdminServiceProvider() {
   const { token, userId } = useContext(GlobalContext)
   const [tokenReady, setTokenReady] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-    console.log(userId);
+  const [reloadTable, setReloadTable] = useState(false)
+
   useEffect(() => {
       (async () => {
         if (tokenReady) {
@@ -29,9 +30,10 @@ function AdminServiceProvider() {
           console.log(result.appointments);
           setAppointments(result.appointments)
           setIsLoading(false);
+          setReloadTable(false)
         }
       })()
-  }, [tokenReady])
+  }, [tokenReady, reloadTable])
 
   useEffect(() => {
     if (token) setTokenReady(true)
@@ -48,7 +50,7 @@ function AdminServiceProvider() {
           <div className="w-full m-auto py-11">
             <div className="flex flex-col">
               <div className="text-2xl mx-auto font-bold">Appointment Applications</div>
-              <AppointmentApplication appointments={appointments}/>
+              <AppointmentApplication appointments={appointments} setReloadTable={setReloadTable} />
             </div>
           </div>
         </div>
