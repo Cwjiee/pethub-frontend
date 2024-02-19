@@ -15,6 +15,7 @@ function ServiceProviderPostPage() {
   const [isLoading, setIsLoading] = useState(true);
   const { token } = useContext(GlobalContext)
   const [reloadPost, setReloadPost] = useState(false)
+  const [user,setUser] = useState()
   const tags = [
     "Dogs",
     "Cats",
