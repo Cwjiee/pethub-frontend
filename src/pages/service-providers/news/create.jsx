@@ -78,7 +78,7 @@ function ServiceProviderCreateNewsPage() {
         duration: 3000,
         isClosable: true
       })
-      setTimeout(function() {router.push('/news')}, 1000)
+      setTimeout(function() {router.push('/service-providers/news')}, 1000)
     } else (
       toast({
         title: 'Failed to create news',
