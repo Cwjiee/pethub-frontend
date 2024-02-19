@@ -1,7 +1,6 @@
 import LoadSpinner from '@/components/atoms/LoadSpinner'
 import SPFooter from '@/components/organisms/SPFooter'
 import SPNavbar from '@/components/organisms/SPNavbar'
-import Image from 'next/image'
 import { useContext, useEffect, useState } from 'react'
 import { GlobalContext } from '@/context'
 import { useRouter } from 'next/router'
@@ -47,11 +46,10 @@ function ServiceProviderSpecificUserProfile() {
       <BackButton/>
         <div className="flex flex-row mt-5 gap-x-4">
           <div className="flex flex-col gap-y-4 justify-end">
-            <Image class="inline-block rounded-[10px] ring ring-white" src={petOwner.image} width={250} height={250} alt="avatar"/>
+            <img class="inline-block rounded-[10px] ring ring-white" src={petOwner.image} width={250} height={250} alt="avatar"/>
           </div>
 
           <div className="flex flex-col gap-y-4">
-  
             {petOwner && (
               <div className="bg-white px-6 py-5 rounded-[10px] shadow-lg ">
                 <div><b>Name:</b> {petOwner.full_name}</div>
@@ -71,7 +69,7 @@ function ServiceProviderSpecificUserProfile() {
                 petOwner.pets.map((pet) => {
                   return (
                     <div className="bg-white w-[350px] rounded-lg shadow-lg" key={pet.id}>
-                        <Image src={pet.image} alt="this is a text" className="overflow-auto rounded-t-lg" width={350} height={100}/>
+                        <img src={pet.image} alt="this is a text" className="overflow-auto rounded-t-lg" width={350} height={100}/>
                         <div className="py-5 px-5">
                             <div><b>Name: </b>{pet.pet_name}</div>
                             <div><b>Type: </b>{pet.type}</div>
