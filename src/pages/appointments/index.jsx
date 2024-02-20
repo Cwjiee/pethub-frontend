@@ -38,8 +38,10 @@ function Appointments() {
     <>
       <div className="flex flex-col justify-between min-h-screen">
         <Navbar title={false}></Navbar>
-        <div className="w-full m-auto flex-auto pt-6 px-16 bg-[#F3F4F6]">
+        <div className="w-[80%] m-auto flex-auto pt-6 px-15">
           <BackButton/>
+        </div>
+        <div className="w-full m-auto flex-auto pt-6 px-16 bg-[#F3F4F6]">
           <div className="w-[80%] m-auto py-11">
             <div className="flex flex-col">
               <div className="text-2xl mx-auto font-bold">Appointments History</div>
