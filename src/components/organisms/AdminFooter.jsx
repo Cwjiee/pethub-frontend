@@ -8,7 +8,7 @@ export default function AdminFooter() {
       <div className="mx-auto max-w-screen-xl">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
-            <a href="https://flowbite.com" className="flex items-center">
+            <a href="/admin" className="flex items-center">
               <Image src={Logo} className="mr-3 h-8" alt="FlowBite Logo" width={50} height={50} />
               <Image src={Pethub} alt="Pethub" width={80} height={80} />
             </a>

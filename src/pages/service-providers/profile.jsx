@@ -56,6 +56,7 @@ function ServiceProviderProfile() {
                         <div className="mt-2"><b>Contact Number: </b> {user.contact_number}</div>
                         <div className="mt-2"><b>Opening Hours: </b>{TimeConvertNotForDateTime(user.opening_hour)}</div>
                         <div className="mt-2"><b>Closing Hours: </b>{TimeConvertNotForDateTime(user.closing_hour)}</div>
+                        <div className="mt-2"><b>Facility Location: </b>{user.facility_location}</div>
                         <div className="mt-2"><b>Service Type: </b>{user.service_type}</div>
                         <div className="mt-2"><b>Deposit Range: </b>RM {user.deposit_value.toFixed(2)}</div>
                         <div className="mt-5 font-bold">About Me</div>
