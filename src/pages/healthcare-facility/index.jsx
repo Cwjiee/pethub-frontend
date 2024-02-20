@@ -3,6 +3,7 @@ import Searchbar from "@/components/molecules/Searchbar";
 import BookingBlock from "@/components/molecules/BookingBlock";
 import { useState, useEffect } from "react";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
+import Footer from "@/components/organisms/Footer";
 
 export default function Veterinary() {
   const [results, setResults] = useState([])
@@ -35,6 +36,7 @@ export default function Veterinary() {
         )}
         </div>
       </div>
+      <Footer />
     </>
   ) : (
     <LoadSpinner />

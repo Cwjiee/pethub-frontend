@@ -4,6 +4,7 @@ import { useState, useContext } from "react"
 import { useToast } from "@chakra-ui/react"
 import { GlobalContext } from "@/context"
 import checkAuth from "@/utils/checkAuth"
+import Footer from "@/components/organisms/Footer"
 
 function Report() {
   const [title, setTitle] = useState("")
@@ -96,6 +97,7 @@ function Report() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   )
 }

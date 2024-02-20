@@ -9,6 +9,7 @@ import LoadSpinner from "@/components/atoms/LoadSpinner"
 import { GlobalContext } from "@/context"
 import TimeConvert from "@/utils/TimeConvert"
 import checkAuth from "@/utils/checkAuth"
+import Footer from "@/components/organisms/Footer"
 
 function HealthcareFacilityInfo() {
   const router = useRouter()
@@ -84,6 +85,7 @@ function HealthcareFacilityInfo() {
           </Link>
         </div>
       </div>
+      <Footer />
     </>
   ) : (
     <LoadSpinner />

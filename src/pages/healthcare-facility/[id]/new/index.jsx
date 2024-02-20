@@ -9,6 +9,7 @@ import LoadSpinner from "@/components/atoms/LoadSpinner"
 import checkAuth from "@/utils/checkAuth"
 import Image from "next/image"
 import Empty from "@/../../public/svg/EmptyNews.svg"
+import Footer from "@/components/organisms/Footer"
 
 function SelectPet() {
   const [pets, setPets] = useState()
@@ -92,6 +93,7 @@ function SelectPet() {
             <div className="flex justify-center text-2xl mx-20 font-bold text-secondary-500">Create a profile for your pet now!</div>
           </div>
         )}
+      <Footer />
     </>
   ) : (
     <LoadSpinner />

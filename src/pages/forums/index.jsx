@@ -6,6 +6,7 @@ import Image from "next/image";
 import Empty from "../../../public/svg/EmptyNews.svg"
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 import { GlobalContext } from "@/context";
+import Footer from "@/components/organisms/Footer";
 
 export default function Forum() {
   const [posts, setPosts] = useState([])
@@ -95,6 +96,7 @@ export default function Forum() {
           </div>
         }
       </div>
+      <Footer />
     </>
   ) : (
     <LoadSpinner />

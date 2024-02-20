@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { useToast } from '@chakra-ui/react'
 import { GlobalContext } from "@/context";
 import checkAuth from "@/utils/checkAuth";
+import Footer from "@/components/organisms/Footer";
 
 function CreateAppointment() {
   const [date, setDate] = useState()
@@ -168,6 +169,7 @@ function CreateAppointment() {
           />
         </div>
       </form>
+      <Footer />
     </>
   )
 }

@@ -11,6 +11,7 @@ import Image from "next/image"
 import SendButton from "@/../public/svg/SendButton.svg"
 import { v4 } from "uuid"
 import checkAuth from "@/utils/checkAuth"
+import Footer from "@/components/organisms/Footer"
 
 function ForumsPage() {
   const router = useRouter()
@@ -178,6 +179,7 @@ function ForumsPage() {
           </div>
         </div>
       }
+      <Footer />
     </>
   ) : (
     <LoadSpinner />

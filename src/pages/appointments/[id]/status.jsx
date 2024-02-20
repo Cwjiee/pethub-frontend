@@ -3,6 +3,7 @@ import AccImage from "@../../../public/svg/accountPending.svg"
 import { useRouter } from "next/router"
 import Navbar from "@/components/organisms/Navbar"
 import checkAuth from "@/utils/checkAuth"
+import Footer from "@/components/organisms/Footer"
 
 function AppointmentStatus() {
   const router = useRouter()
@@ -34,6 +35,7 @@ function AppointmentStatus() {
           </button>
         </div>
       </div>
+      <Footer />
     </>
   )
 }

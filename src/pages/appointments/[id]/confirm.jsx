@@ -8,6 +8,7 @@ import Image from "next/image";
 import Bank from "@/../public/svg/Bank.svg"
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 import checkAuth from "@/utils/checkAuth";
+import Footer from "@/components/organisms/Footer";
 
 function CreateAppointment() {
   const [appointment, setAppointment] = useState({})
@@ -129,6 +130,7 @@ function CreateAppointment() {
           />
         </div>
       </div>
+      <Footer />
     </>
   ) : (
     <LoadSpinner />

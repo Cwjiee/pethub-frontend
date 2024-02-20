@@ -1,11 +1,11 @@
 import Navbar from "@/components/organisms/Navbar";
 import BackButton from "@/components/atoms/BackButton";
-import NewsPlaceholder from "../../../public/png/NewsPlaceholder.png";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 import checkAuth from "@/utils/checkAuth";
+import Footer from "@/components/organisms/Footer";
 
 function NewsPage() {
   const router = useRouter()
@@ -57,6 +57,7 @@ function NewsPage() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   ) : (
     <LoadSpinner />

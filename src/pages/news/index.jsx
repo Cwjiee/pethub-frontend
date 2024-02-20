@@ -5,6 +5,7 @@ import NewsBlock from "@/components/molecules/NewsBlock";
 import Empty from "../../../public/svg/EmptyNews.svg"
 import Image from "next/image";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
+import Footer from "@/components/organisms/Footer";
 
 export default function News() {
   const [news, setNews] = useState([])
@@ -50,6 +51,7 @@ export default function News() {
           </div>
         }
       </div>
+      <Footer />
     </>
   ) : (
     <LoadSpinner />

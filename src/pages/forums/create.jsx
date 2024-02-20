@@ -6,6 +6,7 @@ import { GlobalContext } from "@/context"
 import { useToast } from "@chakra-ui/react"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
 import checkAuth from "@/utils/checkAuth"
+import Footer from "@/components/organisms/Footer"
 
 function CreateForum() {
   const router = useRouter()
@@ -139,6 +140,7 @@ function CreateForum() {
           />
         </div>
       </div>
+      <Footer />
     </>
   ) : (
     <LoadSpinner />

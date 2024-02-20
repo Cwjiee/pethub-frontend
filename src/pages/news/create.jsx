@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { useToast } from '@chakra-ui/react'
 import { GlobalContext } from "@/context";
 import checkAuth from "@/utils/checkAuth";
+import Footer from "@/components/organisms/Footer";
 
 function CreateNews() {
   const router = useRouter()
@@ -140,6 +141,7 @@ function CreateNews() {
             />
         </div>
       </form>
+      <Footer />
     </>
   )
 }

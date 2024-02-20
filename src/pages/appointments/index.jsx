@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context"
 import LoadSpinner from "@/components/atoms/LoadSpinner"
 import checkAuth from "@/utils/checkAuth"
+import Footer from "@/components/organisms/Footer"
 
 function Appointments() {
   const [appointments, setAppointments] = useState()
@@ -46,6 +47,7 @@ function Appointments() {
             <AppointmentsTable appointments={appointments} token={token}/>
           </div>
         </div>
+        <Footer />
       </div>
     </>
   ) : (

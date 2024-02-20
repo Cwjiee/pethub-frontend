@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "@/context";
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 import checkAuth from "@/utils/checkAuth";
+import Footer from "@/components/organisms/Footer";
 
 function Profile() {
   const { token } = useContext(GlobalContext)
@@ -90,6 +91,7 @@ function Profile() {
             </div>
         </div>
       </div>
+      <Footer />
     </>
   ) : (
     <LoadSpinner />
