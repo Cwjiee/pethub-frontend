@@ -51,7 +51,7 @@ export default function PetCard({pet}) {
   return (
     <>
     <div className="bg-white w-[350px] rounded-lg shadow-lg">
-        <Image src={pet.image} alt="this is a text" className="overflow-auto rounded-t-lg" width={350} height={100}/>
+        <img src={pet.image} alt="this is a text" className="overflow-auto rounded-t-lg" width={350} height={100}/>
         <div className="py-5 px-5">
             <div><b>Name: </b>{pet.pet_name}</div>
             <div><b>Type: </b>{pet.type}</div>
