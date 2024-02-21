@@ -66,14 +66,18 @@ function HealthcareFacilityInfo() {
           </div>
           <div className="shadow-lg rounded-[10px] p-10 bg-white w-[70%] flex flex-col gap-y-12">
             <div className="flex flex-col gap-y-4">
-              <div>Name: {healthcare.full_name}</div>
-              <div>Contact Number:  {healthcare.contact_number}</div>
-              <div>Opening Hours: {`${time.openTime} to ${time.closeTime}`}</div>
-              <div>Service Type: {healthcare.service_type}</div>
-              <div>Deposit Range: RM{healthcare.deposit_value.toFixed(2)}</div>
+              <div><b>Name:</b> {healthcare.full_name}</div>
+              <div><b>Contact Number:</b> {healthcare.contact_number}</div>
+              <div><b>Opening Hours:</b> {`${time.openTime} to ${time.closeTime}`}</div>
+              <div><b>Service Type:</b> {healthcare.service_type}</div>
+              <div><b>Deposit Range:</b> RM{healthcare.deposit_value.toFixed(2)}</div>
+              <div>
+                <div><b>Facility Location:</b></div>
+                <div>{healthcare.facility_location}</div>
+              </div>
             </div>
-            <div className="flex flex-col gap-y-5">
-              <div className="font-semibold">About {healthcare.full_name}</div>
+            <div className="flex flex-col gap-y-1">
+              <div className="font-bold">About {healthcare.full_name}</div>
               <div>{healthcare.description}</div>
             </div>
           </div>

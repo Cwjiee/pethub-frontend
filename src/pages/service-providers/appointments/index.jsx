@@ -7,6 +7,7 @@ import SPNavbar from "@/components/organisms/SPNavbar";
 import SPFooter from "@/components/organisms/SPFooter";
 import AppointmentApplication from "@/components/organisms/AppointmentApplication";
 import checkAuth from "@/utils/checkAuth";
+import LoadSpinner from "@/components/atoms/LoadSpinner";
 
 function AdminServiceProvider() {
   const [appointments, setAppointments] = useState([])
@@ -39,7 +40,7 @@ function AdminServiceProvider() {
     if (token) setTokenReady(true)
   }, [token])
 
-  if (isLoading) return <Spinner />
+  if (isLoading) return <LoadSpinner />
 
   return (
     <>
