@@ -49,7 +49,7 @@ function ServiceProviderProfile() {
             <img class="mx-auto rounded-[10px] ring ring-white" src={user.image} width={350} height={300} alt="avatar"/>  
             {user && (
                 <div class="flex flex-wrap justify-center gap-x-5">
-                    <div className="bg-white px-6 py-5 rounded-[10px] shadow-lg w-[500px] h-[450px] mt-5">
+                    <div className="bg-white px-6 py-5 rounded-[10px] shadow-lg w-[500px]  mt-5">
                         <h2 className="text-lg text-center font-bold mb-4">Service Provider Profile Details</h2>
                         <div><b>Service Name:</b> {user.full_name}</div>
                         <div className="mt-2"><b>Email: </b> {user.email}</div>
@@ -62,7 +62,7 @@ function ServiceProviderProfile() {
                         <div className="mt-5 font-bold">About Me</div>
                         <div className="mt-1">{user.description}</div>
                     </div>
-                    <div className="bg-white px-6 py-5 rounded-[10px] shadow-lg w-[500px] h-[450px] mt-5">
+                    <div className="bg-white px-6 py-5 rounded-[10px] shadow-lg w-[500px] mt-5">
                         <h2 className="text-lg text-center font-bold mb-4">Service Provider Banking Details</h2>
                         <div className="mt-2"><b>Bank Name: </b> {user.bank_name}</div>
                         <div className="mt-2"><b>Beneficiary Account Number: </b>{user.beneficiary_acc_number}</div>

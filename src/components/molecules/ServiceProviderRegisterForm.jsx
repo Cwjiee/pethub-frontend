@@ -172,7 +172,7 @@ export default function ServiceProviderRegisterForm() {
               <span className="font-semibold">Facility Name:</span>
               <input
                 type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setName(e.target.value)}
               />
               {errors && errors.full_name && <p className="text-red-500">{errors.full_name.toString()}</p>} 
@@ -182,7 +182,7 @@ export default function ServiceProviderRegisterForm() {
               <span className="font-semibold">Email:</span>
               <input
                 type="email"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
               />
@@ -192,7 +192,7 @@ export default function ServiceProviderRegisterForm() {
               <span className="font-semibold">Password:</span>
               <input
                 type="password"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
               />
@@ -202,7 +202,7 @@ export default function ServiceProviderRegisterForm() {
               <span className="font-semibold">Confirm Password:</span>
               <input
                 type="password"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 value={confirmPassword}
               />
@@ -212,9 +212,10 @@ export default function ServiceProviderRegisterForm() {
               <span className="font-semibold">Contact Number:</span>
               <input
                 type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setContact(e.target.value)}
                 value={contact}
+                placeholder={"012-3456789"}
               />
               { errors && errors.contact_number && <p className="text-red-500">{errors.contact_number.toString()}</p> } 
             </div>
@@ -222,7 +223,7 @@ export default function ServiceProviderRegisterForm() {
               <span className="font-semibold">Deposit value:</span>
               <input
                 type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setDeposit(e.target.value)}
                 value={deposit}
               />
@@ -240,7 +241,7 @@ export default function ServiceProviderRegisterForm() {
               </label>
               { errors && errors.image && <p className="text-red-500">{errors.image.toString()}</p> } 
             </div>
-            <div className="flex flex-col mt-[28px]">
+            <div className="flex flex-col mt-[22px]">
               <label class="block text-sm font-medium dark:text-white" for="file_input">Upload QrCode here:
                 <input id="file_input" type="file" onChange={uploadQr} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
               </label>
@@ -251,9 +252,10 @@ export default function ServiceProviderRegisterForm() {
             <div className="flex flex-col">
               <span className="font-semibold">Facility Description:</span>
               <textarea
-                className="rounded-[10px] h-[132px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] h-[132px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
+                placeholder="our facility is located on the 2nd floor.../we provide free services for government staffs..."
               />
               { errors && errors.description && <p className="text-red-500">{errors.description.toString()}</p> } 
             </div>
@@ -261,7 +263,7 @@ export default function ServiceProviderRegisterForm() {
               <span className="font-semibold">Operation Hours (start):</span>
               <input
                 type="time"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setStartOperaton(e.target.value)}
                 value={startOperation}
               />
@@ -271,7 +273,7 @@ export default function ServiceProviderRegisterForm() {
               <span className="font-semibold">Operation Hours (end):</span>
               <input
                 type="time"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setEndOperaton(e.target.value)}
                 value={endOperation}
               />
@@ -281,7 +283,7 @@ export default function ServiceProviderRegisterForm() {
               <span className="font-semibold">Service Type:</span>
               <input
                 type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setServiceType(e.target.value)}
                 value={serviceType}
                 placeholder="grooming / healthcare"
@@ -292,8 +294,9 @@ export default function ServiceProviderRegisterForm() {
               <span className="font-semibold">Facility Location:</span>
               <input
                 type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setLocation(e.target.value)}
+                placeholder="9145 & 9146, Jalan Bandar 4, Taman Melawati..."
               />
               {errors && errors.facility_location && <p className="text-red-500">{errors.facility_location.toString()}</p>} 
 
@@ -302,7 +305,7 @@ export default function ServiceProviderRegisterForm() {
               <span className="font-semibold">Bank Name:</span>
               <input
                 type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setBankName(e.target.value)}
                 value={bankName}
               />
@@ -312,7 +315,7 @@ export default function ServiceProviderRegisterForm() {
               <span className="font-semibold">Beneficiary Account Number:</span>
               <input
                 type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setAccNumber(e.target.value)}
                 value={accNumber}
               />
@@ -322,7 +325,7 @@ export default function ServiceProviderRegisterForm() {
               <span className="font-semibold">Beneficiary Name:</span>
               <input
                 type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
+                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setAccName(e.target.value)}
                 value={accName}
               />
