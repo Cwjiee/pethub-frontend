@@ -56,7 +56,7 @@ function CreateAppointment() {
         user_id: userId,
         pet_id: petId,
         pet_service_provider_ref: petSpId,
-        appointment_type: "healthcare",
+        appointment_type: "grooming",
         date: date,
         time: time,
         issue_description: issue,
