@@ -30,7 +30,7 @@ export default function PetOwnerRegisterForm() {
         title: message,
         description: 'Please try again',
         status: 'error',
-        duration: 3000,
+        duration: 4000,
         isClosable: true
       })
   }
@@ -57,7 +57,7 @@ export default function PetOwnerRegisterForm() {
     body.append("contact_number", contact)
     body.append("image", image)
 
-    if (password !== confirmPassword) {
+    if (password !== confirmPassword || password === '' && confirmPassword === '') {
       setPassword("")
       setConfirmPassword("")
       toastMessage("password does not match the confirmation")
@@ -65,13 +65,13 @@ export default function PetOwnerRegisterForm() {
     }
 
     if (contact.length != 11 && contact.length != 12) {
-      clearField()
+      setContact("")
       toastMessage("invalid contact number length")
       return
     }
 
     if (contact[0] !== '0') {
-      clearField()
+      setContact("")
       toastMessage("contact number has to start with 0")
       return
     }
@@ -96,12 +96,9 @@ export default function PetOwnerRegisterForm() {
         setConfirmPassword("")
         setDescription("")
         setContact("")
-        toast({
-          title: data.message,
-          description: 'Please try again',
-          status: 'error',
-          duration: 5000,
-          isClosable: true
+        Object.keys(data.errors).forEach(key => {
+          const errorMessage = data.errors[key]
+          toastMessage(errorMessage)
         })
       } else {
         let getToken = data.token
