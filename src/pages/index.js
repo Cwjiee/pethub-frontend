@@ -32,10 +32,7 @@ export default function Home() {
           </div>
           <button
             onClick={handleRoute}
-            className="bg-white rounded-xl sm:w-48 px-7 py-3 font-semibold text-xl active:translate-x-2 active:translate-y-3 active:shadow-[rgba(184,190,255,255) 3px 4px]"
-            style={{
-              "boxShadow": "rgba(184,190,255,255) 5px 7px;"
-            }}
+            className="bg-white rounded-xl sm:w-48 px-7 py-3 font-semibold text-xl active:translate-x-2 active:translate-y-3 active:shadow-[rgba(184,190,255,255) 3px 4px] shadow-[rgba(184,190,255,255)_5px_7px]"
           >
             Sign Up
           </button>

@@ -2,6 +2,7 @@ import { useRouter } from "next/router"
 import Pet from "../../public/svg/pet-owner.svg"
 import Vet from "../../public/svg/vet.svg"
 import Image from "next/image"
+import BackButton from "@/components/atoms/BackButton"
 
 export default function Account() {
   const router = useRouter()
@@ -16,6 +17,9 @@ export default function Account() {
 
   return (
     <>
+      <div className="absolute top-20 left-20">
+        <BackButton />
+      </div>
       <div className="h-screen m-auto flex justify-center items-center">
         <div className="w-full h-full flex flex-col justify-center items-center text-[#222] text-center text-2xl font-semibold gap-11">
           <div>What kind of account would you like to register with?</div>
