@@ -115,25 +115,6 @@ export default function ServiceProviderRegisterForm() {
     body.append("beneficiary_name", accName)
     body.append("facility_location", location)
 
-    if(password !== confirmPassword) {
-      setPassword("")
-      setConfirmPassword("")
-      toastMessage("password doens't match with confirmation")
-      return
-    }
-
-    if (contact.length != 10 && contact.length != 11) {
-      setContact("")
-      toastMessage("invalid contact number length")
-      return
-    }
-
-    if (contact[0] !== '0') {
-      setContact("")
-      toastMessage("contact number has to start with 0")
-      return
-    }
-
     if (url) {
       const response = await fetch(`${url}/register-service-provider`, {
         method: "POST",

@@ -57,25 +57,6 @@ export default function PetOwnerRegisterForm() {
     body.append("contact_number", contact)
     body.append("image", image)
 
-    if (password !== confirmPassword || password === '' && confirmPassword === '') {
-      setPassword("")
-      setConfirmPassword("")
-      toastMessage("password does not match the confirmation")
-      return
-    }
-
-    if (contact.length != 10 && contact.length != 11) {
-      setContact("")
-      toastMessage("invalid contact number length")
-      return
-    }
-
-    if (contact[0] !== '0') {
-      setContact("")
-      toastMessage("contact number has to start with 0")
-      return
-    }
-
     if (url) {
       const response = await fetch(`${url}/register`, {
         method: "POST",
