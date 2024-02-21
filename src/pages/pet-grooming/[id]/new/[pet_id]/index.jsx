@@ -1,7 +1,7 @@
 import Navbar from "@/components/organisms/Navbar";
 import BackButton from "@/components/atoms/BackButton";
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useToast } from '@chakra-ui/react'
 import { GlobalContext } from "@/context";
 import checkAuth from "@/utils/checkAuth";
@@ -16,6 +16,7 @@ function CreateAppointment() {
   const [timeError, setTimeError] = useState();
   const [issueError, setIssueError] = useState();
   const [detailsError, setDetailsError] = useState();
+  const [currentDate, setCurrentDate] = useState()
 
   const router = useRouter()
   const petSpId = router.query.id
@@ -24,6 +25,24 @@ function CreateAppointment() {
   const toast = useToast()
 
   const url = process.env.NEXT_PUBLIC_API_URL
+
+  useEffect(() => {
+    let dtToday = new Date()
+
+    let month = dtToday.getMonth() + 1;
+    let day = dtToday.getDate();
+    day = day + 3
+    let year = dtToday.getFullYear();
+
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+
+    var maxDate = year + '-' + month + '-' + day;
+
+    setCurrentDate(maxDate)
+  }, [])
 
   const submitForm = async (e) => {
     e.preventDefault()
@@ -112,11 +131,13 @@ function CreateAppointment() {
           <h2 className="mx-auto font-bold text-xl mb-8">Make Appointment</h2>
           <div>
             <div className="font-semibold">Appointment Date:</div>
+            <p class="text-sm">Since the service providers may need to take some time to check your appointment application, we only allow bookings 3 days from the current date</p>
             <input 
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
               className="w-full h-10 rounded-[10px] border-2 border-neutral-200 p-2 placeholder:text-md outline-neutral-500"
+              min={currentDate}
             /> 
             <div class="h-8">
               {dateError && <p className="text-red-500">{dateError}</p>}
