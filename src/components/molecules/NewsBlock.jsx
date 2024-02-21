@@ -13,8 +13,14 @@ export default function NewsBlock({ news }) {
       <div className="w-1/2 flex flex-col pl-6 gap-[10px]">
         <h4 className="font-bold">{news.news_title}</h4>
         <div className="mr-auto flex justify-center items-center">
-          <div className="py-1 px-6 text-center text-neutral-800 text-sm font-bold font-['Nunito'] rounded-[40px] border border-neutral-300">
-            Events
+          <div className="flex justify-left gap-x-2">
+            {news.categories.map((category) => {
+              return (
+                <div key={category.category_id} className="flex justify-center items-center rounded-[40px] h-auto px-5 w-auto border border-[#D3D3D3]">
+                  <span className="font-semibold text-sm spacing">{category.category_name}</span>
+                </div>
+              )}
+            )}
           </div>
         </div>
         <div className="text-justify text-black text-sm font-normal">
