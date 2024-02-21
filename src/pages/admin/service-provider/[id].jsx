@@ -75,7 +75,7 @@ function ServiceProviderDetails() {
     if (response.ok) {
       toast({
         title: 'Success',
-        description: 'News status updated',
+        description: 'Service provider status updated',
         status: 'success',
         duration: 3000,
         isClosable: true
