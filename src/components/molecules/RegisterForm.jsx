@@ -1,5 +1,5 @@
 import { GlobalContext } from "@/context"
-import { useToast } from "@chakra-ui/react"
+import { useToast, Input, InputGroup, InputRightElement, Button, Textarea } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 
@@ -11,6 +11,8 @@ export default function PetOwnerRegisterForm() {
   const [description, setDescription] = useState('')
   const [contact, setContact] = useState('')
   const [image, setImage] = useState(null)
+  const [show, setShow] = useState(false)
+  const [showConf, setShowConf] = useState(false)
   const router = useRouter()
   const toast = useToast()
 
@@ -118,59 +120,55 @@ export default function PetOwnerRegisterForm() {
           <div>
             <div className="flex flex-col">
               <span className="font-semibold">Name:</span>
-              <input
-                type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-              />
+              <Input value={name} type="text" onChange={(e) => setName(e.target.value)} />
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Email:</span>
-              <input
-                type="email"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-              />
+              <Input placeholder='tharshenUWU@gmail.com' value={email} type="text" onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Password:</span>
-              <input
-                type="password"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
-                onChange={(e) => setPassword(e.target.value)}
-                value={password}
-              />
+              <InputGroup>
+                <Input
+                  pr='4.5rem'
+                  type={show ? 'text' : 'password'}
+                  placeholder='Enter password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <InputRightElement width='4.5rem'>
+                  <Button h='1.75rem' size='sm' onClick={() => setShow(!show)}>
+                    {show ? 'Hide' : 'Show'}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Confirm Password:</span>
-              <input
-                type="password"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                value={confirmPassword}
-              />
+              <InputGroup>
+                <Input
+                  pr='4.5rem'
+                  type={showConf ? 'text' : 'password'}
+                  placeholder='Enter confirmation password'
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <InputRightElement width='4.5rem'>
+                  <Button h='1.75rem' size='sm' onClick={() => setShowConf(!showConf)}>
+                    {showConf ? 'Hide' : 'Show'}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
             </div>
           </div>
           <div>
             <div className="flex flex-col">
               <span className="font-semibold">Description:</span>
-              <textarea
-                className="rounded-[10px] h-[132px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
-                onChange={(e) => setDescription(e.target.value)}
-                value={description}
-              />
+              <Textarea value={description} onChange={(e) => setDescription(e.target.value)} height={130} />
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Contact Number:</span>
-              <input
-                type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-md"
-                placeholder="0106673148"
-                onChange={(e) => setContact(e.target.value)}
-                value={contact}
-              />
+              <Input placeholder='0184076922' value={contact} type="text" onChange={(e) => setContact(e.target.value)} />
             </div>
             <div className="flex flex-col mt-[28px]">
               <label class="block text-sm font-medium dark:text-white" for="file_input">Upload Profile Image
