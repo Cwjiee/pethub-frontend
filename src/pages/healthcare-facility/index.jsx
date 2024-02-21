@@ -31,7 +31,7 @@ export default function Veterinary() {
         <div className="flex flex-row flex-wrap justify-left gap-3 mt-10 w-full mx-auto">
         {results && (
           results.map((vet) => {
-            return <BookingBlock key={vet.user_id} vet={vet}/>
+            return <BookingBlock service={"healthcare-facility"} key={vet.user_id} vet={vet}/>
           })
         )}
         </div>

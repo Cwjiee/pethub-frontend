@@ -31,7 +31,7 @@ export default function PetGrooming() {
         <div className="flex flex-row flex-wrap justify-left gap-3 mt-10 w-full mx-auto">
         {results && (
           results.map((groom) => {
-            return <BookingBlock key={groom.user_id} vet={groom}/>
+            return <BookingBlock service={"pet-grooming"} key={groom.user_id} vet={groom}/>
           })
         )}
         </div>
