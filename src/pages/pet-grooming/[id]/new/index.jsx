@@ -9,6 +9,7 @@ import LoadSpinner from "@/components/atoms/LoadSpinner"
 import checkAuth from "@/utils/checkAuth"
 import Image from "next/image"
 import Empty from "@/../../public/svg/EmptyNews.svg"
+import Footer from "@/components/organisms/Footer"
 
 function SelectPet() {
   const [pets, setPets] = useState()
@@ -18,6 +19,7 @@ function SelectPet() {
   const facilityId = router.query.id
   const [tokenReady, setTokenReady] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState("");
 
   const url = process.env.NEXT_PUBLIC_API_URL
 
@@ -61,12 +63,28 @@ function SelectPet() {
               </Stack>
             </RadioGroup>
           </div>
-          <Link
-            href={`/healthcare-facility/${facilityId}/new/${petId}`}
-            className="w-full h-10 rounded-[10px] bg-primary-500 hover:bg-primary-600 active:bg-primary-700 text-white cursor-pointer flex justify-center items-center"
-          >
-            Next
-          </Link>
+          
+          { petId ? (
+            <div>
+              <p className="h-8"></p>
+                  <Link
+                href={`/pet-grooming/${facilityId}/new/${petId}`}
+                className="w-full h-10 rounded-[10px] bg-primary-500 hover:bg-primary-600 font-bold active:bg-primary-700 text-white cursor-pointer flex justify-center items-center"
+              >
+                Next
+              </Link>
+            </div>
+          ) : (
+            <div>
+              {error ? (<p className="text-red-500 h-8 text-center">{error}</p>) : (<p className="h-8"></p>)}
+              <button
+              className="w-full h-10 rounded-[10px] bg-gray-300 text-gray-600 font-bold cursor-pointer flex justify-center items-center" 
+              onClick={() => setError("Select first before proceeding")}
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
       ) : (
           <div className="flex flex-col justify-center items-center mt-20">
@@ -75,6 +93,7 @@ function SelectPet() {
             <div className="flex justify-center text-2xl mx-20 font-bold text-secondary-500">Create a profile for your pet now!</div>
           </div>
         )}
+      <Footer />
     </>
   ) : (
     <LoadSpinner />
