@@ -52,6 +52,7 @@ export default function PetOwnerRegisterForm() {
     body.append("full_name", name)
     body.append("email", email)
     body.append("password", password)
+    body.append("password_confirmation", confirmPassword)
     body.append("permission_level", 1)
     body.append("description", description)
     body.append("contact_number", contact)
