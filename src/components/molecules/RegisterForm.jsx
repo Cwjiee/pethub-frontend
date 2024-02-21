@@ -35,14 +35,12 @@ export default function PetOwnerRegisterForm() {
       })
   }
 
-  const clearField = () => {
-    setName("")
-    setEmail("")
-    setPassword("")
-    setConfirmPassword("")
-    setDescription("")
-    setContact("")
-    setImage(null)
+  const clearRespectiveField = (err) => {
+    if (err === 'password') {
+      setPassword("")
+      setConfirmPassword("")
+      return
+    }
   }
 
   const submitForm = async (e) => {
@@ -64,7 +62,7 @@ export default function PetOwnerRegisterForm() {
       return
     }
 
-    if (contact.length != 11 && contact.length != 12) {
+    if (contact.length != 10 && contact.length != 11) {
       setContact("")
       toastMessage("invalid contact number length")
       return
@@ -90,14 +88,9 @@ export default function PetOwnerRegisterForm() {
       console.log(data.message);
 
       if (!response.ok) {
-        setName("")
-        setEmail("")
-        setPassword("")
-        setConfirmPassword("")
-        setDescription("")
-        setContact("")
         Object.keys(data.errors).forEach(key => {
           const errorMessage = data.errors[key]
+          clearRespectiveField(key)
           toastMessage(errorMessage)
         })
       } else {
@@ -174,7 +167,7 @@ export default function PetOwnerRegisterForm() {
               <input
                 type="text"
                 className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-md"
-                placeholder="010-6673148"
+                placeholder="0106673148"
                 onChange={(e) => setContact(e.target.value)}
                 value={contact}
               />
