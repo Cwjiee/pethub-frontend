@@ -2,11 +2,12 @@ import { GlobalContext } from "@/context";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import Link from "next/link";
-import { useToast } from "@chakra-ui/react";
+import { useToast, Input, InputGroup, InputRightElement, Button } from "@chakra-ui/react";
 
 export default function RegisterForm() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [show, setShow] = useState(false)
   const router = useRouter()
   const toast = useToast()
   const url = process.env.NEXT_PUBLIC_API_URL
@@ -81,21 +82,24 @@ export default function RegisterForm() {
     <div className="mt-12">
       <div className="flex flex-col mt-[25px]">
         <span className="font-semibold">Email:</span>
-        <input
-          type="text"
-          className="rounded-[10px] px-6 py-2 outline-none border border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <Input placeholder='tharshenUWU@gmail.com' value={email} type="text" onChange={(e) => setEmail(e.target.value)} />
       </div>
       <div className="flex flex-col mt-[25px]">
         <span className="font-semibold">Password:</span>
-        <input
-          type="text"
-          className="rounded-[10px] px-6 py-2 outline-none border border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 placeholder:text-xl"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <InputGroup>
+          <Input
+            pr='4.5rem'
+            type={show ? 'text' : 'password'}
+            placeholder='Enter password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <InputRightElement width='4.5rem'>
+            <Button h='1.75rem' size='sm' onClick={() => setShow(!show)}>
+              {show ? 'Hide' : 'Show'}
+            </Button>
+          </InputRightElement>
+        </InputGroup>
       </div>
       <div className="mt-[40px]">
         Don&apos;t have an account?{" "}
