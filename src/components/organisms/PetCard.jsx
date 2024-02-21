@@ -50,7 +50,8 @@ export default function PetCard({pet}) {
 
   return (
     <>
-    <div className="bg-white w-[350px] rounded-lg shadow-lg">
+    <div className="bg-white w-[350px] rounded-lg shadow-lg flex flex-col justify-between">
+    <div>
         <img src={pet.image} alt="this is a text" className="overflow-auto rounded-t-lg" width={350} height={100}/>
         <div className="py-5 px-5">
             <div><b>Name: </b>{pet.pet_name}</div>
@@ -58,30 +59,32 @@ export default function PetCard({pet}) {
             <div><b>Breed: </b>{pet.breed}</div>
             <div><b>Age: </b>{pet.age}</div>
             <div><b>Description: </b>{pet.description}</div>
-
-            <div className="flex justify-end gap-3">
-            <button onClick={() => router.push(`/pet-owners/pets/edit/${pet.pet_id}`)}>
-                <Image
-                src={"/edit.svg"}
-                alt="edit"
-                width={20}
-                height={20}
-                className="mt-1"
-                />
-            </button>
-            
-            <button onClick={() => handleDelete(pet.pet_id)}>
-                <Image
-                src={"/delete.svg"}
-                alt="delete"
-                width={20}
-                height={20}
-                className="mt-1"
-                />
-            </button>
-            </div>
         </div>
     </div>
+    <div className="py-5 px-5 flex justify-end items-end gap-3">
+        <button onClick={() => router.push(`/pet-owners/pets/edit/${pet.pet_id}`)}>
+            <Image
+            src={"/edit.svg"}
+            alt="edit"
+            width={20}
+            height={20}
+            className="mt-1"
+            />
+        </button>
+        
+        <button onClick={() => handleDelete(pet.pet_id)}>
+            <Image
+            src={"/delete.svg"}
+            alt="delete"
+            width={20}
+            height={20}
+            className="mt-1"
+            />
+        </button>
+    </div>
+</div>
+
+
     </>
   )
 }

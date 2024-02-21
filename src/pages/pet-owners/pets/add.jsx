@@ -87,13 +87,13 @@ function Add() {
         <div className="bg-white rounded-lg shadow-lg mx-auto w-[530px] py-10 px-10 m-6">
 
           <h1 className="text-center text-2xl font-bold mb-5">Add Pet</h1>
-          <form action="" className="text-sm" onSubmit={handleSubmit}>
+          <form action="" className="text-md" onSubmit={handleSubmit}>
             <div className="mt-3">
               <label htmlFor="pet-name">Pet Name: </label>
               <p>   
                 <input 
                   type="text" 
-                  className="rounded-lg w-full text-sm border-[#e0e0e0]"
+                  className="rounded-lg w-full text-md border-[#e0e0e0]"
                   onChange={(e) => {setPetName(e.target.value)}}
                 />
               </p>
@@ -104,18 +104,19 @@ function Add() {
               <p>
                 <input 
                   type="text" 
-                  className="rounded-lg w-full text-sm border-[#e0e0e0]"
+                  className="rounded-lg w-full text-md border-[#e0e0e0]"
                   onChange={(e) => {setType(e.target.value)}}
+                  placeholder="dog / cat / tortoise / snake"
                 />
               </p>
               {errors && errors.type && <p className="text-red-500">{errors.type.toString()}</p>}
             </div>
             <div className="mt-3">
-              <label htmlFor="breed">Breed: </label>
+              <label htmlFor="breed">Breed: <span class="text-sm text-red-500">*Only for dogs and cats*</span></label>
               <p>
                 <input 
                   type="text" 
-                  className="rounded-lg w-full text-sm border-[#e0e0e0]"
+                  className="rounded-lg w-full text-md border-[#e0e0e0]"
                   onChange={(e) => {setBreed(e.target.value)}}
                 />
               </p>
@@ -126,8 +127,9 @@ function Add() {
               <p>  
                 <input 
                   type="text" 
-                  className="rounded-lg w-full text-sm border-[#e0e0e0]"
+                  className="rounded-lg w-full text-md border-[#e0e0e0]"
                   onChange={(e) => {setAge(e.target.value)}}
+                  placeholder={"7 years old / 6 months old"}
                 />
               </p>
               {errors && errors.age && <p className="text-red-500">{errors.age.toString()}</p>}
@@ -137,7 +139,7 @@ function Add() {
               <p>
                 <input 
                   type="file" 
-                  className="block w-full text-sm xtte-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700"
+                  className="block w-full text-md xtte-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700"
                   onChange={uploadToClient}
                 />
               </p>
@@ -151,8 +153,9 @@ function Add() {
                   id="" 
                   cols="30" 
                   rows="5" 
-                  className="text-sm w-full rounded-lg border-[#e0e0e0]"
+                  className="text-md w-full rounded-lg border-[#e0e0e0]"
                   onChange={(e) => {setDescription(e.target.value)}}
+                  placeholder="very active at sports..."
                 >
 
                 </textarea>

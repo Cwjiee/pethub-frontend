@@ -132,6 +132,10 @@ function ServiceProviderDetails() {
                   <div className="text-[#555555]">{user.description}</div>
                 </div>
                 <div className="flex flex-col gap-y-1">
+                  <div>Facility Location:</div>
+                  <div className="text-[#555555]">{user.facility_location}</div>
+                </div>
+                <div className="flex flex-col gap-y-1">
                   <div>Contact Number:</div>
                   <div className="text-[#555555]">{user.contact_number}</div>
                 </div>
