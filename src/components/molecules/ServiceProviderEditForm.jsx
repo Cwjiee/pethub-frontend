@@ -1,5 +1,5 @@
 import { GlobalContext } from "@/context"
-import { useToast } from "@chakra-ui/react"
+import { Select, useToast } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 
@@ -269,13 +269,10 @@ export default function ServiceProviderEditForm() {
               </div>
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Service Type:</span>
-                <input
-                  type="text"
-                  className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 "
-                  onChange={(e) => setServiceType(e.target.value)}
-                  value={serviceType}
-                  placeholder="grooming / healthcare"
-                />
+                <Select placeholder="select a service type" onChange={(e) => setServiceType(e.target.value)} value={serviceType}>
+                  <option value='grooming'>Grooming</option>
+                  <option value='healthcare'>Healthcare</option>
+                </Select>
                 {errors && errors.service_type && <p className="text-red-500">{errors.service_type.toString()}</p>}
               </div>
               <div className="flex flex-col mt-[25px]">
