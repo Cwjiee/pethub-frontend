@@ -24,7 +24,7 @@ function AdminForumsPage() {
   const toast = useToast()
 
   const url = process.env.NEXT_PUBLIC_API_URL
-
+  
   useEffect(() => {
     const fetchPost = async () => {
       if (tokenReady) {
@@ -37,7 +37,7 @@ function AdminForumsPage() {
 
         const result = await response.json()
         setPost(result.post)
-        console.log(result.post)
+        //console.log(result.post)
       }
     }
 
@@ -52,7 +52,7 @@ function AdminForumsPage() {
 
         const result = await response.json()
         setUser(result.user)
-        console.log(result.user)
+        //console.log(result.user)
       }
     }
 
@@ -68,7 +68,7 @@ function AdminForumsPage() {
   }, [token, id, userId])
 
   const handleSubmit = async () => {
-    console.log(userId)
+    //console.log(userId)
     const response = await fetch(`${url}/comments`, {
       method: "POST",
       body: JSON.stringify({
@@ -143,7 +143,8 @@ function AdminForumsPage() {
           <div className="mt-10">
             <div className="text-[16px] font-bold">Comments</div>
             <div className="mt-2 mb-8 flex flex-col gap-y-1">
-              {post.comments.map((comment) => {
+              {console.log(user)}
+              {post && user && post.comments.map((comment) => {
                 return <CommentBlock key={comment.comment_id} commentId={comment.comment_id} name={comment.user.full_name} desc={comment.comment_description} date={comment.updated_at} userId={user.user_id} isAdmin={true} setReloadComment={setReloadComment} />
               })}
             </div>
