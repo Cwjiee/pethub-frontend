@@ -22,7 +22,7 @@ import { useContext, useState } from "react"
 import { GlobalContext } from "@/context"
 
 export default function CommentBlock({ name, date, commentId, desc, isAdmin, setReloadComment, ownComment, ownPost }) {
-  const [editedComment, setEditedComment] = useState('')
+  const [editedComment, setEditedComment] = useState(desc)
   const { token } = useContext(GlobalContext)
   const url = process.env.NEXT_PUBLIC_API_URL
   const toast = useToast()

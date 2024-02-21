@@ -146,7 +146,7 @@ export default function Posts({ isAdmin, isSP, post, setReloadPost, ownPost, cat
       <Modal closeOnOverlayClick={false} isOpen={isOpenEdit} onClose={onCloseEdit}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Edit comment?</ModalHeader>
+          <ModalHeader>Edit post?</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
