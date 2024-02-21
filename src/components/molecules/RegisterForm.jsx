@@ -124,7 +124,7 @@ export default function PetOwnerRegisterForm() {
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Email:</span>
-              <Input placeholder='tharshenUWU@gmail.com' value={email} type="text" onChange={(e) => setEmail(e.target.value)} />
+              <Input placeholder='tharshenUWU@gmail.com' value={email} type="email" onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Password:</span>

@@ -1,5 +1,5 @@
 import { GlobalContext } from "@/context"
-import { Select, useToast } from "@chakra-ui/react"
+import { useToast, Input, InputGroup, InputRightElement, Button, Textarea, Select } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 
@@ -22,6 +22,8 @@ export default function ServiceProviderRegisterForm() {
   const [accName, setAccName] = useState('')
   const [location, setLocation] = useState('')
   const [errors, setErrors] = useState('')
+  const [show, setShow] = useState(false)
+  const [showConf, setShowConf] = useState(false)
   const router = useRouter()
   const toast = useToast()
 
@@ -60,6 +62,14 @@ export default function ServiceProviderRegisterForm() {
       duration: 3000,
       isClosable: true
     })
+  }
+
+  const clearRespectiveField = (err) => {
+    if (err === 'password') {
+      setPassword("")
+      setConfirmPassword("")
+      return
+    }
   }
 
   const clearField = () => {
@@ -106,19 +116,20 @@ export default function ServiceProviderRegisterForm() {
     body.append("facility_location", location)
 
     if(password !== confirmPassword) {
-      clearField()
+      setPassword("")
+      setConfirmPassword("")
       toastMessage("password doens't match with confirmation")
       return
     }
 
     if (contact.length != 10 && contact.length != 11) {
-      clearField()
+      setContact("")
       toastMessage("invalid contact number length")
       return
     }
 
     if (contact[0] !== '0') {
-      clearField()
+      setContact("")
       toastMessage("contact number has to start with 0")
       return
     }
@@ -136,16 +147,11 @@ export default function ServiceProviderRegisterForm() {
       console.log(data);
 
       if (!response.ok) {
-        clearField()
-        setErrors(data.errors)
-        toast({
-          title: data.message,
-          description: 'Please try again',
-          status: 'error',
-          duration: 5000,
-          isClosable: true
+        Object.keys(data.errors).forEach(key => {
+          const errorMessage = data.errors[key]
+          clearRespectiveField(key)
+          toastMessage(errorMessage)
         })
-        console.log(errors)
       } else {
         document.cookie = `token=${data.token}`
         let getToken = data.token ?? null
@@ -170,115 +176,82 @@ export default function ServiceProviderRegisterForm() {
           <div>
             <div className="flex flex-col">
               <span className="font-semibold">Facility Name:</span>
-              <input
-                type="text"
-                value={name}
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
-                onChange={(e) => setName(e.target.value)}
-              />
-              {errors && errors.full_name && <p className="text-red-500">{errors.full_name.toString()}</p>} 
-
+              <Input value={name} type="text" onChange={(e) => setName(e.target.value)} />
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Email:</span>
-              <input
-                type="email"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-              />
-              {errors && errors.email && <p className="text-red-500">{errors.email.toString()}</p>}
+              <Input value={email} type="email" onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Password:</span>
-              <input
-                type="password"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
-                onChange={(e) => setPassword(e.target.value)}
-                value={password}
-              />
-              { errors && errors.password && <p className="text-red-500">{errors.password.toString()}</p> } 
+              <InputGroup>
+                <Input
+                  pr='4.5rem'
+                  type={show ? 'text' : 'password'}
+                  placeholder='Enter password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <InputRightElement width='4.5rem'>
+                  <Button h='1.75rem' size='sm' onClick={() => setShow(!show)}>
+                    {show ? 'Hide' : 'Show'}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Confirm Password:</span>
-              <input
-                type="password"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                value={confirmPassword}
-              />
-
+              <InputGroup>
+                <Input
+                  pr='4.5rem'
+                  type={showConf ? 'text' : 'password'}
+                  placeholder='Enter confirmation password'
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <InputRightElement width='4.5rem'>
+                  <Button h='1.75rem' size='sm' onClick={() => setShowConf(!showConf)}>
+                    {showConf ? 'Hide' : 'Show'}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Contact Number:</span>
-              <input
-                type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
-                onChange={(e) => setContact(e.target.value)}
-                value={contact}
-                placeholder={"0106673148"}
-              />
-              { errors && errors.contact_number && <p className="text-red-500">{errors.contact_number.toString()}</p> } 
+              <Input value={contact} type="text" onChange={(e) => setContact(e.target.value)} placeholder="0184076922" />
             </div>
             <div className="flex flex-col mt-[25px]">
-              <span className="font-semibold">Deposit value:</span>
-              <input
-                type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
-                onChange={(e) => setDeposit(e.target.value)}
-                value={deposit}
-              />
-              { errors && errors.deposit_range && <p className="text-red-500">{errors.deposit_range.toString()}</p> } 
+              <span className="font-semibold">Deposit value (RM):</span>
+              <Input value={deposit} type="text" onChange={(e) => setDeposit(e.target.value)} />
             </div>
             <div className="flex flex-col mt-[28px]">
               <label class="block text-sm font-medium dark:text-white" for="file_input">Upload SSSM Certification here:
                 <input id="file_input" type="file" onChange={uploadCert} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
               </label>
-              { errors && errors.sssm_certificate && <p className="text-red-500">{errors.sssm_certificate.toString()}</p> } 
             </div>
             <div className="flex flex-col mt-[28px]">
               <label class="block text-sm font-medium dark:text-white" for="file_input">Upload Facility Image here:
                 <input id="file_input" type="file" onChange={uploadToClient} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
               </label>
-              { errors && errors.image && <p className="text-red-500">{errors.image.toString()}</p> } 
             </div>
             <div className="flex flex-col mt-[22px]">
               <label class="block text-sm font-medium dark:text-white" for="file_input">Upload QrCode here:
                 <input id="file_input" type="file" onChange={uploadQr} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
               </label>
-              { errors && errors.qr_code_image && <p className="text-red-500">{errors.qr_code_image.toString()}</p> } 
             </div>
           </div>
           <div>
             <div className="flex flex-col">
               <span className="font-semibold">Facility Description:</span>
-              <textarea
-                className="rounded-[10px] h-[132px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
-                onChange={(e) => setDescription(e.target.value)}
-                value={description}
-                placeholder="our facility is located on the 2nd floor.../we provide free services for government staffs..."
-              />
-              { errors && errors.description && <p className="text-red-500">{errors.description.toString()}</p> } 
+              <Textarea value={description} onChange={(e) => setDescription(e.target.value)} height={130} placeholder="our facility is located on the 2nd floor.../we provide free services for government staffs..."/>
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Operation Hours (start):</span>
-              <input
-                type="time"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
-                onChange={(e) => setStartOperaton(e.target.value)}
-                value={startOperation}
-              />
-              { errors && errors.opening_hour && <p className="text-red-500">{errors.opening_hour.toString()}</p> } 
+              <Input value={startOperation} type="time" onChange={(e) => setStartOperaton(e.target.value)} />
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Operation Hours (end):</span>
-              <input
-                type="time"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
-                onChange={(e) => setEndOperaton(e.target.value)}
-                value={endOperation}
-              />
-              { errors && errors.closing_hour && <p className="text-red-500">{errors.closing_hour.toString()}</p> } 
+              <Input value={endOperation} type="time" onChange={(e) => setEndOperaton(e.target.value)} />
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Service Type:</span>
@@ -286,19 +259,10 @@ export default function ServiceProviderRegisterForm() {
                 <option value='grooming'>Grooming</option>
                 <option value='healthcare'>Healthcare</option>
               </Select>
-              { errors && errors.service_type && <p className="text-red-500">{errors.service_type.toString()}</p> } 
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Facility Location:</span>
-              <input
-                type="text"
-                className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
-                onChange={(e) => setLocation(e.target.value)}
-                placeholder="9145 & 9146, Jalan Bandar 4, Taman Melawati..."
-                value={location}
-              />
-              {errors && errors.facility_location && <p className="text-red-500">{errors.facility_location.toString()}</p>} 
-
+              <Input value={location} type="type" onChange={(e) => setLocation(e.target.value)} placeholder="9145 & 9146, Jalan Bandar 4, Taman Melawati..."/>
             </div>
             <div className="flex flex-col mt-[25px]">
               <span className="font-semibold">Bank Name:</span>
