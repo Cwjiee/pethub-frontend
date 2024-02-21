@@ -48,11 +48,12 @@ function ServiceProviderSpecificAppointment() {
         const response = await fetch(`${url}/service-provider/appointments/${userId}/${aptId}`, {
           method: "POST",
           body: JSON.stringify({
-              user_status: status,
+              status: status,
           }),
           headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`
+              "Authorization": `Bearer ${token}`,
+              "Accept": "application/json",
           },
         })
 
@@ -67,6 +68,7 @@ function ServiceProviderSpecificAppointment() {
             duration: 3000,
             isClosable: true
           })
+        router.push('/service-providers/appointments')
         } else {
           toast({
             title: 'Error',
@@ -93,7 +95,7 @@ function ServiceProviderSpecificAppointment() {
                 </button>
                 <button 
                   className="py-[12px] px-16 bg-[#EF4444] rounded-xl text-white font-bold shadow-lg"
-                  onClick={(e) => handleSubmit(e, "approved")}
+                  onClick={(e) => handleSubmit(e, "rejected")}
                 >
                     Reject
                 </button>

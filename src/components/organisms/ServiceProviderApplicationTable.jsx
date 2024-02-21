@@ -15,7 +15,7 @@ export default function ServiceProviderApplicationTable({ users, setReloadUsers 
     const response = await fetch(`${url}/sp_application/${userId}`, {
       method: "PUT",
       body: JSON.stringify({
-        user_status: application,
+        status: application,
       }),
       headers: {
         "Content-Type": "application/json",
