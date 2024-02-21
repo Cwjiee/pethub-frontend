@@ -215,7 +215,7 @@ export default function ServiceProviderRegisterForm() {
                 className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setContact(e.target.value)}
                 value={contact}
-                placeholder={"012-3456789"}
+                placeholder={"0106673148"}
               />
               { errors && errors.contact_number && <p className="text-red-500">{errors.contact_number.toString()}</p> } 
             </div>
@@ -297,6 +297,7 @@ export default function ServiceProviderRegisterForm() {
                 className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500"
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="9145 & 9146, Jalan Bandar 4, Taman Melawati..."
+                value={location}
               />
               {errors && errors.facility_location && <p className="text-red-500">{errors.facility_location.toString()}</p>} 
 
