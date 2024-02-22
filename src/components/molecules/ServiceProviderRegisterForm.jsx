@@ -132,7 +132,7 @@ export default function ServiceProviderRegisterForm() {
       console.log(data);
 
       if (!response.ok) {
-        if (data.errors && Object.keys(data.erros).length > 0) {
+        if (data.errors) {
           Object.keys(data.errors).forEach(key => {
             const errorMessage = data.errors[key]
             clearRespectiveField(key)
