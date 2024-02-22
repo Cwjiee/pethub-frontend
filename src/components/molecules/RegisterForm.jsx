@@ -72,7 +72,7 @@ export default function PetOwnerRegisterForm() {
       console.log(data.message);
 
       if (!response.ok) {
-        if (Object.keys[date.erros]) {
+        if (Object.keys[data.erros]) {
           Object.keys(data.errors).forEach(key => {
             const errorMessage = data.errors[key]
             clearRespectiveField(key)
@@ -84,6 +84,8 @@ export default function PetOwnerRegisterForm() {
             clearRespectiveField(key)
             toastMessage(errorMessage)
           })
+        } else {
+          toastMessage("Server Error")
         }
       } else {
         let getToken = data.token
