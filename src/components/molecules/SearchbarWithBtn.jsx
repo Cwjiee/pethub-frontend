@@ -84,7 +84,13 @@ export default function SearchbarWithBtn({ setResult, label, href, results, data
       }
     })
     const result = await response.json()
-    setCategories(result.categories)
+    let arr = []
+    result.categories.map((category) => {
+      arr.push(category.category_name)
+    })
+
+    const allCategory = [...new Set([...arr, ...tags])]
+    setCategories(allCategory)
   }
 
   useEffect(() => {
@@ -142,7 +148,7 @@ export default function SearchbarWithBtn({ setResult, label, href, results, data
           <MenuList>
             {categories && (
               categories.map((category) => {
-                return <MenuItem key={category.category_id} onClick={() => handleFilter(category.category_name)}>{category.category_name}</MenuItem>
+                return <MenuItem key={v4()} onClick={() => handleFilter(category)}>{category}</MenuItem>
               })
             )}
           </MenuList>
