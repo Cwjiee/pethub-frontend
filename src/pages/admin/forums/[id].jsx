@@ -143,19 +143,9 @@ function AdminForumsPage() {
           <div className="mt-10">
             <div className="text-[16px] font-bold">Comments</div>
             <div className="mt-2 mb-8 flex flex-col gap-y-1">
-              {console.log(user)}
               {post && user && post.comments.map((comment) => {
                 return <CommentBlock key={comment.comment_id} commentId={comment.comment_id} name={comment.user.full_name} desc={comment.comment_description} date={comment.updated_at} userId={user.user_id} isAdmin={true} setReloadComment={setReloadComment} />
               })}
-            </div>
-            <div>
-              {user && (
-                <div className="flex flex-row my-5 gap-2">
-                  <div className="flex justify-center items-center"><Avatar src={user.image} colorScheme="blue" size="sm" name={user.full_name}/></div>
-                  <input className="p px-4 border border-[#E0E0E0] rounded-[5px] w-full" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Add a comment..." />
-                  <button onClick={handleSubmit} className="p-[10px] rounded-[5px] bg-primary-500 hover:bg-primary-600 active:bg-primary-700"><Image src={SendButton} width={25} height={'auto'} alt="send-button"/></button>
-                </div>
-              )}
             </div>
           </div>
         </div>
