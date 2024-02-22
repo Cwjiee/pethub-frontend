@@ -1,17 +1,21 @@
 import { GlobalContext } from "@/context"
 import { Select, useToast } from "@chakra-ui/react"
 import { useRouter } from "next/router"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 
 export default function ServiceProviderEditForm() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [showConf, setShowConf] = useState(false)
   const [contact, setContact] = useState('')
   const [deposit, setDeposit] = useState('')
   const [image, setImage] = useState(null)
   const [qrcode, setQrcode] = useState(null)
+  const [tokenReady, setTokenReady] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [show, setShow] = useState(false)
   const [description, setDescription] = useState('')
   const [startOperation, setStartOperaton] = useState(null)
   const [endOperation, setEndOperaton] = useState(null)
@@ -25,6 +29,43 @@ export default function ServiceProviderEditForm() {
   const toast = useToast()
   const url = process.env.NEXT_PUBLIC_API_URL
   const {token, userId} = useContext(GlobalContext)
+  
+
+  useEffect(() => {
+    (async () => {
+      if (tokenReady) {
+        const response = await fetch(`http://localhost/api/v1/profile`, {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/json"
+          }
+        })
+        const result = await response.json()
+        const user = result.user
+
+        console.log(result.user)
+        setName(user.full_name)
+        setEmail(user.email)
+        setPassword(user.password)
+        setConfirmPassword(user.password)
+        setDescription(user.description)
+        setContact(user.contact_number)
+        setBankName(user.bank_name) 
+        setAccNumber(user.beneficiary_acc_number)
+        setAccName(user.beneficiary_name)
+        setStartOperaton(user.opening_hour)
+        setEndOperaton(user.closing_hour)
+        setLocation(user.facility_location)
+        setDeposit(user.deposit_value.toFixed(2))
+        setServiceType(user.service_type)
+        setIsLoading(false)
+      }
+    })()
+  }, [tokenReady])
+
+  useEffect(() => {
+    if (token) setTokenReady(true)
+  }, [token])
 
   const uploadToClient = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -223,17 +264,25 @@ export default function ServiceProviderEditForm() {
                 />
                 {errors && errors.deposit_range && <p className="text-red-500">{errors.deposit_range.toString()}</p>}
               </div>
-              <div className="flex flex-col mt-[28px]">
-                <label class="block text-sm font-medium dark:text-white" for="file_input">Upload Facility Image here:
-                  <input id="file_input" type="file" onChange={uploadToClient} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
-                </label>
-                {errors && errors.image && <p className="text-red-500">{errors.image.toString()}</p>}
+              <div className="flex flex-col mt-[25px]">
+                <span className="font-semibold">Bank Name:</span>
+                <input
+                  type="text"
+                  className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 "
+                  onChange={(e) => setBankName(e.target.value)}
+                  value={bankName}
+                />
+                {errors && errors.bank_name && <p className="text-red-500">{errors.bank_name.toString()}</p>}
               </div>
-              <div className="flex flex-col mt-[28px]">
-                <label class="block text-sm font-medium dark:text-white" for="file_input">Upload QrCode here:
-                  <input id="file_input" type="file" onChange={uploadQr} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
-                </label>
-                {errors && errors.qr_code_image && <p className="text-red-500">{errors.qr_code_image.toString()}</p>}
+              <div className="flex flex-col mt-[25px]">
+                <span className="font-semibold">Beneficiary Account Number:</span>
+                <input
+                  type="text"
+                  className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 "
+                  onChange={(e) => setAccNumber(e.target.value)}
+                  value={accNumber}
+                />
+                {errors && errors.beneficiary_acc_number && <p className="text-red-500">{errors.beneficiary_acc_number.toString()}</p>}
               </div>
             </div>
             <div>
@@ -287,26 +336,7 @@ export default function ServiceProviderEditForm() {
               {errors && errors.facility_location && <p className="text-red-500">{errors.facility_location.toString()}</p>} 
 
             </div>
-              <div className="flex flex-col mt-[25px]">
-                <span className="font-semibold">Bank Name:</span>
-                <input
-                  type="text"
-                  className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 "
-                  onChange={(e) => setBankName(e.target.value)}
-                  value={bankName}
-                />
-                {errors && errors.bank_name && <p className="text-red-500">{errors.bank_name.toString()}</p>}
-              </div>
-              <div className="flex flex-col mt-[25px]">
-                <span className="font-semibold">Beneficiary Account Number:</span>
-                <input
-                  type="text"
-                  className="rounded-[10px] bg-transparent px-6 py-2 outline-none border border-solid border-[#E1E1E1] focus:border-[3px] focus:border-blue-500 focus:ring-blue-500 "
-                  onChange={(e) => setAccNumber(e.target.value)}
-                  value={accNumber}
-                />
-                {errors && errors.beneficiary_acc_number && <p className="text-red-500">{errors.beneficiary_acc_number.toString()}</p>}
-              </div>
+              
               <div className="flex flex-col mt-[25px]">
                 <span className="font-semibold">Beneficiary Name:</span>
                 <input
