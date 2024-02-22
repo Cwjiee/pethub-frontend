@@ -100,6 +100,7 @@ export default function ServiceProviderRegisterForm() {
     body.append("full_name", name)
     body.append("email", email)
     body.append("password", password)
+    body.append("password_confirmation", confirmPassword)
     body.append("permission_level", "2")
     body.append("image", image)
     body.append("contact_number", contact)
