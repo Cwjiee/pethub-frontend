@@ -9,6 +9,7 @@ import LoadSpinner from "@/components/atoms/LoadSpinner"
 import { GlobalContext } from "@/context"
 import TimeConvert from "@/utils/TimeConvert"
 import checkAuth from "@/utils/checkAuth"
+import Footer from "@/components/organisms/Footer"
 
 function GroomingInfo() {
   const router = useRouter()
@@ -88,6 +89,7 @@ function GroomingInfo() {
           </Link>
         </div>
       </div>
+      <Footer />
     </>
   ) : (
     <LoadSpinner />
