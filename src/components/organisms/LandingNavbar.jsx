@@ -5,18 +5,18 @@ import Pethub from "../../../public/svg/purplePethubLogo.svg"
 
 export default function LandingNavbar() {
   const links = [
-    {
-      href: "/about",
-      label: "About Us",
-    },
-    {
-      href: "/contact",
-      label: "Contact",
-    },
-    {
-      href: "/support",
-      label: "Support",
-    },
+    // {
+    //   href: "/about",
+    //   label: "About Us",
+    // },
+    // {
+    //   href: "/contact",
+    //   label: "Contact",
+    // },
+    // {
+    //   href: "/support",
+    //   label: "Support",
+    // },
     {
       href: "/login",
       label: "Login",
