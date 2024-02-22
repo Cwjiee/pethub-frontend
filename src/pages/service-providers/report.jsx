@@ -7,7 +7,7 @@ import checkAuth from "@/utils/checkAuth"
 import Footer from "@/components/organisms/Footer"
 import { useRouter } from "next/router"
 
-function Report() {
+function SpReport() {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const toast = useToast()
@@ -76,7 +76,7 @@ function Report() {
           isClosable: true
         })
         setTimeout(function () {
-          router.push('/healthcare-facility')
+          router.push('/service-providers/dashboard')
         }, 1000)
       }
 
@@ -129,4 +129,4 @@ function Report() {
   )
 }
 
-export default checkAuth(Report)
+export default checkAuth(SpReport)
