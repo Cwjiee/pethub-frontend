@@ -3,7 +3,9 @@ import LoadSpinner from "@/components/atoms/LoadSpinner"
 import Footer from "@/components/organisms/Footer"
 import Navbar from "@/components/organisms/Navbar"
 import { GlobalContext } from "@/context"
+import { TimeConvertNotForDateTime } from "@/utils/TimeConvertNotForDateTime"
 import checkAuth from "@/utils/checkAuth"
+import { modDate } from "@/utils/modDate"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 
@@ -68,20 +70,23 @@ function AppointmentPage() {
           </div>
           <div class="mb-4">
             <p className="font-bold">Appointment Date: </p>
-            <p>{appointment.date}</p>
+            <p>{modDate(appointment.date)}</p>
           </div>
           <div class="mb-4">
             <p className="font-bold">Appointment Time: </p>
-            <p>{appointment.time}</p>
+            <p>{TimeConvertNotForDateTime(appointment.time)}</p>
           </div>
           <div class="mb-4">
             <p className="font-bold">Important Details: </p>
             <p>{appointment.important_details}</p>
           </div>
-          <div >
-            <p className="font-bold">Issue Description: </p>
-            <p>{appointment.issue_description}</p>
-          </div>
+          {appointment.issue_description && 
+            <div>
+              <p className="font-bold">Issue Description: </p>
+              <p>{appointment.issue_description}</p>
+            </div>
+          }
+          
         </div>
       </div>
       <Footer />

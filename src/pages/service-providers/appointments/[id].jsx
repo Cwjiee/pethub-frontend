@@ -132,10 +132,12 @@ function ServiceProviderSpecificAppointment() {
                   <p className="font-bold">Appointment Time:</p>
                   <p>{appointment.time}</p>
                 </div>
-                <div className="mt-5">
-                  <p className="font-bold">Issue of pet:</p>
-                  <p className="text-justify">{appointment.issue_description}</p>
-                </div>
+                {appointment.issue_description && 
+                  <div className="mt-5">
+                    <p className="font-bold">Issue of pet:</p>
+                    <p className="text-justify">{appointment.issue_description}</p>
+                  </div>
+                }
                 <div className="mt-5">
                   <p className="font-bold">Important details of pet:</p>
                   <p className="text-justify">{appointment.important_details}</p>
