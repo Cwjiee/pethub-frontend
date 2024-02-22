@@ -88,16 +88,6 @@ export default function Posts({ isAdmin, isSP, post, setReloadPost, ownPost, cat
   }
 
   const handleEdit = async () => {
-    if(!editedComment) {
-      toast({
-        title: 'description field is empty',
-        description: 'Failed in editing post',
-        status: 'error',
-        duration: 3000,
-        isClosable: true
-      })
-      return 
-    }
     const response = await fetch(`${url}/posts/${post.post_id}`, {
       method: "PUT",
       body: JSON.stringify({
@@ -123,7 +113,6 @@ export default function Posts({ isAdmin, isSP, post, setReloadPost, ownPost, cat
       })
       setReloadPost(true)
       onCloseEdit()
-      setEditedComment('')
     } else {
       toast({
         title: 'Error',
@@ -138,8 +127,19 @@ export default function Posts({ isAdmin, isSP, post, setReloadPost, ownPost, cat
   useEffect(() => {
     if (post) {
       setTime(formatTimeAgo(post.created_at))
+
+      let arr = []
+      post.categories.map((cat) => {
+        arr.push(cat.category_id)
+      })
+      setEditedCategory(arr)
     }
   }, [post])
+
+  useEffect(() => {
+    setEditedTitle(post.post_title)
+    setEditedComment(post.post_description)
+  }, [onOpenEdit])
 
   return (
     <>
