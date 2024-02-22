@@ -146,7 +146,7 @@ function ServiceProviderSpecificPostPage() {
                 <div className="mt-2 mb-8 flex flex-col gap-y-1">
                 {user && (
                   post.comments.map((comment) => {
-                  {return post.user_id === user.user_id ? 
+                  {return comment.user_id === user.user_id ? 
                       <CommentBlock key={comment.comment_id} commentId={comment.comment_id} name={comment.user.full_name} date={comment.updated_at} desc={comment.comment_description} setReloadComment={setReloadComment} ownPost={true} />
                       : 
                       <CommentBlock key={comment.comment_id} commentId={comment.comment_id} name={comment.user.full_name} date={comment.updated_at} desc={comment.comment_description} setReloadComment={setReloadComment} ownPost={false} />
