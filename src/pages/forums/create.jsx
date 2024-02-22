@@ -46,6 +46,29 @@ function CreateForum() {
     if (token) setTokenReady(true)
   }, [token])
 
+  const toastMessage = (err) => {
+      toast({
+        title: err,
+        description: 'Please try again',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
+  }
+
+  const clearRespectiveField = (err) => {
+    if (err === 'post_title') {
+      setTitle("")
+      return
+    } else if (err === 'post_description') {
+      setDescription("")
+      return
+    } else if (err === 'categories') {
+      setCategory([])
+      return
+    }
+  }
+
   const handleChange = (e) => {
       const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
       setCategory(selectedOptions);
@@ -72,16 +95,15 @@ function CreateForum() {
     console.log(data.message)
 
     if (!response.ok) {
-      setTitle("")
-      setDescription("")
-      setCategory([])
-      toast({
-        title: `${data.message}`,
-        description: 'Please try again',
-        status: 'error',
-        duration: 3000,
-        isClosable: true
-      })
+      if (data.errors) {
+        Object.keys(data.errors).forEach((err) => {
+          const errMessage = data.errors[err]
+          clearRespectiveField(err)
+          toastMessage(errMessage)
+        })
+      } else {
+        toastMessage("Server error")
+      }
     } else {
       toast({
         title: `${data.message}`,

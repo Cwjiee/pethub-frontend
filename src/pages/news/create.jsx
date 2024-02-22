@@ -40,6 +40,32 @@ function CreateNews() {
     }
   }
 
+  const toastMessage = (err) => {
+      toast({
+        title: err,
+        description: 'Please try again',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
+  }
+
+  const clearRespectiveField = (err) => {
+    if (err === 'news_title') {
+      setTitle("")
+      return
+    } else if (err === 'news_description') {
+      setDescription("")
+      return
+    } else if (err === 'categories') {
+      setCategory([])
+      return
+    } else if (err === 'image') {
+      setImage(null)
+      return
+    }
+  }
+
   const handleChange = (e) => {
     const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
     setCategory(selectedOptions);
@@ -67,8 +93,7 @@ function CreateNews() {
         "Authorization": `Bearer ${token}`,
       },
     })
-
-    console.log(response)
+    const data = await response.json()
 
     if (response.ok) {
       toast({
@@ -79,15 +104,17 @@ function CreateNews() {
         isClosable: true
       })
       setTimeout(function() {router.push('/news')}, 1000)
-    } else (
-      toast({
-        title: 'Failed to create news',
-        description: 'Please try again',
-        status: 'error',
-        duration: 3000,
-        isClosable: true
-      })
-    )
+    } else {
+      if (data.errors) {
+        Object.keys(data.errors).forEach((err) => {
+          const errMessage = data.errors[err]  
+          clearRespectiveField(err)
+          toastMessage(errMessage)
+        })
+      } else {
+        toastMessage("Server error")
+      }
+    }
   }
 
   return (
@@ -121,7 +148,7 @@ function CreateNews() {
               </textarea>
             </div> 
             <div>
-              <label class="block text-sm font-medium dark:text-white" for="file_input">Upload Profile Image
+              <label class="block text-sm font-medium dark:text-white" for="file_input">Upload Image
                 <input id="file_input" type="file" onChange={uploadToClient} class="block w-full text-sm text-gray-900 border border-solid border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
               </label>
             </div>
