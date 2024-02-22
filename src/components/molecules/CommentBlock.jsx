@@ -44,13 +44,10 @@ export default function CommentBlock({ name, date, commentId, desc, isAdmin, set
   }, [onCloseEdit])
 
   useEffect(() => {
-    console.log(desc)
     setEditedComment(desc)
   }, [isOpenEdit])
 
   const handleDelete = async () => {
-    console.log(url)
-    console.log(commentId)
     const response = await fetch(`${url}/comments/${commentId}`, {
       method: "DELETE",
       headers: {

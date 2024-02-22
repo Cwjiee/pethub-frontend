@@ -41,6 +41,35 @@ function Add() {
 
     const url = process.env.NEXT_PUBLIC_API_URL;
 
+    const toastMessage = (err) => {
+      toast({
+        title: err,
+        description: 'Please try again',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      })
+    }
+
+    const clearRespectiveField = (err) => {
+      if (err === 'pet_name') {
+        setPetName("")
+        return
+      } else if (err === 'type') {
+        setType("")
+        return
+      } else if (err === 'description') {
+        setDescription("")
+        return
+      } else if (err === 'age') {
+        setAge()
+        return
+      } else if (err === 'image') {
+        setImage(null)
+        return
+      }
+    }
+
     const response = await fetch(`${url}/pets`, {
       method: "POST",
       body: body,
@@ -50,21 +79,10 @@ function Add() {
       },
     });
 
-    const result = await response.json();
-    console.log(result);
-    if(result.errors) {
-      setErrors(result.errors)
-    }
+    const data = await response.json();
+    console.log(data.errors)
 
-    if (!response.ok) {
-      toast({
-        title: 'Failed to add pet',
-        description: 'Please try again...',
-        status: 'error',
-        duration: 3000,
-        isClosable: true
-      })
-    } else {
+    if (response.ok) {
       toast({
         title: 'Successfully added pet!',
         description: 'Redirecting you back...',
@@ -75,6 +93,16 @@ function Add() {
       setTimeout(function () {
         router.push('/profile')
       }, 1000)
+    } else {
+      if (data.errors) {
+        Object.keys(data.errors).forEach((err) => {
+          const errMessage = data.errors[err]
+          clearRespectiveField(err)
+          toastMessage(errMessage)
+        })
+      } else {
+        toastMessage("Failed to add pet")
+      }
     }
 
     /* router.push('/pet-owners/pets'); */
@@ -97,7 +125,6 @@ function Add() {
                   onChange={(e) => {setPetName(e.target.value)}}
                 />
               </p>
-              {errors && errors.pet_name && <p className="text-red-500">{errors.pet_name.toString()}</p>}
             </div>
             <div className="mt-3">
               <label htmlFor="type">Type: </label>
@@ -109,7 +136,6 @@ function Add() {
                   placeholder="dog / cat / tortoise / snake"
                 />
               </p>
-              {errors && errors.type && <p className="text-red-500">{errors.type.toString()}</p>}
             </div>
             <div className="mt-3">
               <label htmlFor="breed">Breed: <span class="text-sm text-red-500">*Only for dogs and cats*</span></label>
@@ -120,7 +146,6 @@ function Add() {
                   onChange={(e) => {setBreed(e.target.value)}}
                 />
               </p>
-              {errors && errors.breed && <p className="text-red-500">{errors.breed.toString()}</p>}
             </div>
             <div className="mt-3">
               <label htmlFor="age">Age: </label>
@@ -132,7 +157,6 @@ function Add() {
                   placeholder={"7 years old / 6 months old"}
                 />
               </p>
-              {errors && errors.age && <p className="text-red-500">{errors.age.toString()}</p>}
             </div>
             <div className="mt-3">
               <label htmlFor="image">Image: </label>
@@ -143,7 +167,6 @@ function Add() {
                   onChange={uploadToClient}
                 />
               </p>
-              {errors && errors.image && <p className="text-red-500">{errors.image.toString()}</p>}
             </div>
             <div className="mt-3">
               <label htmlFor="description">Description: </label>
@@ -160,7 +183,6 @@ function Add() {
 
                 </textarea>
               </p>
-              {errors && errors.description && <p className="text-red-500">{errors.description.toString()}</p>}
             </div>
 
             <input 

@@ -84,8 +84,6 @@ function EditPetOwner() {
   const submitForm = async (e) => {
     e.preventDefault
 
-    if (!image) setImage(user.image)
-
     const body = new FormData()
     body.append("full_name", name)
     body.append("email", email)
