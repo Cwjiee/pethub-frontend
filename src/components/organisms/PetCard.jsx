@@ -26,9 +26,10 @@ export default function PetCard({pet}) {
       console.log(result);
       
       if (!response.ok) {
+        const error = result.error;
         toast({
-          title: 'Failed to delete',
-          description: 'Please try again...',
+          title: error,
+          description: 'Failed',
           status: 'error',
           duration: 3000,
           isClosable: true
