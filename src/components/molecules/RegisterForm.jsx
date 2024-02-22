@@ -72,11 +72,19 @@ export default function PetOwnerRegisterForm() {
       console.log(data.message);
 
       if (!response.ok) {
-        Object.keys(data.errors).forEach(key => {
-          const errorMessage = data.errors[key]
-          clearRespectiveField(key)
-          toastMessage(errorMessage)
-        })
+        if (Object.keys[date.erros]) {
+          Object.keys(data.errors).forEach(key => {
+            const errorMessage = data.errors[key]
+            clearRespectiveField(key)
+            toastMessage(errorMessage)
+          })
+        } else if (Object.keys[data.message]) {
+          Object.keys(data.message).forEach(key => {
+            const errorMessage = data.message[key]
+            clearRespectiveField(key)
+            toastMessage(errorMessage)
+          })
+        }
       } else {
         let getToken = data.token
         let getUserId = data.user.user_id
