@@ -69,6 +69,9 @@ export default function ServiceProviderRegisterForm() {
       setPassword("")
       setConfirmPassword("")
       return
+    } else if (err === 'email') {
+      setEmail("")
+      return
     }
   }
 
@@ -129,11 +132,18 @@ export default function ServiceProviderRegisterForm() {
       console.log(data);
 
       if (!response.ok) {
-        Object.keys(data.errors).forEach(key => {
-          const errorMessage = data.errors[key]
-          clearRespectiveField(key)
-          toastMessage(errorMessage)
-        })
+        if (data.errors && Object.keys(data.erros).length > 0) {
+          Object.keys(data.errors).forEach(key => {
+            const errorMessage = data.errors[key]
+            clearRespectiveField(key)
+            toastMessage(errorMessage)
+          })
+        } else if (data.message) {
+          clearRespectiveField("email")
+          toastMessage(data.message)
+        } else {
+          toastMessage("Server Error")
+        }
       } else {
         document.cookie = `token=${data.token}`
         let getToken = data.token ?? null

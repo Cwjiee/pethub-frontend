@@ -75,7 +75,7 @@ export default function PetOwnerRegisterForm() {
       console.log(data.message);
 
       if (!response.ok) {
-        if (Object.keys[data.erros]) {
+        if (data.errors && Object.keys(data.erros).length > 0) {
           Object.keys(data.errors).forEach(key => {
             const errorMessage = data.errors[key]
             clearRespectiveField(key)
