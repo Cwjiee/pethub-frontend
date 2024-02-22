@@ -40,8 +40,6 @@ function EditPetOwner() {
         console.log(result.user)
         setName(user.full_name)
         setEmail(user.email)
-        setPassword(user.password)
-        setConfirmPassword(user.password)
         setDescription(user.description)
         setContact(user.contact_number)
         setIsLoading(false)

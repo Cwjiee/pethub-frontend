@@ -44,8 +44,6 @@ export default function ServiceProviderEditForm() {
         console.log(result.user)
         setName(user.full_name)
         setEmail(user.email)
-        setPassword(user.password)
-        setConfirmPassword(user.password)
         setDescription(user.description)
         setContact(user.contact_number)
         setBankName(user.bank_name) 
@@ -120,7 +118,7 @@ export default function ServiceProviderEditForm() {
         body: body,
         headers: {
           "Accept": "application/json",
-          Authorization: "Bearer " + token
+          "Authorization": "Bearer " + token
         },
       });
 
@@ -142,8 +140,8 @@ export default function ServiceProviderEditForm() {
         }
       } else {
         toast({
-          title: 'Account created',
-          description: 'Account is now on pending',
+          title: 'Account edited successfully',
+          description: 'you will be directed back to profile page',
           status: 'success',
           duration: 3000,
           isClosable: true
