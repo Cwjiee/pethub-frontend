@@ -39,29 +39,35 @@ function ServiceProviderSpecificNewsPage() {
 
   return !isLoading ? (
     <>
-        <SPNavbar/>
-            <div className="w-[90%] m-auto pt-6 px-6">
-                <BackButton/>
-                <div className="mt-7 flex justify-center gap-12 w-full mx-auto">
-                <div className="w-[550px] max-w-[90%] items-center mx-auto bg-white rounded-lg py-8 px-10 shadow-lg">
-                    <h4 className="font-bold laptop:text-2xl text-center mb-5 tablet:text-xl phone:text-lg">{news.news_title}</h4>
-                    <img className="mx-auto rounded-md" height={470} width={427} src={news.image} alt="news-image"/>
-                    <div className="mt-4 flex justify-center gap-x-3">
-                    <div className="py-[6px] px-6 text-center text-neutral-800 text-sm font-bold font-['Nunito'] rounded-[40px] border border-neutral-300">
-                        Events
+      <SPNavbar/>
+      <div className="w-[90%] m-auto pt-6 px-6">
+        <BackButton/>
+        <div className="mt-7 flex justify-center gap-12 w-full mx-auto">
+          <div className="w-[550px] max-w-[90%] items-center mx-auto bg-white rounded-lg py-8 px-10 shadow-lg">
+            <h4 className="font-bold laptop:text-2xl text-center mb-5 tablet:text-xl phone:text-lg">{news.news_title}</h4>
+            <img className="mx-auto rounded-md" height={470} width={427} src={news.image} alt="news-image"/>
+            <div className="mt-4 flex justify-center gap-x-3">
+              <div className="flex flex-row flex-wrap justify-between gap-5">
+                {news.categories.map((category) => {
+                  return (
+                    <div key={category.category_id} className="flex justify-center items-center rounded-[40px] h-auto px-5 w-auto border border-[#D3D3D3]">
+                      <span className="font-semibold text-sm spacing">{category.category_name}</span>
                     </div>
-                    </div>
-                    <div className="mt-8 text-justify md:text-md sm:tablet-sm">
-                    {news.news_description}
-                    </div>
-                </div>
-                </div>
+                  )}
+                )}
+              </div>
             </div>
+            <div className="mt-8 text-justify md:text-md sm:tablet-sm">
+              {news.news_description}
+            </div>
+          </div>
+        </div>
+      </div>
       <SPFooter/>
     </>
   ) : (
-    <LoadSpinner />
-  )  
+      <LoadSpinner />
+    )  
 }
 
 ServiceProviderSpecificNewsPage.getLayout = function getLayout(page) {
