@@ -78,15 +78,13 @@ export default function PetOwnerRegisterForm() {
             clearRespectiveField(key)
             toastMessage(errorMessage)
           })
-        } else if (Object.keys[data.message]) {
-          console.log('this work')
+        } else if (data.message) {
           Object.keys(data.message).forEach(key => {
             const errorMessage = data.message[key]
             clearRespectiveField(key)
             toastMessage(errorMessage)
           })
         } else {
-          console.log('this doesnt work')
           toastMessage("Server Error")
         }
       } else {
