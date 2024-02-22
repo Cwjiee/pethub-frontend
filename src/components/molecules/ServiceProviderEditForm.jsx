@@ -11,8 +11,6 @@ export default function ServiceProviderEditForm() {
   const [showConf, setShowConf] = useState(false)
   const [contact, setContact] = useState('')
   const [deposit, setDeposit] = useState('')
-  const [image, setImage] = useState(null)
-  const [qrcode, setQrcode] = useState(null)
   const [tokenReady, setTokenReady] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [show, setShow] = useState(false)
@@ -67,22 +65,6 @@ export default function ServiceProviderEditForm() {
     if (token) setTokenReady(true)
   }, [token])
 
-  const uploadToClient = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      const i = e.target.files[0]
-
-      setImage(i)
-    }
-  }
-
-  const uploadQr = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      const i = e.target.files[0]
-
-      setQrcode(i)
-    }
-  }
-
   const toastMessage = (message) => {
       toast({
         title: message,
@@ -93,21 +75,24 @@ export default function ServiceProviderEditForm() {
       })
   }
 
-  const clearField = () => {
-    setName("")
-    setEmail("")
-    setPassword("")
-    setConfirmPassword("")
-    setDescription("")
-    setContact("")
-    setDeposit("")
-    setStartOperaton("")
-    setEndOperaton("")
-    setServiceType("")
-    setBankName("")
-    setAccNumber("")
-    setAccName("")
-    setLocation("")
+  const clearRespectiveField = (err) => {
+    if (err === 'password') {
+      setPassword("")
+      setConfirmPassword("")
+      return
+    } else if (err === 'full_name') {
+      setName("")
+      return
+    } else if (err === 'email') {
+      setEmail("")
+      return
+    } else if (err === 'description') {
+      setDescription("")
+      return
+    } else if (err === 'contact_number') {
+      setContact("")
+      return
+    }
   }
 
   const submitForm = async (e) => {
@@ -117,36 +102,17 @@ export default function ServiceProviderEditForm() {
     body.append("full_name", name)
     body.append("email", email)
     body.append("password", password)
-    body.append("image", image)
+    body.append("password_confirmation", confirmPassword)
     body.append("contact_number", contact)
     body.append("description", description)
     body.append("deposit_value", deposit)
     body.append("service_type", serviceType)
     body.append("opening_hour", startOperation)
     body.append("closing_hour", endOperation)
-    body.append("qr_code_image", qrcode)
     body.append("bank_name", bankName)
     body.append("beneficiary_acc_number", accNumber)
     body.append("beneficiary_name", accName)
     body.append("facility_location", location)
-
-    if(password !== confirmPassword) {
-      clearField()
-      toastMessage("password doens't match with confirmation")
-      return
-    }
-
-    if (contact.length != 11 && contact.length != 12) {
-      clearField()
-      toastMessage("invalid contact number length")
-      return
-    }
-
-    if (contact[0] !== '0') {
-      clearField()
-      toastMessage("contact number has to start with 0")
-      return
-    }
 
     if (url) {
       const response = await fetch(`${url}/service-provider/edit/${userId}`, {
@@ -161,31 +127,19 @@ export default function ServiceProviderEditForm() {
       const data = await response.json()
       console.log(data)
     
-      document.cookie = `token=${data.token}`
       if (!response.ok) {
-        setName("")
-        setEmail("")
-        setPassword("")
-        setConfirmPassword("")
-        setDescription("")
-        setContact("")
-        setDeposit("")
-        setStartOperaton("")
-        setEndOperaton("")
-        setServiceType("")
-        setBankName("")
-        setAccNumber("")
-        setAccName("")
-        setLocation("")
-        setErrors(data.errors)
-        toast({
-          title: 'Registration failed',
-          description: 'Please try again',
-          status: 'error',
-          duration: 3000,
-          isClosable: true
-        })
-        console.log(errors)
+        if (data.errors) {
+          Object.keys(data.errors).forEach(key => {
+            const errorMessage = data.errors[key]
+            clearRespectiveField(key)
+            toastMessage(errorMessage)
+          })
+        } else if (data.message) {
+          clearRespectiveField("email")
+          toastMessage(data.message)
+        } else {
+          toastMessage("Failed in editing info")
+        }
       } else {
         toast({
           title: 'Account created',

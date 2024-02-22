@@ -68,6 +68,18 @@ function EditPetOwner() {
       setPassword("")
       setConfirmPassword("")
       return
+    } else if (err === 'full_name') {
+      setName("")
+      return
+    } else if (err === 'email') {
+      setEmail("")
+      return
+    } else if (err === 'description') {
+      setDescription("")
+      return
+    } else if (err === 'contact_number') {
+      setContact("")
+      return
     }
   }
 
