@@ -10,11 +10,9 @@ import Footer from "@/components/organisms/Footer";
 function CreateAppointment() {
   const [date, setDate] = useState()
   const [time, setTime] = useState()
-  const [issue, setIssue] = useState()
   const [details, setDetails] = useState()
   const [dateError, setDateError] = useState();
   const [timeError, setTimeError] = useState();
-  const [issueError, setIssueError] = useState();
   const [detailsError, setDetailsError] = useState();
   const [currentDate, setCurrentDate] = useState()
 
@@ -65,11 +63,7 @@ function CreateAppointment() {
       setDateError("")
     }
 
-    if(!issue) {
-      setIssueError("Issues of pet is required")
-    }
-
-    const response = await fetch(`${url}/appointments`, {
+    const response = await fetch(`${url}/appointments/grooming`, {
       method: "POST",
       body: JSON.stringify({
         user_id: userId,
@@ -78,7 +72,6 @@ function CreateAppointment() {
         appointment_type: "grooming",
         date: date,
         time: time,
-        issue_description: issue,
         important_details: details,
       }),
       headers: {
@@ -90,7 +83,7 @@ function CreateAppointment() {
 
     console.log(response)
     const result = await response.json()
-    
+    console.log(result);
     if (response.ok) {
       const aptId = result.appointment.appointment_id
       toast({
@@ -104,7 +97,6 @@ function CreateAppointment() {
     } else {
       setDate('')
       setTime('')
-      setIssue('')
       setDetails('')
 
       toast({
@@ -131,7 +123,7 @@ function CreateAppointment() {
           <h2 className="mx-auto font-bold text-xl mb-8">Make Appointment</h2>
           <div>
             <div className="font-semibold">Appointment Date:</div>
-            <p class="text-sm">Since the service providers may need to take some time to check your appointment application, we only allow bookings 3 days from the current date</p>
+            <p class="text-sm text-gray-700">Since the service providers may need to take some time to check your appointment application, we only allow bookings 3 days from the current date</p>
             <input 
               type="date"
               value={date}
@@ -155,28 +147,16 @@ function CreateAppointment() {
               {timeError && <p className="text-red-500">{timeError}</p>}
             </div>
           </div>
+    
           <div>
-            <div className="font-semibold">Issues of pet:</div>
-            <textarea
-              id="issue"
-              rows="4"
-              class="block p-2.5 px-6 w-full h-52 text-gray-900 rounded-[10px] border border-neutral-200 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your content here..."
-              onChange={(e) => setIssue(e.target.value)}
-              value={issue}
-            >
-            </textarea>
-            <div class="h-8">
-              {issueError && <p className="text-red-500">{issueError}</p>}
-            </div>
-          </div> 
-          <div>
-            <div className="font-semibold">Important details of pet:</div>
+            <div className="font-semibold">Important details of pet:<span className="text-red-500 text-sm"> *if they aren't any, put none*</span></div>
             <textarea
               id="details"
               rows="4"
-              class="block p-2.5 px-6 w-full h-52 text-gray-900 rounded-[10px] border border-neutral-200 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your content here..."
+              class="block p-2.5 px-6 w-full h-52 text-gray-900 rounded-[10px] border border-neutral-200 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               onChange={(e) => setDetails(e.target.value)}
               value={details}
+              placeholder="allergic to anything that has meat or cotton..."
             >
             </textarea>
             <div class="h-8">
