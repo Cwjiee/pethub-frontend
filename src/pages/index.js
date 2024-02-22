@@ -8,6 +8,7 @@ import Pug from "../../public/svg/pug.svg"
 import Cat from "../../public/svg/cat.svg"
 import { useRouter } from "next/router"
 import Faq from "@/components/organisms/Faq"
+import Footer from "@/components/organisms/Footer"
 
 export default function Home() {
   const router = useRouter()
@@ -39,6 +40,7 @@ export default function Home() {
         </div>
       </main>
       <Faq />
+      <Footer />
     </>
   )
 }

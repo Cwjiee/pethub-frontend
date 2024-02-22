@@ -79,11 +79,8 @@ export default function PetOwnerRegisterForm() {
             toastMessage(errorMessage)
           })
         } else if (data.message) {
-          Object.keys(data.message).forEach(key => {
-            const errorMessage = data.message[key]
-            clearRespectiveField(key)
-            toastMessage(errorMessage)
-          })
+          clearRespectiveField("email")
+          toastMessage(data.message)
         } else {
           toastMessage("Server Error")
         }
