@@ -202,6 +202,7 @@ function EditPet() {
             <input 
               type="submit" 
               className="bg-primary-500 hover:bg-primary-600 active:bg-primary-700 rounded-lg w-full text-white py-3 mt-5"
+              value="Submit"
             />
           </form>
         </div>

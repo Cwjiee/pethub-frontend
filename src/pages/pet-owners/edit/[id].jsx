@@ -5,6 +5,7 @@ import { useToast, Input, InputGroup, InputRightElement, Button, Textarea } from
 import { GlobalContext } from "@/context";
 import checkAuth from "@/utils/checkAuth";
 import Footer from "@/components/organisms/Footer";
+import BackButton from "@/components/atoms/BackButton";
 
 function EditPetOwner() {
   const [name, setName] = useState('')
@@ -13,8 +14,6 @@ function EditPetOwner() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [description, setDescription] = useState('')
   const [contact, setContact] = useState('')
-  const [image, setImage] = useState(null)
-  const [errors, setErrors] = useState();
   const [tokenReady, setTokenReady] = useState(false)
   const [show, setShow] = useState(false)
   const [showConf, setShowConf] = useState(false)
@@ -54,15 +53,6 @@ function EditPetOwner() {
     if (token && id) setTokenReady(true)
   }, [token, id])
 
-
-  const uploadToClient = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      const i = e.target.files[0]
-
-      setImage(i)
-    }
-  }
-
   const toastMessage = (message) => {
     toast({
       title: message,
@@ -88,10 +78,10 @@ function EditPetOwner() {
     body.append("full_name", name)
     body.append("email", email)
     body.append("password", password)
+    body.append("password_confirmation", confirmPassword)
     body.append("permission_level", 1)
     body.append("description", description)
     body.append("contact_number", contact)
-    body.append("image", image)
 
     const url = process.env.NEXT_PUBLIC_API_URL
 
@@ -128,6 +118,9 @@ function EditPetOwner() {
     <>
       <div className="w-full bg-white">
         <Navbar />
+        <div className="w-[80%] mx-auto my-5">
+          <BackButton />
+        </div>
         <div className="w-[80%] h-full m-auto px-6 pt-10 flex flex-col gap-4">
           <div className="text-3xl font-bold">
             Edit Pet Owner Information
@@ -186,11 +179,6 @@ function EditPetOwner() {
                 <div className="flex flex-col mt-[25px]">
                   <span className="font-semibold">Contact Number:</span>
                   <Input value={contact} type="text" onChange={(e) => setContact(e.target.value)} />
-                </div>
-                <div className="flex flex-col mt-[28px]">
-                  <label class="block text-sm font-medium dark:text-white" for="file_input">Upload Profile Image
-                    <input id="file_input" type="file" onChange={uploadToClient} class="block w-full text-sm text-gray-900 border border-solid  border-[#E1E1E1] rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:rounded-xl file:p-2 file:bg-primary-500 hover:file:bg-primary-600 active:file:bg-primary-700" />
-                  </label>
                 </div>
               </div>
             </div>
