@@ -42,6 +42,9 @@ export default function PetOwnerRegisterForm() {
       setPassword("")
       setConfirmPassword("")
       return
+    } else if (err === 'email') {
+      setEmail("")
+      return
     }
   }
 
