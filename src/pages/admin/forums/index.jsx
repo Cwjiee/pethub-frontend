@@ -7,6 +7,7 @@ import Empty from "@/../../public/svg/EmptyNews.svg"
 import LoadSpinner from "@/components/atoms/LoadSpinner";
 import checkAuth from "@/utils/checkAuth";
 import AdminNavbar from "@/components/organisms/AdminNavbar";
+import BackButton from "@/components/atoms/BackButton";
 
 function AdminForum() {
   const [posts, setPosts] = useState([])
@@ -52,6 +53,9 @@ function AdminForum() {
   return !isLoading ? (
     <>
       <AdminNavbar />
+      <div className="w-[90%] m-auto my-5">
+        <BackButton />
+      </div>
       <div className="w-[80%] m-auto pt-6 px-6">
         <Searchbar setResult={setResults} label={"New Post"} href={"/forums/create"} results={results} data={posts} tags={tags}/>
         {results ? 
