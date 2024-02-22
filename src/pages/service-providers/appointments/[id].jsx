@@ -106,7 +106,17 @@ function ServiceProviderSpecificAppointment() {
                   <p className="font-bold">Owner Name:</p>
                   <p>{appointment.user.full_name}</p>
                 </div>
-                <div className="mt-3">
+                <div className="mt-7">
+                  <p className="font-bold pb-2">Owner Status:</p>
+                  <span className={`py-2 px-4 rounded-3xl ${
+                                appointment.user.user_status === 'approved' ? 'bg-[#22C55E] text-white ' :
+                                appointment.user.user_status === 'pending' ? 'bg-yellow-400 text-black' :
+                                'bg-red-600 text-white'
+                              }`}>
+                                {appointment.user.user_status}
+                              </span>
+                </div>
+                <div className="mt-7">
                   <p className="font-bold">Owner Email:</p>
                   <p>{appointment.user.email}</p>
                 </div>
