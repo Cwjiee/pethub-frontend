@@ -97,11 +97,18 @@ function EditPetOwner() {
     const data = await response.json()
 
     if (!response.ok) {
-      Object.keys(data.errors).forEach(key => {
-        const errorMessage = data.errors[key]
-        clearRespectiveField(key)
-        toastMessage(errorMessage)
-      })
+      if (data.errors) {
+        Object.keys(data.errors).forEach(key => {
+          const errorMessage = data.errors[key]
+          clearRespectiveField(key)
+          toastMessage(errorMessage)
+        })
+      } else if (data.message) {
+          clearRespectiveField("email")
+          toastMessage(data.message)
+        } else {
+          toastMessage("Failed in editing info")
+        }
     } else {
       toast({
         title: 'Account information edited',
