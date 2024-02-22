@@ -18,7 +18,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "@/context"
 
 export default function CommentBlock({ name, date, commentId, desc, isAdmin, setReloadComment, ownComment, ownPost }) {
@@ -38,6 +38,15 @@ export default function CommentBlock({ name, date, commentId, desc, isAdmin, set
     onOpen: onOpenEdit,
     onClose: onCloseEdit,
   } = useDisclosure()
+
+  useEffect(() => {
+    setEditedComment("")
+  }, [onCloseEdit])
+
+  useEffect(() => {
+    console.log(desc)
+    setEditedComment(desc)
+  }, [isOpenEdit])
 
   const handleDelete = async () => {
     console.log(url)
