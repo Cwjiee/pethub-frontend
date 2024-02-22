@@ -170,21 +170,17 @@ export default function CommentBlock({ name, date, commentId, desc, isAdmin, set
             <div className="text-[#4E4E4E] text-[14px]">{desc}</div>
           </div>
         </div>
-        {!isAdmin && (
-          <>
-            {(ownComment || ownPost) && (
-              <div className="flex flex-row gap-2 items-center">
-                <span onClick={onOpenEdit}>
-                  <Image src={Edit} alt="edit button" width={17} height={17} className="cursor-pointer"/>
-                </span>
-                <span onClick={onOpenDelete}>
-                  <Image src={Delete} alt="delete button" width={17} height={17} className="cursor-pointer"/>
-                </span>
-              </div>
-            )}
-          </>
+        {(ownComment || ownPost || isAdmin) && (
+          <div className="flex flex-row gap-2 items-center">
+            <span onClick={onOpenEdit}>
+              <Image src={Edit} alt="edit button" width={17} height={17} className="cursor-pointer"/>
+            </span>
+            <span onClick={onOpenDelete}>
+              <Image src={Delete} alt="delete button" width={17} height={17} className="cursor-pointer"/>
+            </span>
+          </div>
         )}
-        </div>
+      </div>
     </div>
   )
 }
