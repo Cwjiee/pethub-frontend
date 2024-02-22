@@ -131,6 +131,7 @@ function CreateAppointment() {
           <h2 className="mx-auto font-bold text-xl mb-8">Make Appointment</h2>
           <div>
             <div className="font-semibold">Appointment Date:</div>
+            <p class="text-sm text-gray-700">Since the service providers may need to take some time to check your appointment application, we only allow bookings 3 days from the current date</p>
             <input 
               type="date"
               value={date}
@@ -155,7 +156,7 @@ function CreateAppointment() {
             </div>
           </div>
           <div>
-            <div className="font-semibold">Issues of pet:</div>
+            <div className="font-semibold">Issues of pet:<span className="text-red-500 text-sm"> *if they aren't any, put none*</span></div>
             <textarea
               id="issue"
               rows="4"
@@ -169,7 +170,7 @@ function CreateAppointment() {
             </div>
           </div> 
           <div>
-            <div className="font-semibold">Important details of pet:</div>
+            <div className="font-semibold">Important details of pet:<span className="text-red-500 text-sm"> *if they aren't any, put none*</span></div>
             <textarea
               id="details"
               rows="4"
