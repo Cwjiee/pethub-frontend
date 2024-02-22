@@ -45,6 +45,9 @@ export default function PetOwnerRegisterForm() {
     } else if (err === 'email') {
       setEmail("")
       return
+    } else if (err === 'contact_number') {
+      setContact("")
+      return
     }
   }
 
@@ -75,7 +78,7 @@ export default function PetOwnerRegisterForm() {
       console.log(data.message);
 
       if (!response.ok) {
-        if (data.errors && Object.keys(data.erros).length > 0) {
+        if (data.errors) {
           Object.keys(data.errors).forEach(key => {
             const errorMessage = data.errors[key]
             clearRespectiveField(key)
