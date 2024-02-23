@@ -80,15 +80,19 @@ export default function Forum() {
       <div className="w-[80%] m-auto pt-6 px-6">
         <Searchbar setResult={setResults} label={"New Post"} href={"/forums/create"} results={results} data={posts} tags={tags}/>
         {results ? 
-          user && categories && (
+          user && categories ? (
             results.map((post) => {
-            {return user.user_id === post.user_id ? (
+            return user.user_id === post.user_id ? (
                 <Posts key={post.post_id} post={post} ownPost={true} setReloadPost={setReloadPost} categories={categories} />
               ) : (
                 <Posts key={post.post_id} post={post}/>
               )}
-            })
-          )
+            )
+          ) : (
+              results.map((post) => {
+                return <Posts key={post.post_id} post={post} />
+              })
+            )
         :
           <div className="flex flex-col justify-center items-center mt-20">
             <Image src={Empty} width={200} height={245} alt="empty news"/>
